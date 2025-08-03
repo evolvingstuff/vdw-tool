@@ -1,0 +1,9 @@
+{{ define "main" }}
+    <h1>All Categories</h1>
+    <p>This is the terms.html template in layouts/_default/</p>
+    <ul>
+        {{ range $name, $taxonomy := .Data.Terms }}
+            <li><a href="{{ $taxonomy.Page.RelPermalink }}">{{ $name }}</a></li>
+        {{ end }}
+    </ul>
+{{ end }}

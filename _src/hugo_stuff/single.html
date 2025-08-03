@@ -1,0 +1,47 @@
+{{ define "main" }}
+    <article>
+        <div class="scroll-nav-top">
+            <a href="javascript:void(0);" id="scroll-to-bottom" class="scroll-button" aria-label="Scroll to bottom" onclick="window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'}); return false;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4z"/>
+                </svg>
+                <span>Scroll to Bottom</span>
+            </a>
+        </div>
+        
+        <h1>{{ .Title }}</h1>
+        <time>{{ .Date.Format "January 2, 2006" }}</time>
+        
+        <!-- Hidden metadata for Pagefind indexing -->
+        <div data-pagefind-body>
+            {{ .Content }}
+        </div>
+        
+        <!-- Tags moved to bottom with horizontal line separator -->
+        {{ if .Params.tags }}
+        <hr class="tag-separator">
+        <div class="tags">
+            <span>Tags: </span>
+            {{ range sort .Params.tags }}
+                <a href="/tags/{{ . | urlize }}.html"><span class="tag">{{ . }}</span></a>
+            {{ end }}
+        </div>
+        {{ end }}
+        
+        <!-- Add tag metadata for Pagefind -->
+        {{ if .Params.tags }}
+        <div data-pagefind-meta="tags" hidden>
+            {{ delimit (sort .Params.tags) ", " }}
+        </div>
+        {{ end }}
+        
+        <div class="scroll-nav-bottom" id="article-bottom">
+            <a href="javascript:void(0);" id="scroll-to-top" class="scroll-button" aria-label="Scroll to top" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5z"/>
+                </svg>
+                <span>Back to Top</span>
+            </a>
+        </div>
+    </article>
+{{ end }}

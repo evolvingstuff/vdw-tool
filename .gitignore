@@ -2,3 +2,5 @@
 .env
 posts/
 __pycache__/
+hugo_output/
+hugo_site_build/

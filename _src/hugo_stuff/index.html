@@ -1,0 +1,45 @@
+{{ define "main" }}
+    <h1>{{ .Title }}</h1>
+    
+    {{ $paginator := .Paginate .Site.RegularPages }}
+    {{ range $paginator.Pages }}
+        <article>
+            <div class="post-header">
+                <h2 class="post-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+                <span class="post-date">{{ .Date.Format "January 2006" }}</span>
+            </div>
+        </article>
+    {{ end }}
+    
+    {{ if gt $paginator.TotalPages 1 }}
+    <nav class="pagination">
+        {{ if $paginator.HasPrev }}
+            <a href="{{ $paginator.Prev.URL }}" rel="prev">&laquo; Previous</a>
+        {{ end }}
+        
+        {{ $window := 3 }}
+        {{ $start := cond (gt (sub $paginator.PageNumber $window) 1) (sub $paginator.PageNumber $window) 1 }}
+        {{ $end := cond (lt (add $paginator.PageNumber $window) $paginator.TotalPages) (add $paginator.PageNumber $window) $paginator.TotalPages }}
+        
+        {{ if gt $start 1 }}
+            <a href="{{ $paginator.First.URL }}">1</a>
+            {{ if gt $start 2 }}<span>...</span>{{ end }}
+        {{ end }}
+        
+        {{ range $paginator.Pagers }}
+            {{ if and (ge .PageNumber $start) (le .PageNumber $end) }}
+                <a href="{{ .URL }}" {{ if eq . $paginator }}class="active"{{ end }}>{{ .PageNumber }}</a>
+            {{ end }}
+        {{ end }}
+        
+        {{ if lt $end $paginator.TotalPages }}
+            {{ if lt (add $end 1) $paginator.TotalPages }}<span>...</span>{{ end }}
+            <a href="{{ $paginator.Last.URL }}">{{ $paginator.TotalPages }}</a>
+        {{ end }}
+        
+        {{ if $paginator.HasNext }}
+            <a href="{{ $paginator.Next.URL }}" rel="next">Next &raquo;</a>
+        {{ end }}
+    </nav>
+    {{ end }}
+{{ end }}

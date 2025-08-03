@@ -1,0 +1,28 @@
+{{ define "main" }}
+    <h1>{{ .Title }}</h1>
+    {{ $paginator := .Paginate .Pages }}
+    {{ range $paginator.Pages }}
+        <article>
+            <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+            <time>{{ .Date.Format "January 2, 2006" }}</time>
+        </article>
+    {{ end }}
+    
+    {{ if gt $paginator.TotalPages 1 }}
+    <nav class="pagination">
+        {{ if $paginator.HasPrev }}
+            <a href="{{ $paginator.Prev.URL }}">&laquo; Previous</a>
+        {{ end }}
+        
+        {{ range $paginator.Pagers }}
+            <a href="{{ .URL }}" {{ if eq . $paginator }} class="active"{{ end }}>
+                {{ .PageNumber }}
+            </a>
+        {{ end }}
+        
+        {{ if $paginator.HasNext }}
+            <a href="{{ $paginator.Next.URL }}">Next &raquo;</a>
+        {{ end }}
+    </nav>
+    {{ end }}
+{{ end }}

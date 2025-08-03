@@ -1,0 +1,551 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Top navigation bar */
+.top-nav {
+    background-color: #D84315; /* Dark grey */
+    border-bottom: 1px solid #222222;
+    height: 60px; /* Increased from 40px to 60px (1.5x) */
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    box-sizing: border-box;
+    position: sticky;
+    top: 0;
+    z-index: 100; /* Ensure it stays above content when scrolling */
+}
+
+/* Home icon styling */
+.home-icon {
+    display: inline-block;
+    margin-left: 15x; /* Add space from the left edge */
+}
+
+.home-icon a {
+    display: block;
+    color: #f0f0f0; /* Very light grey, almost white */
+    transition: color 0.2s ease;
+}
+
+.home-icon a:hover {
+    color: #ffffff; /* Full white on hover */
+}
+
+.home-icon svg {
+    fill: currentColor;
+}
+
+/* Search input and container styling */
+.search-container {
+    position: relative;
+    margin-left: 30px;
+    display: flex;
+    align-items: center;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 12px;
+    background-color: rgba(255, 255, 255, 0.2);
+    width: 300px;
+    transition: background-color 0.2s ease;
+}
+
+.search-container:hover, 
+.search-container:focus-within {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.search-icon {
+    color: #f0f0f0;
+    margin-right: 8px;
+}
+
+#search-input {
+    width: 100%;
+    padding: 6px 0;
+    border: none;
+    background-color: transparent;
+    box-sizing: border-box;
+    font-size: 16px; /* Increased from 14px to 16px to prevent mobile zooming */
+    color: #ffffff;
+}
+
+#search-input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+#search-input:focus {
+    outline: none;
+}
+
+#search-input:disabled {
+    background-color: transparent;
+    cursor: not-allowed;
+}
+
+.search-status {
+    display: none;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9em;
+    margin-left: 10px;
+    padding: 4px;
+}
+
+.search-error {
+    color: #ffcccc;
+    background-color: rgba(211, 47, 47, 0.3);
+    border-radius: 4px;
+    padding: 8px;
+}
+
+.search-suggestions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 0 0 4px 4px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    z-index: 1000;
+    max-height: 70vh;
+    overflow-y: auto;
+    margin-top: 5px;
+}
+
+.suggestion {
+    padding: 10px 12px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+    transition: background-color 0.15s ease;
+}
+
+.suggestion:last-child {
+    border-bottom: none;
+}
+
+.suggestion:hover {
+    background-color: #f5f5f5;
+}
+
+/* Search results panel styling */
+.search-results-panel {
+    position: absolute;
+    top: 44px; /* Align with the top of the suggestions dropdown, adjusted by 4px */
+    left: 100%; /* Position it completely to the right of the search container */
+    width: 350px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    z-index: 1100; /* Higher than search suggestions */
+    max-height: 70vh;
+    overflow-y: auto;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+    display: none; /* Hide by default */
+    word-wrap: break-word; /* Ensure long words don't cause overflow */
+    box-sizing: border-box; /* Include padding in width calculation */
+    margin-left: 10px; /* Add a small gap between search container and results panel */
+}
+
+.results-header {
+    padding: 10px 12px;
+    font-weight: bold;
+    border-bottom: 1px solid #eee;
+    background-color: #f8f8f8;
+}
+
+.results-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.results-list li {
+    padding: 10px 12px;
+    border-bottom: 1px solid #eee;
+}
+
+.results-list li:last-child {
+    border-bottom: none;
+}
+
+.results-list a {
+    text-decoration: none;
+    color: #333;
+    display: block;
+}
+
+.results-list a:hover {
+    color: #D84315;
+}
+
+/* Search results styling */
+.search-results-panel-list {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.search-results-panel-list li {
+    margin-bottom: 0;
+    padding: 10px 12px;
+    border-bottom: 1px solid #eee;
+}
+
+.search-results-panel-list li:last-child {
+    border-bottom: none;
+}
+
+.search-results-panel-list a {
+    text-decoration: none;
+    color: #333;
+    display: block;
+}
+
+.search-results-panel-list a:hover {
+    color: #D84315;
+}
+
+/* Original search results styling (for the dropdown) */
+#search-results {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 10px;
+}
+
+#search-results li {
+    margin-bottom: 5px;
+}
+
+#search-results a {
+    text-decoration: none;
+    color: #0066cc;
+}
+
+#search-results a:hover {
+    text-decoration: underline;
+}
+
+.container {
+    display: flex;
+}
+
+.sidebar {
+    width: 200px;
+    min-width: 200px;
+    max-width: 200px;
+    flex-shrink: 0;
+    background-color: #f0f0f0;
+    padding: 20px;
+}
+
+.content {
+    flex-grow: 1;
+    padding: 20px;
+}
+
+.content-full-width {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Heading styles */
+h1, h2, h3, h4, h5, h6 {
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+h1 {
+    font-size: 2.2em;
+    border-bottom: 1px solid #eaecef;
+    padding-bottom: 0.3em;
+}
+
+h2 {
+    font-size: 1.8em;
+    border-bottom: 1px solid #eaecef;
+    padding-bottom: 0.3em;
+}
+
+h3 {
+    font-size: 1.5em;
+}
+
+h4 {
+    font-size: 1.3em;
+    letter-spacing: 0.01em;  /* Slight letter spacing for distinctiveness */
+    text-transform: capitalize;  /* Capitalize first letter of each word */
+    margin-top: 1.2em;
+}
+
+h5 {
+    font-size: 1.15em;
+    font-style: italic;
+}
+
+h6 {
+    font-size: 1em;
+    font-weight: 600;  /* Slightly less bold */
+}
+
+/* Bold text styling */
+strong, b {
+    font-weight: 700;
+    font-size: 1em;  /* Ensure bold text keeps regular text size */
+    display: inline;  /* Keep bold text inline unlike headings */
+    margin: 0;
+    padding: 0;
+    line-height: inherit;  /* Use parent line height */
+}
+
+/* Table styling */
+table {
+    border-collapse: collapse;
+    margin: 1em 0;
+}
+
+td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+tr:nth-child(even) {
+    background-color: #fafafa;
+}
+
+tr:hover {
+    background-color: #f0f0f0;
+}
+
+/* Attachment links with icons */
+.md-link {
+    color: #0366d6;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+}
+
+.md-link:hover {
+    text-decoration: underline;
+}
+
+/* Make Font Awesome icons look good in text */
+.md-link i {
+    font-size: 0.9em;
+    margin-right: 0.4em;
+    color: #e74c3c; /* Red color for PDF icon */
+}
+
+/* Hierarchical Category Styles */
+.hierarchical-categories {
+    list-style-type: none;
+    padding-left: 0;
+    margin-left: 0;
+}
+
+.top-level-category {
+    margin-bottom: 10px;
+    font-weight: bold;
+    cursor: pointer; /* Add this line to the existing styles */
+}
+
+.category-expander {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    text-align: center;
+    background-color: #f0f0f0;
+    border-radius: 3px;
+    margin-right: 3px;
+    font-weight: bold;
+    cursor: pointer;
+    user-select: none;
+}
+
+.category-name {
+    display: inline-block;
+}
+
+.subcategory-list {
+    list-style-type: none;
+    padding-left: 24px;
+    margin-top: 5px;
+    margin-left: 8px; /* Add left margin to align with category name */
+}
+
+.subcategory-list li {
+    margin: 5px 0;
+    font-weight: normal;
+}
+
+/* Add a grayed-out style for empty categories */
+.category-empty {
+    opacity: 0.5;
+    color: #777;
+}
+
+/* Table of Contents styling */
+#TableOfContents {
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 15px 20px;
+    margin: 20px 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    max-width: 800px;
+}
+
+#TableOfContents::before {
+    content: "Contents";
+    display: block;
+    font-weight: bold;
+    margin-bottom: 10px;
+    font-size: 1.1em;
+    color: #333;
+    border-bottom: 1px solid #eaeaea;
+    padding-bottom: 5px;
+}
+
+#TableOfContents ul,
+#TableOfContents li {
+    list-style-type: none !important;
+    padding-left: 0;
+}
+
+#TableOfContents li li {
+    padding-left: 20px;
+}
+
+#TableOfContents li {
+    margin: 5px 0;
+    line-height: 1.4;
+}
+
+#TableOfContents a {
+    text-decoration: none;
+    color: #0066cc;
+}
+
+#TableOfContents a:hover {
+    text-decoration: underline;
+}
+
+/* Horizontal rule styling */
+hr {
+    border: none;
+    height: 2px;
+    background-color: #D84315; /* Same orange as top navigation bar */
+    margin: 1.5em 0;
+}
+
+/* Post list styles for homepage */
+article {
+    margin-bottom: 0.1rem;
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 0.1rem;
+}
+
+.post-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+}
+
+.post-title {
+    margin-right: 0.5rem;
+    margin-bottom: 0.25rem;
+    margin-top: 0.25rem;
+}
+
+.post-date {
+    color: #666;
+    font-size: 0.9rem;
+    font-weight: normal;
+    flex-shrink: 0;
+    width: 90px;
+    text-align: right;
+}
+
+/* Pagefind Search Result Styling */
+.search-result-excerpt {
+    font-size: 0.9em;
+    color: #555;
+    margin-top: 5px;
+    line-height: 1.4;
+    overflow-wrap: break-word; /* Break long words */
+    word-break: break-word; /* Help with URLs and long words */
+}
+
+.search-result-excerpt mark {
+    background-color: rgba(255, 255, 0, 0.4);
+    padding: 1px 3px;
+    border-radius: 2px;
+}
+
+.search-results-panel .results-list li {
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #eee;
+}
+
+.search-results-panel .results-list li:last-child {
+    border-bottom: none;
+}
+
+/* Tag styling */
+.tags {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.tag {
+    display: inline-block;
+    background-color: #f0f0f0;
+    color: #333;
+    padding: 4px 12px;
+    margin: 3px;
+    border-radius: 16px;
+    font-size: 0.9rem;
+    border: 1px solid #ddd;
+}
+
+.tag:hover {
+    background-color: #e4e4e4;
+    cursor: pointer;
+}
+
+/* Scroll navigation buttons */
+.scroll-nav-top,
+.scroll-nav-bottom {
+    display: flex;
+    justify-content: flex-end;
+    margin: 10px 0;
+}
+
+.scroll-button {
+    display: flex;
+    align-items: center;
+    background-color: #D84315;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.2s ease;
+}
+
+.scroll-button:hover {
+    background-color: #bf360c;
+}
+
+.scroll-button svg {
+    margin-right: 6px;
+}

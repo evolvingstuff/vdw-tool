@@ -1,0 +1,5515 @@
+{
+  "nodes": [
+    {
+      "id": "\"vitamin d3\"",
+      "name": "\"vitamin d3\""
+    },
+    {
+      "id": "#vitamin_d",
+      "name": "#vitamin_d"
+    },
+    {
+      "id": "\"cholecalciferol\"",
+      "name": "\"cholecalciferol\""
+    },
+    {
+      "id": "\"vitamin d\"",
+      "name": "\"vitamin d\""
+    },
+    {
+      "id": "\"calciferol\"",
+      "name": "\"calciferol\""
+    },
+    {
+      "id": "\"25-hydroxyvitamin d\"",
+      "name": "\"25-hydroxyvitamin d\""
+    },
+    {
+      "id": "#vitamin_d_blood_test",
+      "name": "#vitamin_d_blood_test"
+    },
+    {
+      "id": "\"25(oh)d\"",
+      "name": "\"25(oh)d\""
+    },
+    {
+      "id": "/\\d+\\s*iu/i",
+      "name": "/\\d+\\s*iu/i"
+    },
+    {
+      "id": "#dosage",
+      "name": "#dosage"
+    },
+    {
+      "id": "/\\d+\\s*ng\\/ml/i",
+      "name": "/\\d+\\s*ng\\/ml/i"
+    },
+    {
+      "id": "#blood_levels",
+      "name": "#blood_levels"
+    },
+    {
+      "id": "/\\d+\\s*nmol\\/l/i",
+      "name": "/\\d+\\s*nmol\\/l/i"
+    },
+    {
+      "id": "\"high dose\"",
+      "name": "\"high dose\""
+    },
+    {
+      "id": "#high_dose",
+      "name": "#high_dose"
+    },
+    {
+      "id": "\"high doses\"",
+      "name": "\"high doses\""
+    },
+    {
+      "id": "\"loading dose\"",
+      "name": "\"loading dose\""
+    },
+    {
+      "id": "\"loading doses\"",
+      "name": "\"loading doses\""
+    },
+    {
+      "id": "/>\\s*10000\\s*iu/i",
+      "name": "/>\\s*10000\\s*iu/i"
+    },
+    {
+      "id": "(#vitamin_d3 #high_dose)",
+      "name": "(#vitamin_d3 #high_dose)"
+    },
+    {
+      "id": "#therapeutic_intervention",
+      "name": "#therapeutic_intervention"
+    },
+    {
+      "id": "\"virus\"",
+      "name": "\"virus\""
+    },
+    {
+      "id": "#virus",
+      "name": "#virus"
+    },
+    {
+      "id": "\"viruses\"",
+      "name": "\"viruses\""
+    },
+    {
+      "id": "\"viral infection\"",
+      "name": "\"viral infection\""
+    },
+    {
+      "id": "\"viral infections\"",
+      "name": "\"viral infections\""
+    },
+    {
+      "id": "\"bacteria\"",
+      "name": "\"bacteria\""
+    },
+    {
+      "id": "#bacteria",
+      "name": "#bacteria"
+    },
+    {
+      "id": "\"bacterial infection\"",
+      "name": "\"bacterial infection\""
+    },
+    {
+      "id": "\"bacterial infections\"",
+      "name": "\"bacterial infections\""
+    },
+    {
+      "id": "\"cancer\"",
+      "name": "\"cancer\""
+    },
+    {
+      "id": "#cancer",
+      "name": "#cancer"
+    },
+    {
+      "id": "\"cancers\"",
+      "name": "\"cancers\""
+    },
+    {
+      "id": "\"malignancy\"",
+      "name": "\"malignancy\""
+    },
+    {
+      "id": "\"malignancies\"",
+      "name": "\"malignancies\""
+    },
+    {
+      "id": "\"tumor\"",
+      "name": "\"tumor\""
+    },
+    {
+      "id": "\"tumors\"",
+      "name": "\"tumors\""
+    },
+    {
+      "id": "\"autoimmune\"",
+      "name": "\"autoimmune\""
+    },
+    {
+      "id": "#autoimmune",
+      "name": "#autoimmune"
+    },
+    {
+      "id": "\"autoimmune disease\"",
+      "name": "\"autoimmune disease\""
+    },
+    {
+      "id": "\"autoimmune diseases\"",
+      "name": "\"autoimmune diseases\""
+    },
+    {
+      "id": "\"pregnancy\"",
+      "name": "\"pregnancy\""
+    },
+    {
+      "id": "#pregnancy",
+      "name": "#pregnancy"
+    },
+    {
+      "id": "\"pregnant\"",
+      "name": "\"pregnant\""
+    },
+    {
+      "id": "\"child\"",
+      "name": "\"child\""
+    },
+    {
+      "id": "#child",
+      "name": "#child"
+    },
+    {
+      "id": "\"children\"",
+      "name": "\"children\""
+    },
+    {
+      "id": "\"infant\"",
+      "name": "\"infant\""
+    },
+    {
+      "id": "\"infants\"",
+      "name": "\"infants\""
+    },
+    {
+      "id": "\"pediatric\"",
+      "name": "\"pediatric\""
+    },
+    {
+      "id": "\"vitamin d receptor\"",
+      "name": "\"vitamin d receptor\""
+    },
+    {
+      "id": "#vitamin_d_receptor",
+      "name": "#vitamin_d_receptor"
+    },
+    {
+      "id": "\"vdr\"",
+      "name": "\"vdr\""
+    },
+    {
+      "id": "#genetics",
+      "name": "#genetics"
+    },
+    {
+      "id": "#obesity",
+      "name": "#obesity"
+    },
+    {
+      "id": "#diabetes",
+      "name": "#diabetes"
+    },
+    {
+      "id": "\"multiple sclerosis\"",
+      "name": "\"multiple sclerosis\""
+    },
+    {
+      "id": "#multiple_sclerosis",
+      "name": "#multiple_sclerosis"
+    },
+    {
+      "id": "\"ms\"",
+      "name": "\"ms\""
+    },
+    {
+      "id": "\"lupus\"",
+      "name": "\"lupus\""
+    },
+    {
+      "id": "#lupus",
+      "name": "#lupus"
+    },
+    {
+      "id": "\"sle\"",
+      "name": "\"sle\""
+    },
+    {
+      "id": "\"systemic lupus erythematosus\"",
+      "name": "\"systemic lupus erythematosus\""
+    },
+    {
+      "id": "\"rheumatoid arthritis\"",
+      "name": "\"rheumatoid arthritis\""
+    },
+    {
+      "id": "#rheumatoid_arthritis",
+      "name": "#rheumatoid_arthritis"
+    },
+    {
+      "id": "\"ra\"",
+      "name": "\"ra\""
+    },
+    {
+      "id": "\"systemic sclerosis\"",
+      "name": "\"systemic sclerosis\""
+    },
+    {
+      "id": "#systemic_sclerosis",
+      "name": "#systemic_sclerosis"
+    },
+    {
+      "id": "\"scleroderma\"",
+      "name": "\"scleroderma\""
+    },
+    {
+      "id": "#inflammation",
+      "name": "#inflammation"
+    },
+    {
+      "id": "#immune_dysfunction",
+      "name": "#immune_dysfunction"
+    },
+    {
+      "id": "(#autoimmune #pregnancy)",
+      "name": "(#autoimmune #pregnancy)"
+    },
+    {
+      "id": "#autoimmune_and_pregnancy",
+      "name": "#autoimmune_and_pregnancy"
+    },
+    {
+      "id": "(#autoimmune #child)",
+      "name": "(#autoimmune #child)"
+    },
+    {
+      "id": "#pediatric_autoimmune",
+      "name": "#pediatric_autoimmune"
+    },
+    {
+      "id": "#intervention",
+      "name": "#intervention"
+    },
+    {
+      "id": "\"urinary tract infection\"",
+      "name": "\"urinary tract infection\""
+    },
+    {
+      "id": "#urinary_tract_infection",
+      "name": "#urinary_tract_infection"
+    },
+    {
+      "id": "\"urinary tract infections\"",
+      "name": "\"urinary tract infections\""
+    },
+    {
+      "id": "\"uti\"",
+      "name": "\"uti\""
+    },
+    {
+      "id": "\"utis\"",
+      "name": "\"utis\""
+    },
+    {
+      "id": "\"tuberculosis\"",
+      "name": "\"tuberculosis\""
+    },
+    {
+      "id": "#tuberculosis",
+      "name": "#tuberculosis"
+    },
+    {
+      "id": "\"tb\"",
+      "name": "\"tb\""
+    },
+    {
+      "id": "\"antibiotic\"",
+      "name": "\"antibiotic\""
+    },
+    {
+      "id": "#antibiotics",
+      "name": "#antibiotics"
+    },
+    {
+      "id": "\"antibiotics\"",
+      "name": "\"antibiotics\""
+    },
+    {
+      "id": "\"probiotic\"",
+      "name": "\"probiotic\""
+    },
+    {
+      "id": "#probiotics",
+      "name": "#probiotics"
+    },
+    {
+      "id": "\"probiotics\"",
+      "name": "\"probiotics\""
+    },
+    {
+      "id": "#gut_microbiome",
+      "name": "#gut_microbiome"
+    },
+    {
+      "id": "#immune_system",
+      "name": "#immune_system"
+    },
+    {
+      "id": "#vitamin_d_deficiency",
+      "name": "#vitamin_d_deficiency"
+    },
+    {
+      "id": "\"asthma\"",
+      "name": "\"asthma\""
+    },
+    {
+      "id": "#asthma",
+      "name": "#asthma"
+    },
+    {
+      "id": "\"cystic fibrosis\"",
+      "name": "\"cystic fibrosis\""
+    },
+    {
+      "id": "#cystic_fibrosis",
+      "name": "#cystic_fibrosis"
+    },
+    {
+      "id": "\"cf\"",
+      "name": "\"cf\""
+    },
+    {
+      "id": "\"hay fever\"",
+      "name": "\"hay fever\""
+    },
+    {
+      "id": "#hay_fever",
+      "name": "#hay_fever"
+    },
+    {
+      "id": "\"allergic rhinitis\"",
+      "name": "\"allergic rhinitis\""
+    },
+    {
+      "id": "\"pneumonia\"",
+      "name": "\"pneumonia\""
+    },
+    {
+      "id": "#pneumonia",
+      "name": "#pneumonia"
+    },
+    {
+      "id": "\"respiratory infection\"",
+      "name": "\"respiratory infection\""
+    },
+    {
+      "id": "#respiratory",
+      "name": "#respiratory"
+    },
+    {
+      "id": "\"respiratory infections\"",
+      "name": "\"respiratory infections\""
+    },
+    {
+      "id": "(#asthma #vitamin_d_receptor)",
+      "name": "(#asthma #vitamin_d_receptor)"
+    },
+    {
+      "id": "#asthma_receptor",
+      "name": "#asthma_receptor"
+    },
+    {
+      "id": "#breathing",
+      "name": "#breathing"
+    },
+    {
+      "id": "#immune_response",
+      "name": "#immune_response"
+    },
+    {
+      "id": "\"bone mineral density\"",
+      "name": "\"bone mineral density\""
+    },
+    {
+      "id": "#bone_mineral_density",
+      "name": "#bone_mineral_density"
+    },
+    {
+      "id": "\"bmd\"",
+      "name": "\"bmd\""
+    },
+    {
+      "id": "\"bone loss\"",
+      "name": "\"bone loss\""
+    },
+    {
+      "id": "#bone_loss",
+      "name": "#bone_loss"
+    },
+    {
+      "id": "\"ankle fracture\"",
+      "name": "\"ankle fracture\""
+    },
+    {
+      "id": "#ankle_fractures",
+      "name": "#ankle_fractures"
+    },
+    {
+      "id": "\"ankle fractures\"",
+      "name": "\"ankle fractures\""
+    },
+    {
+      "id": "\"bone fracture\"",
+      "name": "\"bone fracture\""
+    },
+    {
+      "id": "#bone_stress_fractures",
+      "name": "#bone_stress_fractures"
+    },
+    {
+      "id": "\"bone fractures\"",
+      "name": "\"bone fractures\""
+    },
+    {
+      "id": "\"stress fracture\"",
+      "name": "\"stress fracture\""
+    },
+    {
+      "id": "\"stress fractures\"",
+      "name": "\"stress fractures\""
+    },
+    {
+      "id": "\"children fracture\"",
+      "name": "\"children fracture\""
+    },
+    {
+      "id": "#children_fractures",
+      "name": "#children_fractures"
+    },
+    {
+      "id": "\"children fractures\"",
+      "name": "\"children fractures\""
+    },
+    {
+      "id": "\"pediatric fracture\"",
+      "name": "\"pediatric fracture\""
+    },
+    {
+      "id": "\"pediatric fractures\"",
+      "name": "\"pediatric fractures\""
+    },
+    {
+      "id": "\"hip fracture\"",
+      "name": "\"hip fracture\""
+    },
+    {
+      "id": "#hip_fractures",
+      "name": "#hip_fractures"
+    },
+    {
+      "id": "\"hip fractures\"",
+      "name": "\"hip fractures\""
+    },
+    {
+      "id": "\"fall\"",
+      "name": "\"fall\""
+    },
+    {
+      "id": "#falls_fractures",
+      "name": "#falls_fractures"
+    },
+    {
+      "id": "\"falls\"",
+      "name": "\"falls\""
+    },
+    {
+      "id": "\"fracture\"",
+      "name": "\"fracture\""
+    },
+    {
+      "id": "\"fractures\"",
+      "name": "\"fractures\""
+    },
+    {
+      "id": "\"rickets\"",
+      "name": "\"rickets\""
+    },
+    {
+      "id": "#rickets",
+      "name": "#rickets"
+    },
+    {
+      "id": "\"osteoporosis\"",
+      "name": "\"osteoporosis\""
+    },
+    {
+      "id": "#osteoporosis",
+      "name": "#osteoporosis"
+    },
+    {
+      "id": "#bone",
+      "name": "#bone"
+    },
+    {
+      "id": "#calcium",
+      "name": "#calcium"
+    },
+    {
+      "id": "#phosphorus",
+      "name": "#phosphorus"
+    },
+    {
+      "id": "\"bladder cancer\"",
+      "name": "\"bladder cancer\""
+    },
+    {
+      "id": "#bladder_cancer",
+      "name": "#bladder_cancer"
+    },
+    {
+      "id": "\"breast cancer\"",
+      "name": "\"breast cancer\""
+    },
+    {
+      "id": "#breast_cancer",
+      "name": "#breast_cancer"
+    },
+    {
+      "id": "\"colon cancer\"",
+      "name": "\"colon cancer\""
+    },
+    {
+      "id": "#colon_cancer",
+      "name": "#colon_cancer"
+    },
+    {
+      "id": "\"colorectal cancer\"",
+      "name": "\"colorectal cancer\""
+    },
+    {
+      "id": "\"endometrial cancer\"",
+      "name": "\"endometrial cancer\""
+    },
+    {
+      "id": "#endometrial_cancer",
+      "name": "#endometrial_cancer"
+    },
+    {
+      "id": "\"gastric cancer\"",
+      "name": "\"gastric cancer\""
+    },
+    {
+      "id": "#gastric_cancer",
+      "name": "#gastric_cancer"
+    },
+    {
+      "id": "\"stomach cancer\"",
+      "name": "\"stomach cancer\""
+    },
+    {
+      "id": "\"head and neck cancer\"",
+      "name": "\"head and neck cancer\""
+    },
+    {
+      "id": "#head_and_neck_cancer",
+      "name": "#head_and_neck_cancer"
+    },
+    {
+      "id": "\"leukemia\"",
+      "name": "\"leukemia\""
+    },
+    {
+      "id": "#leukemia",
+      "name": "#leukemia"
+    },
+    {
+      "id": "\"liver cancer\"",
+      "name": "\"liver cancer\""
+    },
+    {
+      "id": "#liver_cancer",
+      "name": "#liver_cancer"
+    },
+    {
+      "id": "\"lung cancer\"",
+      "name": "\"lung cancer\""
+    },
+    {
+      "id": "#lung_cancer",
+      "name": "#lung_cancer"
+    },
+    {
+      "id": "\"lymphoma\"",
+      "name": "\"lymphoma\""
+    },
+    {
+      "id": "#lymphoma",
+      "name": "#lymphoma"
+    },
+    {
+      "id": "\"melanoma\"",
+      "name": "\"melanoma\""
+    },
+    {
+      "id": "#melanoma",
+      "name": "#melanoma"
+    },
+    {
+      "id": "\"multiple myeloma\"",
+      "name": "\"multiple myeloma\""
+    },
+    {
+      "id": "#multiple_myeloma",
+      "name": "#multiple_myeloma"
+    },
+    {
+      "id": "\"ovarian cancer\"",
+      "name": "\"ovarian cancer\""
+    },
+    {
+      "id": "#ovarian_cancer",
+      "name": "#ovarian_cancer"
+    },
+    {
+      "id": "\"pancreatic cancer\"",
+      "name": "\"pancreatic cancer\""
+    },
+    {
+      "id": "#pancreatic_cancer",
+      "name": "#pancreatic_cancer"
+    },
+    {
+      "id": "\"prostate cancer\"",
+      "name": "\"prostate cancer\""
+    },
+    {
+      "id": "#prostate_cancer",
+      "name": "#prostate_cancer"
+    },
+    {
+      "id": "\"skin cancer\"",
+      "name": "\"skin cancer\""
+    },
+    {
+      "id": "#skin_cancer",
+      "name": "#skin_cancer"
+    },
+    {
+      "id": "\"thyroid cancer\"",
+      "name": "\"thyroid cancer\""
+    },
+    {
+      "id": "#thyroid_cancer",
+      "name": "#thyroid_cancer"
+    },
+    {
+      "id": "(#cancer #after_diagnosis)",
+      "name": "(#cancer #after_diagnosis)"
+    },
+    {
+      "id": "#cancer_after_diagnosis",
+      "name": "#cancer_after_diagnosis"
+    },
+    {
+      "id": "(#cancer #bone)",
+      "name": "(#cancer #bone)"
+    },
+    {
+      "id": "#bone_cancer",
+      "name": "#bone_cancer"
+    },
+    {
+      "id": "(#cancer #child)",
+      "name": "(#cancer #child)"
+    },
+    {
+      "id": "#childhood_cancer",
+      "name": "#childhood_cancer"
+    },
+    {
+      "id": "(#cancer #metastatic)",
+      "name": "(#cancer #metastatic)"
+    },
+    {
+      "id": "#metastatic_cancer",
+      "name": "#metastatic_cancer"
+    },
+    {
+      "id": "(#cancer #obesity)",
+      "name": "(#cancer #obesity)"
+    },
+    {
+      "id": "#obesity_and_cancer",
+      "name": "#obesity_and_cancer"
+    },
+    {
+      "id": "(#cancer #palliative_care)",
+      "name": "(#cancer #palliative_care)"
+    },
+    {
+      "id": "#palliative_care",
+      "name": "#palliative_care"
+    },
+    {
+      "id": "(#cancer #survive)",
+      "name": "(#cancer #survive)"
+    },
+    {
+      "id": "#cancer_survival",
+      "name": "#cancer_survival"
+    },
+    {
+      "id": "(#magnesium #cancer)",
+      "name": "(#magnesium #cancer)"
+    },
+    {
+      "id": "#magnesium_and_cancer",
+      "name": "#magnesium_and_cancer"
+    },
+    {
+      "id": "(#vitamin_d_receptor #cancer)",
+      "name": "(#vitamin_d_receptor #cancer)"
+    },
+    {
+      "id": "#cancer_in_VDR",
+      "name": "#cancer_in_VDR"
+    },
+    {
+      "id": "\"atherosclerosis\"",
+      "name": "\"atherosclerosis\""
+    },
+    {
+      "id": "#atherosclerosis",
+      "name": "#atherosclerosis"
+    },
+    {
+      "id": "\"atrial fibrillation\"",
+      "name": "\"atrial fibrillation\""
+    },
+    {
+      "id": "#atrial_fibrillation",
+      "name": "#atrial_fibrillation"
+    },
+    {
+      "id": "\"afib\"",
+      "name": "\"afib\""
+    },
+    {
+      "id": "\"a-fib\"",
+      "name": "\"a-fib\""
+    },
+    {
+      "id": "\"blood clotting\"",
+      "name": "\"blood clotting\""
+    },
+    {
+      "id": "#blood_clotting",
+      "name": "#blood_clotting"
+    },
+    {
+      "id": "\"blood clot\"",
+      "name": "\"blood clot\""
+    },
+    {
+      "id": "\"blood clots\"",
+      "name": "\"blood clots\""
+    },
+    {
+      "id": "\"heart failure\"",
+      "name": "\"heart failure\""
+    },
+    {
+      "id": "#heart_failure",
+      "name": "#heart_failure"
+    },
+    {
+      "id": "\"heart rate variability\"",
+      "name": "\"heart rate variability\""
+    },
+    {
+      "id": "#HRV",
+      "name": "#HRV"
+    },
+    {
+      "id": "\"hrv\"",
+      "name": "\"hrv\""
+    },
+    {
+      "id": "\"stroke\"",
+      "name": "\"stroke\""
+    },
+    {
+      "id": "#stroke",
+      "name": "#stroke"
+    },
+    {
+      "id": "\"strokes\"",
+      "name": "\"strokes\""
+    },
+    {
+      "id": "\"statin\"",
+      "name": "\"statin\""
+    },
+    {
+      "id": "#statins",
+      "name": "#statins"
+    },
+    {
+      "id": "\"statins\"",
+      "name": "\"statins\""
+    },
+    {
+      "id": "(#stroke #cognitive_impairment)",
+      "name": "(#stroke #cognitive_impairment)"
+    },
+    {
+      "id": "#stroke_and_cognitive_impairment",
+      "name": "#stroke_and_cognitive_impairment"
+    },
+    {
+      "id": "(#stroke #depression)",
+      "name": "(#stroke #depression)"
+    },
+    {
+      "id": "#stroke_and_depression",
+      "name": "#stroke_and_depression"
+    },
+    {
+      "id": "(#stroke #ischemic)",
+      "name": "(#stroke #ischemic)"
+    },
+    {
+      "id": "#ischemic_stroke",
+      "name": "#ischemic_stroke"
+    },
+    {
+      "id": "#cardiovascular",
+      "name": "#cardiovascular"
+    },
+    {
+      "id": "#omega_3",
+      "name": "#omega_3"
+    },
+    {
+      "id": "\"cerebral palsy\"",
+      "name": "\"cerebral palsy\""
+    },
+    {
+      "id": "#cerebral_palsy",
+      "name": "#cerebral_palsy"
+    },
+    {
+      "id": "\"down syndrome\"",
+      "name": "\"down syndrome\""
+    },
+    {
+      "id": "#down_syndrome",
+      "name": "#down_syndrome"
+    },
+    {
+      "id": "(#fracture #low_energy)",
+      "name": "(#fracture #low_energy)"
+    },
+    {
+      "id": "#low_energy_fractures",
+      "name": "#low_energy_fractures"
+    },
+    {
+      "id": "\"growing pains\"",
+      "name": "\"growing pains\""
+    },
+    {
+      "id": "#growing_pains",
+      "name": "#growing_pains"
+    },
+    {
+      "id": "(#pneumonia #child)",
+      "name": "(#pneumonia #child)"
+    },
+    {
+      "id": "#childhood_pneumonia",
+      "name": "#childhood_pneumonia"
+    },
+    {
+      "id": "\"preemie\"",
+      "name": "\"preemie\""
+    },
+    {
+      "id": "#preemie",
+      "name": "#preemie"
+    },
+    {
+      "id": "\"premature infant\"",
+      "name": "\"premature infant\""
+    },
+    {
+      "id": "(#puberty #early #vitamin_d_deficiency)",
+      "name": "(#puberty #early #vitamin_d_deficiency)"
+    },
+    {
+      "id": "#early_puberty_low_d",
+      "name": "#early_puberty_low_d"
+    },
+    {
+      "id": "(#respiratory #child)",
+      "name": "(#respiratory #child)"
+    },
+    {
+      "id": "#childhood_respiratory",
+      "name": "#childhood_respiratory"
+    },
+    {
+      "id": "\"tic disorders\"",
+      "name": "\"tic disorders\""
+    },
+    {
+      "id": "#tic_disorders",
+      "name": "#tic_disorders"
+    },
+    {
+      "id": "\"tonsils\"",
+      "name": "\"tonsils\""
+    },
+    {
+      "id": "#tonsils",
+      "name": "#tonsils"
+    },
+    {
+      "id": "\"tonsillitis\"",
+      "name": "\"tonsillitis\""
+    },
+    {
+      "id": "(#vaccination #child)",
+      "name": "(#vaccination #child)"
+    },
+    {
+      "id": "#childhood_vaccination",
+      "name": "#childhood_vaccination"
+    },
+    {
+      "id": "(#virus #child)",
+      "name": "(#virus #child)"
+    },
+    {
+      "id": "#childhood_viruses",
+      "name": "#childhood_viruses"
+    },
+    {
+      "id": "\"brain\"",
+      "name": "\"brain\""
+    },
+    {
+      "id": "#brain",
+      "name": "#brain"
+    },
+    {
+      "id": "\"cognitive function\"",
+      "name": "\"cognitive function\""
+    },
+    {
+      "id": "\"delirium\"",
+      "name": "\"delirium\""
+    },
+    {
+      "id": "#delirium",
+      "name": "#delirium"
+    },
+    {
+      "id": "\"dementia\"",
+      "name": "\"dementia\""
+    },
+    {
+      "id": "#dementia",
+      "name": "#dementia"
+    },
+    {
+      "id": "\"mental illness\"",
+      "name": "\"mental illness\""
+    },
+    {
+      "id": "#mental_illness",
+      "name": "#mental_illness"
+    },
+    {
+      "id": "\"mental stress\"",
+      "name": "\"mental stress\""
+    },
+    {
+      "id": "#mental_stress",
+      "name": "#mental_stress"
+    },
+    {
+      "id": "#cognitive",
+      "name": "#cognitive"
+    },
+    {
+      "id": "\"fluoridation\"",
+      "name": "\"fluoridation\""
+    },
+    {
+      "id": "#fluoridation",
+      "name": "#fluoridation"
+    },
+    {
+      "id": "(#implant #vitamin_d)",
+      "name": "(#implant #vitamin_d)"
+    },
+    {
+      "id": "#dental_implant_vitamin_d",
+      "name": "#dental_implant_vitamin_d"
+    },
+    {
+      "id": "\"periodontitis\"",
+      "name": "\"periodontitis\""
+    },
+    {
+      "id": "#periodontitis",
+      "name": "#periodontitis"
+    },
+    {
+      "id": "#dental",
+      "name": "#dental"
+    },
+    {
+      "id": "\"depression\"",
+      "name": "\"depression\""
+    },
+    {
+      "id": "#depression",
+      "name": "#depression"
+    },
+    {
+      "id": "\"anxiety\"",
+      "name": "\"anxiety\""
+    },
+    {
+      "id": "#anxiety",
+      "name": "#anxiety"
+    },
+    {
+      "id": "\"seasonal affective disorder\"",
+      "name": "\"seasonal affective disorder\""
+    },
+    {
+      "id": "#SAD",
+      "name": "#SAD"
+    },
+    {
+      "id": "\"sad\"",
+      "name": "\"sad\""
+    },
+    {
+      "id": "#mood_disorders",
+      "name": "#mood_disorders"
+    },
+    {
+      "id": "\"diabetes\"",
+      "name": "\"diabetes\""
+    },
+    {
+      "id": "\"hemodialysis\"",
+      "name": "\"hemodialysis\""
+    },
+    {
+      "id": "#hemodialysis",
+      "name": "#hemodialysis"
+    },
+    {
+      "id": "\"metabolic syndrome\"",
+      "name": "\"metabolic syndrome\""
+    },
+    {
+      "id": "#metabolic_syndrome",
+      "name": "#metabolic_syndrome"
+    },
+    {
+      "id": "\"neuropathy\"",
+      "name": "\"neuropathy\""
+    },
+    {
+      "id": "#neuropathy",
+      "name": "#neuropathy"
+    },
+    {
+      "id": "\"diabetic neuropathy\"",
+      "name": "\"diabetic neuropathy\""
+    },
+    {
+      "id": "\"prediabetes\"",
+      "name": "\"prediabetes\""
+    },
+    {
+      "id": "#prediabetes",
+      "name": "#prediabetes"
+    },
+    {
+      "id": "\"retinopathy\"",
+      "name": "\"retinopathy\""
+    },
+    {
+      "id": "#retinopathy",
+      "name": "#retinopathy"
+    },
+    {
+      "id": "\"diabetic retinopathy\"",
+      "name": "\"diabetic retinopathy\""
+    },
+    {
+      "id": "\"type 1 diabetes\"",
+      "name": "\"type 1 diabetes\""
+    },
+    {
+      "id": "#type_1_diabetes",
+      "name": "#type_1_diabetes"
+    },
+    {
+      "id": "(#metabolic_syndrome #magnesium)",
+      "name": "(#metabolic_syndrome #magnesium)"
+    },
+    {
+      "id": "#metabolic_syndrome_and_magnesium",
+      "name": "#metabolic_syndrome_and_magnesium"
+    },
+    {
+      "id": "(#diabetes #vitamin_d_receptor)",
+      "name": "(#diabetes #vitamin_d_receptor)"
+    },
+    {
+      "id": "#diabetes_and_vitamin_d_receptor",
+      "name": "#diabetes_and_vitamin_d_receptor"
+    },
+    {
+      "id": "#metabolic",
+      "name": "#metabolic"
+    },
+    {
+      "id": "#magnesium",
+      "name": "#magnesium"
+    },
+    {
+      "id": "#zinc",
+      "name": "#zinc"
+    },
+    {
+      "id": "#red_meat",
+      "name": "#red_meat"
+    },
+    {
+      "id": "\"otitis media\"",
+      "name": "\"otitis media\""
+    },
+    {
+      "id": "#otitis_media",
+      "name": "#otitis_media"
+    },
+    {
+      "id": "\"ear infection\"",
+      "name": "\"ear infection\""
+    },
+    {
+      "id": "#ear",
+      "name": "#ear"
+    },
+    {
+      "id": "\"cyp24a1\"",
+      "name": "\"cyp24a1\""
+    },
+    {
+      "id": "#CYPA",
+      "name": "#CYPA"
+    },
+    {
+      "id": "\"cyp27b1\"",
+      "name": "\"cyp27b1\""
+    },
+    {
+      "id": "#CYPR",
+      "name": "#CYPR"
+    },
+    {
+      "id": "\"cyp2r1\"",
+      "name": "\"cyp2r1\""
+    },
+    {
+      "id": "#CYPB",
+      "name": "#CYPB"
+    },
+    {
+      "id": "\"epigenetics\"",
+      "name": "\"epigenetics\""
+    },
+    {
+      "id": "#epigenetics",
+      "name": "#epigenetics"
+    },
+    {
+      "id": "\"telomere\"",
+      "name": "\"telomere\""
+    },
+    {
+      "id": "#telomere",
+      "name": "#telomere"
+    },
+    {
+      "id": "\"vitamin d binding protein\"",
+      "name": "\"vitamin d binding protein\""
+    },
+    {
+      "id": "#vitamin_d_binding",
+      "name": "#vitamin_d_binding"
+    },
+    {
+      "id": "\"bariatric surgery\"",
+      "name": "\"bariatric surgery\""
+    },
+    {
+      "id": "#bariatric",
+      "name": "#bariatric"
+    },
+    {
+      "id": "\"celiac disease\"",
+      "name": "\"celiac disease\""
+    },
+    {
+      "id": "#celiac",
+      "name": "#celiac"
+    },
+    {
+      "id": "\"clostridium difficile\"",
+      "name": "\"clostridium difficile\""
+    },
+    {
+      "id": "#clostridium_difficile",
+      "name": "#clostridium_difficile"
+    },
+    {
+      "id": "\"c diff\"",
+      "name": "\"c diff\""
+    },
+    {
+      "id": "\"crohn's disease\"",
+      "name": "\"crohn's disease\""
+    },
+    {
+      "id": "#crohns",
+      "name": "#crohns"
+    },
+    {
+      "id": "\"inflammatory bowel disease\"",
+      "name": "\"inflammatory bowel disease\""
+    },
+    {
+      "id": "#IBD",
+      "name": "#IBD"
+    },
+    {
+      "id": "\"ibd\"",
+      "name": "\"ibd\""
+    },
+    {
+      "id": "\"irritable bowel syndrome\"",
+      "name": "\"irritable bowel syndrome\""
+    },
+    {
+      "id": "#IBS",
+      "name": "#IBS"
+    },
+    {
+      "id": "\"ibs\"",
+      "name": "\"ibs\""
+    },
+    {
+      "id": "\"pancreatitis\"",
+      "name": "\"pancreatitis\""
+    },
+    {
+      "id": "#pancreatitis",
+      "name": "#pancreatitis"
+    },
+    {
+      "id": "\"ulcerative colitis\"",
+      "name": "\"ulcerative colitis\""
+    },
+    {
+      "id": "#ulcerative_colitis",
+      "name": "#ulcerative_colitis"
+    },
+    {
+      "id": "#gut",
+      "name": "#gut"
+    },
+    {
+      "id": "\"alcohol\"",
+      "name": "\"alcohol\""
+    },
+    {
+      "id": "#alcohol",
+      "name": "#alcohol"
+    },
+    {
+      "id": "\"obesity\"",
+      "name": "\"obesity\""
+    },
+    {
+      "id": "\"ultraprocessed foods\"",
+      "name": "\"ultraprocessed foods\""
+    },
+    {
+      "id": "#ultraprocessed_foods",
+      "name": "#ultraprocessed_foods"
+    },
+    {
+      "id": "\"microplastics\"",
+      "name": "\"microplastics\""
+    },
+    {
+      "id": "#microplastics",
+      "name": "#microplastics"
+    },
+    {
+      "id": "\"smoking\"",
+      "name": "\"smoking\""
+    },
+    {
+      "id": "#smoking",
+      "name": "#smoking"
+    },
+    {
+      "id": "\"pollution\"",
+      "name": "\"pollution\""
+    },
+    {
+      "id": "#pollution",
+      "name": "#pollution"
+    },
+    {
+      "id": "\"air pollution\"",
+      "name": "\"air pollution\""
+    },
+    {
+      "id": "\"cholesterol\"",
+      "name": "\"cholesterol\""
+    },
+    {
+      "id": "#cholesterol",
+      "name": "#cholesterol"
+    },
+    {
+      "id": "#health_risk",
+      "name": "#health_risk"
+    },
+    {
+      "id": "\"hypertension\"",
+      "name": "\"hypertension\""
+    },
+    {
+      "id": "#hypertension",
+      "name": "#hypertension"
+    },
+    {
+      "id": "\"high blood pressure\"",
+      "name": "\"high blood pressure\""
+    },
+    {
+      "id": "\"helicobacter pylori\"",
+      "name": "\"helicobacter pylori\""
+    },
+    {
+      "id": "#helicobacter_pylori",
+      "name": "#helicobacter_pylori"
+    },
+    {
+      "id": "\"h pylori\"",
+      "name": "\"h pylori\""
+    },
+    {
+      "id": "#infection",
+      "name": "#infection"
+    },
+    {
+      "id": "\"immune system\"",
+      "name": "\"immune system\""
+    },
+    {
+      "id": "#immunity",
+      "name": "#immunity"
+    },
+    {
+      "id": "\"immunity\"",
+      "name": "\"immunity\""
+    },
+    {
+      "id": "\"chronic kidney disease\"",
+      "name": "\"chronic kidney disease\""
+    },
+    {
+      "id": "#CKD",
+      "name": "#CKD"
+    },
+    {
+      "id": "\"ckd\"",
+      "name": "\"ckd\""
+    },
+    {
+      "id": "\"dialysis\"",
+      "name": "\"dialysis\""
+    },
+    {
+      "id": "#dialysis",
+      "name": "#dialysis"
+    },
+    {
+      "id": "#kidney",
+      "name": "#kidney"
+    },
+    {
+      "id": "\"health span\"",
+      "name": "\"health span\""
+    },
+    {
+      "id": "#health_span",
+      "name": "#health_span"
+    },
+    {
+      "id": "\"mortality\"",
+      "name": "\"mortality\""
+    },
+    {
+      "id": "#mortality",
+      "name": "#mortality"
+    },
+    {
+      "id": "\"longevity\"",
+      "name": "\"longevity\""
+    },
+    {
+      "id": "#life_span",
+      "name": "#life_span"
+    },
+    {
+      "id": "\"hepatitis b\"",
+      "name": "\"hepatitis b\""
+    },
+    {
+      "id": "#hepatitis_b",
+      "name": "#hepatitis_b"
+    },
+    {
+      "id": "\"hepatitis c\"",
+      "name": "\"hepatitis c\""
+    },
+    {
+      "id": "#hepatitis_c",
+      "name": "#hepatitis_c"
+    },
+    {
+      "id": "\"nafld\"",
+      "name": "\"nafld\""
+    },
+    {
+      "id": "#NAFLD",
+      "name": "#NAFLD"
+    },
+    {
+      "id": "\"fatty liver\"",
+      "name": "\"fatty liver\""
+    },
+    {
+      "id": "#liver",
+      "name": "#liver"
+    },
+    {
+      "id": "\"gout\"",
+      "name": "\"gout\""
+    },
+    {
+      "id": "#gout",
+      "name": "#gout"
+    },
+    {
+      "id": "#metabolic_conditions",
+      "name": "#metabolic_conditions"
+    },
+    {
+      "id": "\"muscular dystrophy\"",
+      "name": "\"muscular dystrophy\""
+    },
+    {
+      "id": "#muscular_dystrophy",
+      "name": "#muscular_dystrophy"
+    },
+    {
+      "id": "#muscle",
+      "name": "#muscle"
+    },
+    {
+      "id": "\"bipolar disorder\"",
+      "name": "\"bipolar disorder\""
+    },
+    {
+      "id": "#bipolar_disorder",
+      "name": "#bipolar_disorder"
+    },
+    {
+      "id": "\"carpal tunnel syndrome\"",
+      "name": "\"carpal tunnel syndrome\""
+    },
+    {
+      "id": "#carpal_tunnel_syndrome",
+      "name": "#carpal_tunnel_syndrome"
+    },
+    {
+      "id": "\"chronic fatigue\"",
+      "name": "\"chronic fatigue\""
+    },
+    {
+      "id": "#chronic_fatigue",
+      "name": "#chronic_fatigue"
+    },
+    {
+      "id": "\"epilepsy\"",
+      "name": "\"epilepsy\""
+    },
+    {
+      "id": "#epilepsy",
+      "name": "#epilepsy"
+    },
+    {
+      "id": "\"parkinson's disease\"",
+      "name": "\"parkinson's disease\""
+    },
+    {
+      "id": "#parkinsons",
+      "name": "#parkinsons"
+    },
+    {
+      "id": "\"restless legs\"",
+      "name": "\"restless legs\""
+    },
+    {
+      "id": "#restless_legs",
+      "name": "#restless_legs"
+    },
+    {
+      "id": "\"sleep disorders\"",
+      "name": "\"sleep disorders\""
+    },
+    {
+      "id": "#sleep",
+      "name": "#sleep"
+    },
+    {
+      "id": "\"sleep apnea\"",
+      "name": "\"sleep apnea\""
+    },
+    {
+      "id": "#sleep_apnea",
+      "name": "#sleep_apnea"
+    },
+    {
+      "id": "\"spinal cord\"",
+      "name": "\"spinal cord\""
+    },
+    {
+      "id": "#spinal_cord",
+      "name": "#spinal_cord"
+    },
+    {
+      "id": "\"vertigo\"",
+      "name": "\"vertigo\""
+    },
+    {
+      "id": "#vertigo",
+      "name": "#vertigo"
+    },
+    {
+      "id": "#neurological",
+      "name": "#neurological"
+    },
+    {
+      "id": "(#obesity #cancer)",
+      "name": "(#obesity #cancer)"
+    },
+    {
+      "id": "(#obesity #child)",
+      "name": "(#obesity #child)"
+    },
+    {
+      "id": "#childhood_obesity",
+      "name": "#childhood_obesity"
+    },
+    {
+      "id": "(#obesity #vitamin_d_receptor)",
+      "name": "(#obesity #vitamin_d_receptor)"
+    },
+    {
+      "id": "#obesity_and_vitamin_d_receptor",
+      "name": "#obesity_and_vitamin_d_receptor"
+    },
+    {
+      "id": "(#obesity #virus)",
+      "name": "(#obesity #virus)"
+    },
+    {
+      "id": "#virus_and_obesity",
+      "name": "#virus_and_obesity"
+    },
+    {
+      "id": "\"weight loss\"",
+      "name": "\"weight loss\""
+    },
+    {
+      "id": "#weight_loss",
+      "name": "#weight_loss"
+    },
+    {
+      "id": "\"chronic pain\"",
+      "name": "\"chronic pain\""
+    },
+    {
+      "id": "#chronic_pain",
+      "name": "#chronic_pain"
+    },
+    {
+      "id": "\"back pain\"",
+      "name": "\"back pain\""
+    },
+    {
+      "id": "#back_pain",
+      "name": "#back_pain"
+    },
+    {
+      "id": "(#back_pain #lumbar_degeneration)",
+      "name": "(#back_pain #lumbar_degeneration)"
+    },
+    {
+      "id": "#lumbar_degenerative_back_pain",
+      "name": "#lumbar_degenerative_back_pain"
+    },
+    {
+      "id": "\"headache\"",
+      "name": "\"headache\""
+    },
+    {
+      "id": "#headache",
+      "name": "#headache"
+    },
+    {
+      "id": "#pain",
+      "name": "#pain"
+    },
+    {
+      "id": "\"endometriosis\"",
+      "name": "\"endometriosis\""
+    },
+    {
+      "id": "#endometriosis",
+      "name": "#endometriosis"
+    },
+    {
+      "id": "\"fertility\"",
+      "name": "\"fertility\""
+    },
+    {
+      "id": "#fertility_sperm",
+      "name": "#fertility_sperm"
+    },
+    {
+      "id": "\"sperm\"",
+      "name": "\"sperm\""
+    },
+    {
+      "id": "\"breastfed\"",
+      "name": "\"breastfed\""
+    },
+    {
+      "id": "#breastfed",
+      "name": "#breastfed"
+    },
+    {
+      "id": "\"breastfeeding\"",
+      "name": "\"breastfeeding\""
+    },
+    {
+      "id": "\"caesarean\"",
+      "name": "\"caesarean\""
+    },
+    {
+      "id": "#caesarean",
+      "name": "#caesarean"
+    },
+    {
+      "id": "\"c-section\"",
+      "name": "\"c-section\""
+    },
+    {
+      "id": "(#depression #pregnancy)",
+      "name": "(#depression #pregnancy)"
+    },
+    {
+      "id": "#depression_and_pregnancy",
+      "name": "#depression_and_pregnancy"
+    },
+    {
+      "id": "(#dark_skin #pregnancy)",
+      "name": "(#dark_skin #pregnancy)"
+    },
+    {
+      "id": "#dark_skin_and_pregnancy",
+      "name": "#dark_skin_and_pregnancy"
+    },
+    {
+      "id": "\"gestational diabetes\"",
+      "name": "\"gestational diabetes\""
+    },
+    {
+      "id": "#gestational_diabetes",
+      "name": "#gestational_diabetes"
+    },
+    {
+      "id": "\"in vitro fertilization\"",
+      "name": "\"in vitro fertilization\""
+    },
+    {
+      "id": "#in_vitro_fertilization",
+      "name": "#in_vitro_fertilization"
+    },
+    {
+      "id": "\"ivf\"",
+      "name": "\"ivf\""
+    },
+    {
+      "id": "\"iodine\"",
+      "name": "\"iodine\""
+    },
+    {
+      "id": "#iodine",
+      "name": "#iodine"
+    },
+    {
+      "id": "\"low birth weight\"",
+      "name": "\"low birth weight\""
+    },
+    {
+      "id": "#low_birth_weight",
+      "name": "#low_birth_weight"
+    },
+    {
+      "id": "(#magnesium #pregnancy)",
+      "name": "(#magnesium #pregnancy)"
+    },
+    {
+      "id": "#magnesium_and_pregnancy",
+      "name": "#magnesium_and_pregnancy"
+    },
+    {
+      "id": "\"miscarriage\"",
+      "name": "\"miscarriage\""
+    },
+    {
+      "id": "#miscarriage",
+      "name": "#miscarriage"
+    },
+    {
+      "id": "(#multiple_sclerosis #pregnancy)",
+      "name": "(#multiple_sclerosis #pregnancy)"
+    },
+    {
+      "id": "#multiple_sclerosis_and_pregnancy",
+      "name": "#multiple_sclerosis_and_pregnancy"
+    },
+    {
+      "id": "(#omega_3 #pregnancy)",
+      "name": "(#omega_3 #pregnancy)"
+    },
+    {
+      "id": "#omega_3_and_pregnancy",
+      "name": "#omega_3_and_pregnancy"
+    },
+    {
+      "id": "\"pcos\"",
+      "name": "\"pcos\""
+    },
+    {
+      "id": "#PCOS",
+      "name": "#PCOS"
+    },
+    {
+      "id": "\"polycystic ovary syndrome\"",
+      "name": "\"polycystic ovary syndrome\""
+    },
+    {
+      "id": "\"placenta\"",
+      "name": "\"placenta\""
+    },
+    {
+      "id": "#placenta",
+      "name": "#placenta"
+    },
+    {
+      "id": "\"preeclampsia\"",
+      "name": "\"preeclampsia\""
+    },
+    {
+      "id": "#preeclampsia",
+      "name": "#preeclampsia"
+    },
+    {
+      "id": "\"preterm birth\"",
+      "name": "\"preterm birth\""
+    },
+    {
+      "id": "#preterm",
+      "name": "#preterm"
+    },
+    {
+      "id": "(#preterm #omega_3)",
+      "name": "(#preterm #omega_3)"
+    },
+    {
+      "id": "#preterm_and_omega_3",
+      "name": "#preterm_and_omega_3"
+    },
+    {
+      "id": "\"stillbirth\"",
+      "name": "\"stillbirth\""
+    },
+    {
+      "id": "#stillbirth",
+      "name": "#stillbirth"
+    },
+    {
+      "id": "(#vaccination #pregnancy)",
+      "name": "(#vaccination #pregnancy)"
+    },
+    {
+      "id": "#vaccination_and_pregnancy",
+      "name": "#vaccination_and_pregnancy"
+    },
+    {
+      "id": "\"acne\"",
+      "name": "\"acne\""
+    },
+    {
+      "id": "#acne",
+      "name": "#acne"
+    },
+    {
+      "id": "\"aging skin\"",
+      "name": "\"aging skin\""
+    },
+    {
+      "id": "#aging_skin",
+      "name": "#aging_skin"
+    },
+    {
+      "id": "\"atopic dermatitis\"",
+      "name": "\"atopic dermatitis\""
+    },
+    {
+      "id": "#atopic_dermatitis",
+      "name": "#atopic_dermatitis"
+    },
+    {
+      "id": "\"eczema\"",
+      "name": "\"eczema\""
+    },
+    {
+      "id": "\"hair loss\"",
+      "name": "\"hair loss\""
+    },
+    {
+      "id": "#hair",
+      "name": "#hair"
+    },
+    {
+      "id": "\"alopecia\"",
+      "name": "\"alopecia\""
+    },
+    {
+      "id": "\"hives\"",
+      "name": "\"hives\""
+    },
+    {
+      "id": "#hives",
+      "name": "#hives"
+    },
+    {
+      "id": "\"urticaria\"",
+      "name": "\"urticaria\""
+    },
+    {
+      "id": "\"psoriasis\"",
+      "name": "\"psoriasis\""
+    },
+    {
+      "id": "#psoriasis",
+      "name": "#psoriasis"
+    },
+    {
+      "id": "\"vitiligo\"",
+      "name": "\"vitiligo\""
+    },
+    {
+      "id": "#vitiligo",
+      "name": "#vitiligo"
+    },
+    {
+      "id": "#dermatology",
+      "name": "#dermatology"
+    },
+    {
+      "id": "\"concussion\"",
+      "name": "\"concussion\""
+    },
+    {
+      "id": "#concussions",
+      "name": "#concussions"
+    },
+    {
+      "id": "\"concussions\"",
+      "name": "\"concussions\""
+    },
+    {
+      "id": "#bariatric_surgery",
+      "name": "#bariatric_surgery"
+    },
+    {
+      "id": "\"bone surgery\"",
+      "name": "\"bone surgery\""
+    },
+    {
+      "id": "#bone_surgery",
+      "name": "#bone_surgery"
+    },
+    {
+      "id": "\"bone surgeries\"",
+      "name": "\"bone surgeries\""
+    },
+    {
+      "id": "(#ICU #loading_dose)",
+      "name": "(#ICU #loading_dose)"
+    },
+    {
+      "id": "#icu_loading_dose",
+      "name": "#icu_loading_dose"
+    },
+    {
+      "id": "(#surgery #vitamin_d_need)",
+      "name": "(#surgery #vitamin_d_need)"
+    },
+    {
+      "id": "#surgery_vitamin_d_needs",
+      "name": "#surgery_vitamin_d_needs"
+    },
+    {
+      "id": "(#orthopedic #hip)",
+      "name": "(#orthopedic #hip)"
+    },
+    {
+      "id": "#orthopedic_hip",
+      "name": "#orthopedic_hip"
+    },
+    {
+      "id": "\"sepsis\"",
+      "name": "\"sepsis\""
+    },
+    {
+      "id": "#sepsis",
+      "name": "#sepsis"
+    },
+    {
+      "id": "\"transplant\"",
+      "name": "\"transplant\""
+    },
+    {
+      "id": "#transplant",
+      "name": "#transplant"
+    },
+    {
+      "id": "\"transplants\"",
+      "name": "\"transplants\""
+    },
+    {
+      "id": "\"organ transplant\"",
+      "name": "\"organ transplant\""
+    },
+    {
+      "id": "\"organ transplants\"",
+      "name": "\"organ transplants\""
+    },
+    {
+      "id": "\"traumatic brain injury\"",
+      "name": "\"traumatic brain injury\""
+    },
+    {
+      "id": "#TBI",
+      "name": "#TBI"
+    },
+    {
+      "id": "\"traumatic brain injuries\"",
+      "name": "\"traumatic brain injuries\""
+    },
+    {
+      "id": "\"tbi\"",
+      "name": "\"tbi\""
+    },
+    {
+      "id": "#trauma_surgery",
+      "name": "#trauma_surgery"
+    },
+    {
+      "id": "\"rhinovirus\"",
+      "name": "\"rhinovirus\""
+    },
+    {
+      "id": "\"rhinoviruses\"",
+      "name": "\"rhinoviruses\""
+    },
+    {
+      "id": "\"common cold\"",
+      "name": "\"common cold\""
+    },
+    {
+      "id": "\"influenza\"",
+      "name": "\"influenza\""
+    },
+    {
+      "id": "#influenza",
+      "name": "#influenza"
+    },
+    {
+      "id": "\"flu\"",
+      "name": "\"flu\""
+    },
+    {
+      "id": "\"bird flu\"",
+      "name": "\"bird flu\""
+    },
+    {
+      "id": "#bird_flu",
+      "name": "#bird_flu"
+    },
+    {
+      "id": "\"avian flu\"",
+      "name": "\"avian flu\""
+    },
+    {
+      "id": "\"dengue\"",
+      "name": "\"dengue\""
+    },
+    {
+      "id": "#dengue",
+      "name": "#dengue"
+    },
+    {
+      "id": "\"dengue fever\"",
+      "name": "\"dengue fever\""
+    },
+    {
+      "id": "\"epstein-barr virus\"",
+      "name": "\"epstein-barr virus\""
+    },
+    {
+      "id": "#EBV",
+      "name": "#EBV"
+    },
+    {
+      "id": "\"epstein barr virus\"",
+      "name": "\"epstein barr virus\""
+    },
+    {
+      "id": "\"ebv\"",
+      "name": "\"ebv\""
+    },
+    {
+      "id": "\"herpes\"",
+      "name": "\"herpes\""
+    },
+    {
+      "id": "#herpes_shingles",
+      "name": "#herpes_shingles"
+    },
+    {
+      "id": "\"herpes virus\"",
+      "name": "\"herpes virus\""
+    },
+    {
+      "id": "\"shingles\"",
+      "name": "\"shingles\""
+    },
+    {
+      "id": "\"mononucleosis\"",
+      "name": "\"mononucleosis\""
+    },
+    {
+      "id": "#mononucleosis",
+      "name": "#mononucleosis"
+    },
+    {
+      "id": "\"mono\"",
+      "name": "\"mono\""
+    },
+    {
+      "id": "\"rsv\"",
+      "name": "\"rsv\""
+    },
+    {
+      "id": "#RSV",
+      "name": "#RSV"
+    },
+    {
+      "id": "\"respiratory syncytial virus\"",
+      "name": "\"respiratory syncytial virus\""
+    },
+    {
+      "id": "(#virus #air_pollution)",
+      "name": "(#virus #air_pollution)"
+    },
+    {
+      "id": "#virus_and_air_pollution",
+      "name": "#virus_and_air_pollution"
+    },
+    {
+      "id": "(#virus #all_studies)",
+      "name": "(#virus #all_studies)"
+    },
+    {
+      "id": "#virus_studies",
+      "name": "#virus_studies"
+    },
+    {
+      "id": "(#virus #cardiovascular)",
+      "name": "(#virus #cardiovascular)"
+    },
+    {
+      "id": "#virus_and_cardiovascular",
+      "name": "#virus_and_cardiovascular"
+    },
+    {
+      "id": "(#cancer #vaccination)",
+      "name": "(#cancer #vaccination)"
+    },
+    {
+      "id": "#cancers_after_vaccination",
+      "name": "#cancers_after_vaccination"
+    },
+    {
+      "id": "(#child #vaccination #years_later)",
+      "name": "(#child #vaccination #years_later)"
+    },
+    {
+      "id": "#childhood_vaccination_effects",
+      "name": "#childhood_vaccination_effects"
+    },
+    {
+      "id": "(#virus #cognitive)",
+      "name": "(#virus #cognitive)"
+    },
+    {
+      "id": "#virus_and_cognitive",
+      "name": "#virus_and_cognitive"
+    },
+    {
+      "id": "(#virus #dark_skin)",
+      "name": "(#virus #dark_skin)"
+    },
+    {
+      "id": "#virus_and_dark_skin",
+      "name": "#virus_and_dark_skin"
+    },
+    {
+      "id": "(#hepatitis #virus)",
+      "name": "(#hepatitis #virus)"
+    },
+    {
+      "id": "#viral_hepatitis",
+      "name": "#viral_hepatitis"
+    },
+    {
+      "id": "(#virus #magnesium)",
+      "name": "(#virus #magnesium)"
+    },
+    {
+      "id": "#magnesium_and_viruses",
+      "name": "#magnesium_and_viruses"
+    },
+    {
+      "id": "(#virus #meta_analyses)",
+      "name": "(#virus #meta_analyses)"
+    },
+    {
+      "id": "#virus_meta_analyses",
+      "name": "#virus_meta_analyses"
+    },
+    {
+      "id": "(#virus #omega_3)",
+      "name": "(#virus #omega_3)"
+    },
+    {
+      "id": "#omega_3_and_viruses",
+      "name": "#omega_3_and_viruses"
+    },
+    {
+      "id": "(#virus #pregnancy)",
+      "name": "(#virus #pregnancy)"
+    },
+    {
+      "id": "#viruses_and_pregnancy",
+      "name": "#viruses_and_pregnancy"
+    },
+    {
+      "id": "(#virus #vitamin_d)",
+      "name": "(#virus #vitamin_d)"
+    },
+    {
+      "id": "#vitamin_d_and_viruses",
+      "name": "#vitamin_d_and_viruses"
+    },
+    {
+      "id": "(#virus #vitamin_d_receptor)",
+      "name": "(#virus #vitamin_d_receptor)"
+    },
+    {
+      "id": "#viruses_and_vitamin_d_receptor",
+      "name": "#viruses_and_vitamin_d_receptor"
+    },
+    {
+      "id": "(#virus #vitamin_k)",
+      "name": "(#virus #vitamin_k)"
+    },
+    {
+      "id": "#vitamin_k_and_viruses",
+      "name": "#vitamin_k_and_viruses"
+    },
+    {
+      "id": "(#virus #zinc)",
+      "name": "(#virus #zinc)"
+    },
+    {
+      "id": "#zinc_and_viruses",
+      "name": "#zinc_and_viruses"
+    },
+    {
+      "id": "\"ivermectin\"",
+      "name": "\"ivermectin\""
+    },
+    {
+      "id": "#ivermectin",
+      "name": "#ivermectin"
+    },
+    {
+      "id": "\"masks\"",
+      "name": "\"masks\""
+    },
+    {
+      "id": "#masks",
+      "name": "#masks"
+    },
+    {
+      "id": "\"pfizer\"",
+      "name": "\"pfizer\""
+    },
+    {
+      "id": "#pfizer",
+      "name": "#pfizer"
+    },
+    {
+      "id": "\"ultraviolet light\"",
+      "name": "\"ultraviolet light\""
+    },
+    {
+      "id": "#ultraviolet_light",
+      "name": "#ultraviolet_light"
+    },
+    {
+      "id": "\"uv light\"",
+      "name": "\"uv light\""
+    },
+    {
+      "id": "\"vaccination\"",
+      "name": "\"vaccination\""
+    },
+    {
+      "id": "#vaccination",
+      "name": "#vaccination"
+    },
+    {
+      "id": "\"long covid\"",
+      "name": "\"long covid\""
+    },
+    {
+      "id": "#long_covid",
+      "name": "#long_covid"
+    },
+    {
+      "id": "\"excess deaths\"",
+      "name": "\"excess deaths\""
+    },
+    {
+      "id": "#excess_deaths",
+      "name": "#excess_deaths"
+    },
+    {
+      "id": "\"cataract\"",
+      "name": "\"cataract\""
+    },
+    {
+      "id": "#cataracts",
+      "name": "#cataracts"
+    },
+    {
+      "id": "\"cataracts\"",
+      "name": "\"cataracts\""
+    },
+    {
+      "id": "#diabetic_retinopathy",
+      "name": "#diabetic_retinopathy"
+    },
+    {
+      "id": "\"dry eye\"",
+      "name": "\"dry eye\""
+    },
+    {
+      "id": "#dry_eye",
+      "name": "#dry_eye"
+    },
+    {
+      "id": "\"dry eyes\"",
+      "name": "\"dry eyes\""
+    },
+    {
+      "id": "\"glaucoma\"",
+      "name": "\"glaucoma\""
+    },
+    {
+      "id": "#glaucoma",
+      "name": "#glaucoma"
+    },
+    {
+      "id": "\"macular degeneration\"",
+      "name": "\"macular degeneration\""
+    },
+    {
+      "id": "#macular_degeneration",
+      "name": "#macular_degeneration"
+    },
+    {
+      "id": "\"myopia\"",
+      "name": "\"myopia\""
+    },
+    {
+      "id": "#myopia",
+      "name": "#myopia"
+    },
+    {
+      "id": "\"nearsightedness\"",
+      "name": "\"nearsightedness\""
+    },
+    {
+      "id": "\"uveitis\"",
+      "name": "\"uveitis\""
+    },
+    {
+      "id": "#uveitis",
+      "name": "#uveitis"
+    },
+    {
+      "id": "#vision",
+      "name": "#vision"
+    },
+    {
+      "id": "\"omega-3\"",
+      "name": "\"omega-3\""
+    },
+    {
+      "id": "\"omega 3\"",
+      "name": "\"omega 3\""
+    },
+    {
+      "id": "\"fish oil\"",
+      "name": "\"fish oil\""
+    },
+    {
+      "id": "\"magnesium\"",
+      "name": "\"magnesium\""
+    },
+    {
+      "id": "\"zinc\"",
+      "name": "\"zinc\""
+    },
+    {
+      "id": "\"vitamin k\"",
+      "name": "\"vitamin k\""
+    },
+    {
+      "id": "#vitamin_k",
+      "name": "#vitamin_k"
+    },
+    {
+      "id": "\"vitamin k2\"",
+      "name": "\"vitamin k2\""
+    },
+    {
+      "id": "#muscle_function",
+      "name": "#muscle_function"
+    },
+    {
+      "id": "#wound_healing",
+      "name": "#wound_healing"
+    },
+    {
+      "id": "#bone_health",
+      "name": "#bone_health"
+    },
+    {
+      "id": "#autoimmune_risk",
+      "name": "#autoimmune_risk"
+    },
+    {
+      "id": "#infection_risk",
+      "name": "#infection_risk"
+    }
+  ],
+  "links": [
+    {
+      "source": "\"vitamin d3\"",
+      "target": "#vitamin_d",
+      "type": "implication"
+    },
+    {
+      "source": "\"cholecalciferol\"",
+      "target": "#vitamin_d",
+      "type": "implication"
+    },
+    {
+      "source": "\"vitamin d\"",
+      "target": "#vitamin_d",
+      "type": "implication"
+    },
+    {
+      "source": "\"calciferol\"",
+      "target": "#vitamin_d",
+      "type": "implication"
+    },
+    {
+      "source": "\"25-hydroxyvitamin d\"",
+      "target": "#vitamin_d_blood_test",
+      "type": "implication"
+    },
+    {
+      "source": "\"25(oh)d\"",
+      "target": "#vitamin_d_blood_test",
+      "type": "implication"
+    },
+    {
+      "source": "/\\d+\\s*iu/i",
+      "target": "#dosage",
+      "type": "implication"
+    },
+    {
+      "source": "/\\d+\\s*ng\\/ml/i",
+      "target": "#blood_levels",
+      "type": "implication"
+    },
+    {
+      "source": "/\\d+\\s*nmol\\/l/i",
+      "target": "#blood_levels",
+      "type": "implication"
+    },
+    {
+      "source": "\"high dose\"",
+      "target": "#high_dose",
+      "type": "implication"
+    },
+    {
+      "source": "#high_dose",
+      "target": "#therapeutic_intervention",
+      "type": "association"
+    },
+    {
+      "source": "#high_dose",
+      "target": "#autoimmune",
+      "type": "association"
+    },
+    {
+      "source": "#high_dose",
+      "target": "#cancer",
+      "type": "association"
+    },
+    {
+      "source": "#high_dose",
+      "target": "#virus",
+      "type": "association"
+    },
+    {
+      "source": "#high_dose",
+      "target": "#infection",
+      "type": "association"
+    },
+    {
+      "source": "\"high doses\"",
+      "target": "#high_dose",
+      "type": "implication"
+    },
+    {
+      "source": "\"loading dose\"",
+      "target": "#high_dose",
+      "type": "implication"
+    },
+    {
+      "source": "\"loading doses\"",
+      "target": "#high_dose",
+      "type": "implication"
+    },
+    {
+      "source": "/>\\s*10000\\s*iu/i",
+      "target": "#high_dose",
+      "type": "implication"
+    },
+    {
+      "source": "(#vitamin_d3 #high_dose)",
+      "target": "#therapeutic_intervention",
+      "type": "implication"
+    },
+    {
+      "source": "\"virus\"",
+      "target": "#virus",
+      "type": "implication"
+    },
+    {
+      "source": "\"viruses\"",
+      "target": "#virus",
+      "type": "implication"
+    },
+    {
+      "source": "\"viral infection\"",
+      "target": "#virus",
+      "type": "implication"
+    },
+    {
+      "source": "\"viral infections\"",
+      "target": "#virus",
+      "type": "implication"
+    },
+    {
+      "source": "\"bacteria\"",
+      "target": "#bacteria",
+      "type": "implication"
+    },
+    {
+      "source": "#bacteria",
+      "target": "#immune_system",
+      "type": "association"
+    },
+    {
+      "source": "#bacteria",
+      "target": "#vitamin_d_deficiency",
+      "type": "association"
+    },
+    {
+      "source": "\"bacterial infection\"",
+      "target": "#bacteria",
+      "type": "implication"
+    },
+    {
+      "source": "\"bacterial infections\"",
+      "target": "#bacteria",
+      "type": "implication"
+    },
+    {
+      "source": "\"cancer\"",
+      "target": "#cancer",
+      "type": "implication"
+    },
+    {
+      "source": "\"cancers\"",
+      "target": "#cancer",
+      "type": "implication"
+    },
+    {
+      "source": "\"malignancy\"",
+      "target": "#cancer",
+      "type": "implication"
+    },
+    {
+      "source": "\"malignancies\"",
+      "target": "#cancer",
+      "type": "implication"
+    },
+    {
+      "source": "\"tumor\"",
+      "target": "#cancer",
+      "type": "implication"
+    },
+    {
+      "source": "\"tumors\"",
+      "target": "#cancer",
+      "type": "implication"
+    },
+    {
+      "source": "\"autoimmune\"",
+      "target": "#autoimmune",
+      "type": "implication"
+    },
+    {
+      "source": "#autoimmune",
+      "target": "#vitamin_d_receptor",
+      "type": "association"
+    },
+    {
+      "source": "#autoimmune",
+      "target": "#inflammation",
+      "type": "association"
+    },
+    {
+      "source": "#autoimmune",
+      "target": "#immune_dysfunction",
+      "type": "association"
+    },
+    {
+      "source": "#autoimmune",
+      "target": "#intervention",
+      "type": "implication"
+    },
+    {
+      "source": "#autoimmune",
+      "target": "#high_dose",
+      "type": "implication"
+    },
+    {
+      "source": "\"autoimmune disease\"",
+      "target": "#autoimmune",
+      "type": "implication"
+    },
+    {
+      "source": "\"autoimmune diseases\"",
+      "target": "#autoimmune",
+      "type": "implication"
+    },
+    {
+      "source": "\"pregnancy\"",
+      "target": "#pregnancy",
+      "type": "implication"
+    },
+    {
+      "source": "\"pregnant\"",
+      "target": "#pregnancy",
+      "type": "implication"
+    },
+    {
+      "source": "\"child\"",
+      "target": "#child",
+      "type": "implication"
+    },
+    {
+      "source": "\"children\"",
+      "target": "#child",
+      "type": "implication"
+    },
+    {
+      "source": "\"infant\"",
+      "target": "#child",
+      "type": "implication"
+    },
+    {
+      "source": "\"infants\"",
+      "target": "#child",
+      "type": "implication"
+    },
+    {
+      "source": "\"pediatric\"",
+      "target": "#child",
+      "type": "implication"
+    },
+    {
+      "source": "\"vitamin d receptor\"",
+      "target": "#vitamin_d_receptor",
+      "type": "implication"
+    },
+    {
+      "source": "#vitamin_d_receptor",
+      "target": "#genetics",
+      "type": "association"
+    },
+    {
+      "source": "#vitamin_d_receptor",
+      "target": "#autoimmune",
+      "type": "association"
+    },
+    {
+      "source": "#vitamin_d_receptor",
+      "target": "#cancer",
+      "type": "association"
+    },
+    {
+      "source": "#vitamin_d_receptor",
+      "target": "#obesity",
+      "type": "association"
+    },
+    {
+      "source": "#vitamin_d_receptor",
+      "target": "#diabetes",
+      "type": "association"
+    },
+    {
+      "source": "#vitamin_d_receptor",
+      "target": "#virus",
+      "type": "association"
+    },
+    {
+      "source": "\"vdr\"",
+      "target": "#vitamin_d_receptor",
+      "type": "implication"
+    },
+    {
+      "source": "#obesity",
+      "target": "#health_risk",
+      "type": "implication"
+    },
+    {
+      "source": "#diabetes",
+      "target": "#metabolic",
+      "type": "implication"
+    },
+    {
+      "source": "\"multiple sclerosis\"",
+      "target": "#multiple_sclerosis",
+      "type": "implication"
+    },
+    {
+      "source": "#multiple_sclerosis",
+      "target": "#autoimmune",
+      "type": "implication"
+    },
+    {
+      "source": "\"ms\"",
+      "target": "#multiple_sclerosis",
+      "type": "implication"
+    },
+    {
+      "source": "\"lupus\"",
+      "target": "#lupus",
+      "type": "implication"
+    },
+    {
+      "source": "#lupus",
+      "target": "#autoimmune",
+      "type": "implication"
+    },
+    {
+      "source": "\"sle\"",
+      "target": "#lupus",
+      "type": "implication"
+    },
+    {
+      "source": "\"systemic lupus erythematosus\"",
+      "target": "#lupus",
+      "type": "implication"
+    },
+    {
+      "source": "\"rheumatoid arthritis\"",
+      "target": "#rheumatoid_arthritis",
+      "type": "implication"
+    },
+    {
+      "source": "#rheumatoid_arthritis",
+      "target": "#autoimmune",
+      "type": "implication"
+    },
+    {
+      "source": "#rheumatoid_arthritis",
+      "target": "#pain",
+      "type": "implication"
+    },
+    {
+      "source": "\"ra\"",
+      "target": "#rheumatoid_arthritis",
+      "type": "implication"
+    },
+    {
+      "source": "\"systemic sclerosis\"",
+      "target": "#systemic_sclerosis",
+      "type": "implication"
+    },
+    {
+      "source": "#systemic_sclerosis",
+      "target": "#autoimmune",
+      "type": "implication"
+    },
+    {
+      "source": "\"scleroderma\"",
+      "target": "#systemic_sclerosis",
+      "type": "implication"
+    },
+    {
+      "source": "(#autoimmune #pregnancy)",
+      "target": "#autoimmune_and_pregnancy",
+      "type": "implication"
+    },
+    {
+      "source": "(#autoimmune #child)",
+      "target": "#pediatric_autoimmune",
+      "type": "implication"
+    },
+    {
+      "source": "\"urinary tract infection\"",
+      "target": "#urinary_tract_infection",
+      "type": "implication"
+    },
+    {
+      "source": "#urinary_tract_infection",
+      "target": "#bacteria",
+      "type": "implication"
+    },
+    {
+      "source": "#urinary_tract_infection",
+      "target": "#infection",
+      "type": "implication"
+    },
+    {
+      "source": "#urinary_tract_infection",
+      "target": "#kidney",
+      "type": "implication"
+    },
+    {
+      "source": "\"urinary tract infections\"",
+      "target": "#urinary_tract_infection",
+      "type": "implication"
+    },
+    {
+      "source": "\"uti\"",
+      "target": "#urinary_tract_infection",
+      "type": "implication"
+    },
+    {
+      "source": "\"utis\"",
+      "target": "#urinary_tract_infection",
+      "type": "implication"
+    },
+    {
+      "source": "\"tuberculosis\"",
+      "target": "#tuberculosis",
+      "type": "implication"
+    },
+    {
+      "source": "#tuberculosis",
+      "target": "#bacteria",
+      "type": "implication"
+    },
+    {
+      "source": "\"tb\"",
+      "target": "#tuberculosis",
+      "type": "implication"
+    },
+    {
+      "source": "\"antibiotic\"",
+      "target": "#antibiotics",
+      "type": "implication"
+    },
+    {
+      "source": "#antibiotics",
+      "target": "#probiotics",
+      "type": "association"
+    },
+    {
+      "source": "#antibiotics",
+      "target": "#gut_microbiome",
+      "type": "association"
+    },
+    {
+      "source": "\"antibiotics\"",
+      "target": "#antibiotics",
+      "type": "implication"
+    },
+    {
+      "source": "\"probiotic\"",
+      "target": "#probiotics",
+      "type": "implication"
+    },
+    {
+      "source": "\"probiotics\"",
+      "target": "#probiotics",
+      "type": "implication"
+    },
+    {
+      "source": "#vitamin_d_deficiency",
+      "target": "#immune_dysfunction",
+      "type": "implication"
+    },
+    {
+      "source": "#vitamin_d_deficiency",
+      "target": "#bone_loss",
+      "type": "implication"
+    },
+    {
+      "source": "#vitamin_d_deficiency",
+      "target": "#autoimmune_risk",
+      "type": "implication"
+    },
+    {
+      "source": "#vitamin_d_deficiency",
+      "target": "#infection_risk",
+      "type": "implication"
+    },
+    {
+      "source": "\"asthma\"",
+      "target": "#asthma",
+      "type": "implication"
+    },
+    {
+      "source": "#asthma",
+      "target": "#breathing",
+      "type": "implication"
+    },
+    {
+      "source": "\"cystic fibrosis\"",
+      "target": "#cystic_fibrosis",
+      "type": "implication"
+    },
+    {
+      "source": "#cystic_fibrosis",
+      "target": "#breathing",
+      "type": "implication"
+    },
+    {
+      "source": "\"cf\"",
+      "target": "#cystic_fibrosis",
+      "type": "implication"
+    },
+    {
+      "source": "\"hay fever\"",
+      "target": "#hay_fever",
+      "type": "implication"
+    },
+    {
+      "source": "#hay_fever",
+      "target": "#breathing",
+      "type": "implication"
+    },
+    {
+      "source": "\"allergic rhinitis\"",
+      "target": "#hay_fever",
+      "type": "implication"
+    },
+    {
+      "source": "\"pneumonia\"",
+      "target": "#pneumonia",
+      "type": "implication"
+    },
+    {
+      "source": "#pneumonia",
+      "target": "#breathing",
+      "type": "implication"
+    },
+    {
+      "source": "\"respiratory infection\"",
+      "target": "#respiratory",
+      "type": "implication"
+    },
+    {
+      "source": "#respiratory",
+      "target": "#breathing",
+      "type": "implication"
+    },
+    {
+      "source": "\"respiratory infections\"",
+      "target": "#respiratory",
+      "type": "implication"
+    },
+    {
+      "source": "(#asthma #vitamin_d_receptor)",
+      "target": "#asthma_receptor",
+      "type": "implication"
+    },
+    {
+      "source": "#breathing",
+      "target": "#inflammation",
+      "type": "association"
+    },
+    {
+      "source": "#breathing",
+      "target": "#immune_response",
+      "type": "association"
+    },
+    {
+      "source": "\"bone mineral density\"",
+      "target": "#bone_mineral_density",
+      "type": "implication"
+    },
+    {
+      "source": "#bone_mineral_density",
+      "target": "#bone",
+      "type": "implication"
+    },
+    {
+      "source": "\"bmd\"",
+      "target": "#bone_mineral_density",
+      "type": "implication"
+    },
+    {
+      "source": "\"bone loss\"",
+      "target": "#bone_loss",
+      "type": "implication"
+    },
+    {
+      "source": "#bone_loss",
+      "target": "#bone",
+      "type": "implication"
+    },
+    {
+      "source": "\"ankle fracture\"",
+      "target": "#ankle_fractures",
+      "type": "implication"
+    },
+    {
+      "source": "#ankle_fractures",
+      "target": "#bone",
+      "type": "implication"
+    },
+    {
+      "source": "\"ankle fractures\"",
+      "target": "#ankle_fractures",
+      "type": "implication"
+    },
+    {
+      "source": "\"bone fracture\"",
+      "target": "#bone_stress_fractures",
+      "type": "implication"
+    },
+    {
+      "source": "#bone_stress_fractures",
+      "target": "#bone",
+      "type": "implication"
+    },
+    {
+      "source": "\"bone fractures\"",
+      "target": "#bone_stress_fractures",
+      "type": "implication"
+    },
+    {
+      "source": "\"stress fracture\"",
+      "target": "#bone_stress_fractures",
+      "type": "implication"
+    },
+    {
+      "source": "\"stress fractures\"",
+      "target": "#bone_stress_fractures",
+      "type": "implication"
+    },
+    {
+      "source": "\"children fracture\"",
+      "target": "#children_fractures",
+      "type": "implication"
+    },
+    {
+      "source": "#children_fractures",
+      "target": "#bone",
+      "type": "implication"
+    },
+    {
+      "source": "\"children fractures\"",
+      "target": "#children_fractures",
+      "type": "implication"
+    },
+    {
+      "source": "\"pediatric fracture\"",
+      "target": "#children_fractures",
+      "type": "implication"
+    },
+    {
+      "source": "\"pediatric fractures\"",
+      "target": "#children_fractures",
+      "type": "implication"
+    },
+    {
+      "source": "\"hip fracture\"",
+      "target": "#hip_fractures",
+      "type": "implication"
+    },
+    {
+      "source": "#hip_fractures",
+      "target": "#bone",
+      "type": "implication"
+    },
+    {
+      "source": "\"hip fractures\"",
+      "target": "#hip_fractures",
+      "type": "implication"
+    },
+    {
+      "source": "\"fall\"",
+      "target": "#falls_fractures",
+      "type": "implication"
+    },
+    {
+      "source": "#falls_fractures",
+      "target": "#bone",
+      "type": "implication"
+    },
+    {
+      "source": "\"falls\"",
+      "target": "#falls_fractures",
+      "type": "implication"
+    },
+    {
+      "source": "\"fracture\"",
+      "target": "#falls_fractures",
+      "type": "implication"
+    },
+    {
+      "source": "\"fractures\"",
+      "target": "#falls_fractures",
+      "type": "implication"
+    },
+    {
+      "source": "\"rickets\"",
+      "target": "#rickets",
+      "type": "implication"
+    },
+    {
+      "source": "#rickets",
+      "target": "#bone",
+      "type": "implication"
+    },
+    {
+      "source": "\"osteoporosis\"",
+      "target": "#osteoporosis",
+      "type": "implication"
+    },
+    {
+      "source": "#osteoporosis",
+      "target": "#bone",
+      "type": "implication"
+    },
+    {
+      "source": "#bone",
+      "target": "#calcium",
+      "type": "association"
+    },
+    {
+      "source": "#bone",
+      "target": "#phosphorus",
+      "type": "association"
+    },
+    {
+      "source": "#bone",
+      "target": "#vitamin_d_deficiency",
+      "type": "association"
+    },
+    {
+      "source": "\"bladder cancer\"",
+      "target": "#bladder_cancer",
+      "type": "implication"
+    },
+    {
+      "source": "#bladder_cancer",
+      "target": "#cancer",
+      "type": "implication"
+    },
+    {
+      "source": "\"breast cancer\"",
+      "target": "#breast_cancer",
+      "type": "implication"
+    },
+    {
+      "source": "#breast_cancer",
+      "target": "#cancer",
+      "type": "implication"
+    },
+    {
+      "source": "\"colon cancer\"",
+      "target": "#colon_cancer",
+      "type": "implication"
+    },
+    {
+      "source": "#colon_cancer",
+      "target": "#cancer",
+      "type": "implication"
+    },
+    {
+      "source": "\"colorectal cancer\"",
+      "target": "#colon_cancer",
+      "type": "implication"
+    },
+    {
+      "source": "\"endometrial cancer\"",
+      "target": "#endometrial_cancer",
+      "type": "implication"
+    },
+    {
+      "source": "#endometrial_cancer",
+      "target": "#cancer",
+      "type": "implication"
+    },
+    {
+      "source": "\"gastric cancer\"",
+      "target": "#gastric_cancer",
+      "type": "implication"
+    },
+    {
+      "source": "#gastric_cancer",
+      "target": "#cancer",
+      "type": "implication"
+    },
+    {
+      "source": "\"stomach cancer\"",
+      "target": "#gastric_cancer",
+      "type": "implication"
+    },
+    {
+      "source": "\"head and neck cancer\"",
+      "target": "#head_and_neck_cancer",
+      "type": "implication"
+    },
+    {
+      "source": "#head_and_neck_cancer",
+      "target": "#cancer",
+      "type": "implication"
+    },
+    {
+      "source": "\"leukemia\"",
+      "target": "#leukemia",
+      "type": "implication"
+    },
+    {
+      "source": "#leukemia",
+      "target": "#cancer",
+      "type": "implication"
+    },
+    {
+      "source": "\"liver cancer\"",
+      "target": "#liver_cancer",
+      "type": "implication"
+    },
+    {
+      "source": "#liver_cancer",
+      "target": "#cancer",
+      "type": "implication"
+    },
+    {
+      "source": "\"lung cancer\"",
+      "target": "#lung_cancer",
+      "type": "implication"
+    },
+    {
+      "source": "#lung_cancer",
+      "target": "#cancer",
+      "type": "implication"
+    },
+    {
+      "source": "\"lymphoma\"",
+      "target": "#lymphoma",
+      "type": "implication"
+    },
+    {
+      "source": "#lymphoma",
+      "target": "#cancer",
+      "type": "implication"
+    },
+    {
+      "source": "\"melanoma\"",
+      "target": "#melanoma",
+      "type": "implication"
+    },
+    {
+      "source": "#melanoma",
+      "target": "#cancer",
+      "type": "implication"
+    },
+    {
+      "source": "\"multiple myeloma\"",
+      "target": "#multiple_myeloma",
+      "type": "implication"
+    },
+    {
+      "source": "#multiple_myeloma",
+      "target": "#cancer",
+      "type": "implication"
+    },
+    {
+      "source": "\"ovarian cancer\"",
+      "target": "#ovarian_cancer",
+      "type": "implication"
+    },
+    {
+      "source": "#ovarian_cancer",
+      "target": "#cancer",
+      "type": "implication"
+    },
+    {
+      "source": "\"pancreatic cancer\"",
+      "target": "#pancreatic_cancer",
+      "type": "implication"
+    },
+    {
+      "source": "#pancreatic_cancer",
+      "target": "#cancer",
+      "type": "implication"
+    },
+    {
+      "source": "\"prostate cancer\"",
+      "target": "#prostate_cancer",
+      "type": "implication"
+    },
+    {
+      "source": "#prostate_cancer",
+      "target": "#cancer",
+      "type": "implication"
+    },
+    {
+      "source": "\"skin cancer\"",
+      "target": "#skin_cancer",
+      "type": "implication"
+    },
+    {
+      "source": "#skin_cancer",
+      "target": "#cancer",
+      "type": "implication"
+    },
+    {
+      "source": "\"thyroid cancer\"",
+      "target": "#thyroid_cancer",
+      "type": "implication"
+    },
+    {
+      "source": "#thyroid_cancer",
+      "target": "#cancer",
+      "type": "implication"
+    },
+    {
+      "source": "(#cancer #after_diagnosis)",
+      "target": "#cancer_after_diagnosis",
+      "type": "implication"
+    },
+    {
+      "source": "(#cancer #bone)",
+      "target": "#bone_cancer",
+      "type": "implication"
+    },
+    {
+      "source": "(#cancer #child)",
+      "target": "#childhood_cancer",
+      "type": "implication"
+    },
+    {
+      "source": "#childhood_cancer",
+      "target": "#child",
+      "type": "implication"
+    },
+    {
+      "source": "(#cancer #metastatic)",
+      "target": "#metastatic_cancer",
+      "type": "implication"
+    },
+    {
+      "source": "(#cancer #obesity)",
+      "target": "#obesity_and_cancer",
+      "type": "implication"
+    },
+    {
+      "source": "(#cancer #palliative_care)",
+      "target": "#palliative_care",
+      "type": "implication"
+    },
+    {
+      "source": "(#cancer #survive)",
+      "target": "#cancer_survival",
+      "type": "implication"
+    },
+    {
+      "source": "(#magnesium #cancer)",
+      "target": "#magnesium_and_cancer",
+      "type": "implication"
+    },
+    {
+      "source": "(#vitamin_d_receptor #cancer)",
+      "target": "#cancer_in_VDR",
+      "type": "implication"
+    },
+    {
+      "source": "\"atherosclerosis\"",
+      "target": "#atherosclerosis",
+      "type": "implication"
+    },
+    {
+      "source": "#atherosclerosis",
+      "target": "#cardiovascular",
+      "type": "implication"
+    },
+    {
+      "source": "\"atrial fibrillation\"",
+      "target": "#atrial_fibrillation",
+      "type": "implication"
+    },
+    {
+      "source": "#atrial_fibrillation",
+      "target": "#cardiovascular",
+      "type": "implication"
+    },
+    {
+      "source": "\"afib\"",
+      "target": "#atrial_fibrillation",
+      "type": "implication"
+    },
+    {
+      "source": "\"a-fib\"",
+      "target": "#atrial_fibrillation",
+      "type": "implication"
+    },
+    {
+      "source": "\"blood clotting\"",
+      "target": "#blood_clotting",
+      "type": "implication"
+    },
+    {
+      "source": "#blood_clotting",
+      "target": "#cardiovascular",
+      "type": "implication"
+    },
+    {
+      "source": "\"blood clot\"",
+      "target": "#blood_clotting",
+      "type": "implication"
+    },
+    {
+      "source": "\"blood clots\"",
+      "target": "#blood_clotting",
+      "type": "implication"
+    },
+    {
+      "source": "\"heart failure\"",
+      "target": "#heart_failure",
+      "type": "implication"
+    },
+    {
+      "source": "#heart_failure",
+      "target": "#cardiovascular",
+      "type": "implication"
+    },
+    {
+      "source": "\"heart rate variability\"",
+      "target": "#HRV",
+      "type": "implication"
+    },
+    {
+      "source": "#HRV",
+      "target": "#cardiovascular",
+      "type": "implication"
+    },
+    {
+      "source": "\"hrv\"",
+      "target": "#HRV",
+      "type": "implication"
+    },
+    {
+      "source": "\"stroke\"",
+      "target": "#stroke",
+      "type": "implication"
+    },
+    {
+      "source": "#stroke",
+      "target": "#cardiovascular",
+      "type": "implication"
+    },
+    {
+      "source": "\"strokes\"",
+      "target": "#stroke",
+      "type": "implication"
+    },
+    {
+      "source": "\"statin\"",
+      "target": "#statins",
+      "type": "implication"
+    },
+    {
+      "source": "#statins",
+      "target": "#cardiovascular",
+      "type": "implication"
+    },
+    {
+      "source": "\"statins\"",
+      "target": "#statins",
+      "type": "implication"
+    },
+    {
+      "source": "(#stroke #cognitive_impairment)",
+      "target": "#stroke_and_cognitive_impairment",
+      "type": "implication"
+    },
+    {
+      "source": "(#stroke #depression)",
+      "target": "#stroke_and_depression",
+      "type": "implication"
+    },
+    {
+      "source": "(#stroke #ischemic)",
+      "target": "#ischemic_stroke",
+      "type": "implication"
+    },
+    {
+      "source": "#cardiovascular",
+      "target": "#omega_3",
+      "type": "association"
+    },
+    {
+      "source": "#cardiovascular",
+      "target": "#inflammation",
+      "type": "association"
+    },
+    {
+      "source": "#omega_3",
+      "target": "#cardiovascular",
+      "type": "association"
+    },
+    {
+      "source": "#omega_3",
+      "target": "#depression",
+      "type": "association"
+    },
+    {
+      "source": "#omega_3",
+      "target": "#pregnancy",
+      "type": "association"
+    },
+    {
+      "source": "#omega_3",
+      "target": "#virus",
+      "type": "association"
+    },
+    {
+      "source": "#omega_3",
+      "target": "#inflammation",
+      "type": "association"
+    },
+    {
+      "source": "\"cerebral palsy\"",
+      "target": "#cerebral_palsy",
+      "type": "implication"
+    },
+    {
+      "source": "#cerebral_palsy",
+      "target": "#child",
+      "type": "implication"
+    },
+    {
+      "source": "#cerebral_palsy",
+      "target": "#neurological",
+      "type": "implication"
+    },
+    {
+      "source": "\"down syndrome\"",
+      "target": "#down_syndrome",
+      "type": "implication"
+    },
+    {
+      "source": "#down_syndrome",
+      "target": "#child",
+      "type": "implication"
+    },
+    {
+      "source": "(#fracture #low_energy)",
+      "target": "#low_energy_fractures",
+      "type": "implication"
+    },
+    {
+      "source": "#low_energy_fractures",
+      "target": "#child",
+      "type": "implication"
+    },
+    {
+      "source": "\"growing pains\"",
+      "target": "#growing_pains",
+      "type": "implication"
+    },
+    {
+      "source": "#growing_pains",
+      "target": "#child",
+      "type": "implication"
+    },
+    {
+      "source": "(#pneumonia #child)",
+      "target": "#childhood_pneumonia",
+      "type": "implication"
+    },
+    {
+      "source": "#childhood_pneumonia",
+      "target": "#child",
+      "type": "implication"
+    },
+    {
+      "source": "\"preemie\"",
+      "target": "#preemie",
+      "type": "implication"
+    },
+    {
+      "source": "#preemie",
+      "target": "#child",
+      "type": "implication"
+    },
+    {
+      "source": "\"premature infant\"",
+      "target": "#preemie",
+      "type": "implication"
+    },
+    {
+      "source": "(#puberty #early #vitamin_d_deficiency)",
+      "target": "#early_puberty_low_d",
+      "type": "implication"
+    },
+    {
+      "source": "#early_puberty_low_d",
+      "target": "#child",
+      "type": "implication"
+    },
+    {
+      "source": "(#respiratory #child)",
+      "target": "#childhood_respiratory",
+      "type": "implication"
+    },
+    {
+      "source": "#childhood_respiratory",
+      "target": "#child",
+      "type": "implication"
+    },
+    {
+      "source": "\"tic disorders\"",
+      "target": "#tic_disorders",
+      "type": "implication"
+    },
+    {
+      "source": "#tic_disorders",
+      "target": "#child",
+      "type": "implication"
+    },
+    {
+      "source": "\"tonsils\"",
+      "target": "#tonsils",
+      "type": "implication"
+    },
+    {
+      "source": "#tonsils",
+      "target": "#child",
+      "type": "implication"
+    },
+    {
+      "source": "\"tonsillitis\"",
+      "target": "#tonsils",
+      "type": "implication"
+    },
+    {
+      "source": "(#vaccination #child)",
+      "target": "#childhood_vaccination",
+      "type": "implication"
+    },
+    {
+      "source": "#childhood_vaccination",
+      "target": "#child",
+      "type": "implication"
+    },
+    {
+      "source": "(#virus #child)",
+      "target": "#childhood_viruses",
+      "type": "implication"
+    },
+    {
+      "source": "#childhood_viruses",
+      "target": "#child",
+      "type": "implication"
+    },
+    {
+      "source": "\"brain\"",
+      "target": "#brain",
+      "type": "implication"
+    },
+    {
+      "source": "#brain",
+      "target": "#cognitive",
+      "type": "implication"
+    },
+    {
+      "source": "\"cognitive function\"",
+      "target": "#brain",
+      "type": "implication"
+    },
+    {
+      "source": "\"delirium\"",
+      "target": "#delirium",
+      "type": "implication"
+    },
+    {
+      "source": "#delirium",
+      "target": "#cognitive",
+      "type": "implication"
+    },
+    {
+      "source": "\"dementia\"",
+      "target": "#dementia",
+      "type": "implication"
+    },
+    {
+      "source": "#dementia",
+      "target": "#cognitive",
+      "type": "implication"
+    },
+    {
+      "source": "\"mental illness\"",
+      "target": "#mental_illness",
+      "type": "implication"
+    },
+    {
+      "source": "#mental_illness",
+      "target": "#cognitive",
+      "type": "implication"
+    },
+    {
+      "source": "\"mental stress\"",
+      "target": "#mental_stress",
+      "type": "implication"
+    },
+    {
+      "source": "#mental_stress",
+      "target": "#cognitive",
+      "type": "implication"
+    },
+    {
+      "source": "#mental_stress",
+      "target": "#health_risk",
+      "type": "implication"
+    },
+    {
+      "source": "\"fluoridation\"",
+      "target": "#fluoridation",
+      "type": "implication"
+    },
+    {
+      "source": "#fluoridation",
+      "target": "#dental",
+      "type": "implication"
+    },
+    {
+      "source": "(#implant #vitamin_d)",
+      "target": "#dental_implant_vitamin_d",
+      "type": "implication"
+    },
+    {
+      "source": "#dental_implant_vitamin_d",
+      "target": "#dental",
+      "type": "implication"
+    },
+    {
+      "source": "\"periodontitis\"",
+      "target": "#periodontitis",
+      "type": "implication"
+    },
+    {
+      "source": "#periodontitis",
+      "target": "#dental",
+      "type": "implication"
+    },
+    {
+      "source": "\"depression\"",
+      "target": "#depression",
+      "type": "implication"
+    },
+    {
+      "source": "#depression",
+      "target": "#mood_disorders",
+      "type": "implication"
+    },
+    {
+      "source": "\"anxiety\"",
+      "target": "#anxiety",
+      "type": "implication"
+    },
+    {
+      "source": "#anxiety",
+      "target": "#mood_disorders",
+      "type": "implication"
+    },
+    {
+      "source": "\"seasonal affective disorder\"",
+      "target": "#SAD",
+      "type": "implication"
+    },
+    {
+      "source": "#SAD",
+      "target": "#mood_disorders",
+      "type": "implication"
+    },
+    {
+      "source": "\"sad\"",
+      "target": "#SAD",
+      "type": "implication"
+    },
+    {
+      "source": "#mood_disorders",
+      "target": "#omega_3",
+      "type": "association"
+    },
+    {
+      "source": "#mood_disorders",
+      "target": "#vitamin_d_deficiency",
+      "type": "association"
+    },
+    {
+      "source": "\"diabetes\"",
+      "target": "#diabetes",
+      "type": "implication"
+    },
+    {
+      "source": "\"hemodialysis\"",
+      "target": "#hemodialysis",
+      "type": "implication"
+    },
+    {
+      "source": "#hemodialysis",
+      "target": "#metabolic",
+      "type": "implication"
+    },
+    {
+      "source": "\"metabolic syndrome\"",
+      "target": "#metabolic_syndrome",
+      "type": "implication"
+    },
+    {
+      "source": "#metabolic_syndrome",
+      "target": "#metabolic",
+      "type": "implication"
+    },
+    {
+      "source": "#metabolic_syndrome",
+      "target": "#metabolic_conditions",
+      "type": "implication"
+    },
+    {
+      "source": "\"neuropathy\"",
+      "target": "#neuropathy",
+      "type": "implication"
+    },
+    {
+      "source": "#neuropathy",
+      "target": "#metabolic",
+      "type": "implication"
+    },
+    {
+      "source": "\"diabetic neuropathy\"",
+      "target": "#neuropathy",
+      "type": "implication"
+    },
+    {
+      "source": "\"prediabetes\"",
+      "target": "#prediabetes",
+      "type": "implication"
+    },
+    {
+      "source": "#prediabetes",
+      "target": "#metabolic",
+      "type": "implication"
+    },
+    {
+      "source": "\"retinopathy\"",
+      "target": "#retinopathy",
+      "type": "implication"
+    },
+    {
+      "source": "#retinopathy",
+      "target": "#metabolic",
+      "type": "implication"
+    },
+    {
+      "source": "\"diabetic retinopathy\"",
+      "target": "#retinopathy",
+      "type": "implication"
+    },
+    {
+      "source": "\"diabetic retinopathy\"",
+      "target": "#diabetic_retinopathy",
+      "type": "implication"
+    },
+    {
+      "source": "\"type 1 diabetes\"",
+      "target": "#type_1_diabetes",
+      "type": "implication"
+    },
+    {
+      "source": "#type_1_diabetes",
+      "target": "#metabolic",
+      "type": "implication"
+    },
+    {
+      "source": "(#metabolic_syndrome #magnesium)",
+      "target": "#metabolic_syndrome_and_magnesium",
+      "type": "implication"
+    },
+    {
+      "source": "(#diabetes #vitamin_d_receptor)",
+      "target": "#diabetes_and_vitamin_d_receptor",
+      "type": "implication"
+    },
+    {
+      "source": "#metabolic",
+      "target": "#magnesium",
+      "type": "association"
+    },
+    {
+      "source": "#metabolic",
+      "target": "#zinc",
+      "type": "association"
+    },
+    {
+      "source": "#metabolic",
+      "target": "#red_meat",
+      "type": "association"
+    },
+    {
+      "source": "#magnesium",
+      "target": "#diabetes",
+      "type": "association"
+    },
+    {
+      "source": "#magnesium",
+      "target": "#metabolic_syndrome",
+      "type": "association"
+    },
+    {
+      "source": "#magnesium",
+      "target": "#pregnancy",
+      "type": "association"
+    },
+    {
+      "source": "#magnesium",
+      "target": "#virus",
+      "type": "association"
+    },
+    {
+      "source": "#magnesium",
+      "target": "#muscle_function",
+      "type": "association"
+    },
+    {
+      "source": "#zinc",
+      "target": "#diabetes",
+      "type": "association"
+    },
+    {
+      "source": "#zinc",
+      "target": "#virus",
+      "type": "association"
+    },
+    {
+      "source": "#zinc",
+      "target": "#immune_system",
+      "type": "association"
+    },
+    {
+      "source": "#zinc",
+      "target": "#wound_healing",
+      "type": "association"
+    },
+    {
+      "source": "\"otitis media\"",
+      "target": "#otitis_media",
+      "type": "implication"
+    },
+    {
+      "source": "#otitis_media",
+      "target": "#ear",
+      "type": "implication"
+    },
+    {
+      "source": "\"ear infection\"",
+      "target": "#otitis_media",
+      "type": "implication"
+    },
+    {
+      "source": "\"cyp24a1\"",
+      "target": "#CYPA",
+      "type": "implication"
+    },
+    {
+      "source": "#CYPA",
+      "target": "#genetics",
+      "type": "implication"
+    },
+    {
+      "source": "\"cyp27b1\"",
+      "target": "#CYPR",
+      "type": "implication"
+    },
+    {
+      "source": "#CYPR",
+      "target": "#genetics",
+      "type": "implication"
+    },
+    {
+      "source": "\"cyp2r1\"",
+      "target": "#CYPB",
+      "type": "implication"
+    },
+    {
+      "source": "#CYPB",
+      "target": "#genetics",
+      "type": "implication"
+    },
+    {
+      "source": "\"epigenetics\"",
+      "target": "#epigenetics",
+      "type": "implication"
+    },
+    {
+      "source": "#epigenetics",
+      "target": "#genetics",
+      "type": "implication"
+    },
+    {
+      "source": "\"telomere\"",
+      "target": "#telomere",
+      "type": "implication"
+    },
+    {
+      "source": "#telomere",
+      "target": "#genetics",
+      "type": "implication"
+    },
+    {
+      "source": "\"vitamin d binding protein\"",
+      "target": "#vitamin_d_binding",
+      "type": "implication"
+    },
+    {
+      "source": "#vitamin_d_binding",
+      "target": "#genetics",
+      "type": "implication"
+    },
+    {
+      "source": "\"bariatric surgery\"",
+      "target": "#bariatric",
+      "type": "implication"
+    },
+    {
+      "source": "\"bariatric surgery\"",
+      "target": "#bariatric_surgery",
+      "type": "implication"
+    },
+    {
+      "source": "#bariatric",
+      "target": "#gut",
+      "type": "implication"
+    },
+    {
+      "source": "\"celiac disease\"",
+      "target": "#celiac",
+      "type": "implication"
+    },
+    {
+      "source": "#celiac",
+      "target": "#gut",
+      "type": "implication"
+    },
+    {
+      "source": "\"clostridium difficile\"",
+      "target": "#clostridium_difficile",
+      "type": "implication"
+    },
+    {
+      "source": "#clostridium_difficile",
+      "target": "#gut",
+      "type": "implication"
+    },
+    {
+      "source": "\"c diff\"",
+      "target": "#clostridium_difficile",
+      "type": "implication"
+    },
+    {
+      "source": "\"crohn's disease\"",
+      "target": "#crohns",
+      "type": "implication"
+    },
+    {
+      "source": "#crohns",
+      "target": "#gut",
+      "type": "implication"
+    },
+    {
+      "source": "\"inflammatory bowel disease\"",
+      "target": "#IBD",
+      "type": "implication"
+    },
+    {
+      "source": "#IBD",
+      "target": "#gut",
+      "type": "implication"
+    },
+    {
+      "source": "\"ibd\"",
+      "target": "#IBD",
+      "type": "implication"
+    },
+    {
+      "source": "\"irritable bowel syndrome\"",
+      "target": "#IBS",
+      "type": "implication"
+    },
+    {
+      "source": "#IBS",
+      "target": "#gut",
+      "type": "implication"
+    },
+    {
+      "source": "\"ibs\"",
+      "target": "#IBS",
+      "type": "implication"
+    },
+    {
+      "source": "\"pancreatitis\"",
+      "target": "#pancreatitis",
+      "type": "implication"
+    },
+    {
+      "source": "#pancreatitis",
+      "target": "#gut",
+      "type": "implication"
+    },
+    {
+      "source": "\"ulcerative colitis\"",
+      "target": "#ulcerative_colitis",
+      "type": "implication"
+    },
+    {
+      "source": "#ulcerative_colitis",
+      "target": "#gut",
+      "type": "implication"
+    },
+    {
+      "source": "\"alcohol\"",
+      "target": "#alcohol",
+      "type": "implication"
+    },
+    {
+      "source": "#alcohol",
+      "target": "#health_risk",
+      "type": "implication"
+    },
+    {
+      "source": "\"obesity\"",
+      "target": "#obesity",
+      "type": "implication"
+    },
+    {
+      "source": "\"ultraprocessed foods\"",
+      "target": "#ultraprocessed_foods",
+      "type": "implication"
+    },
+    {
+      "source": "#ultraprocessed_foods",
+      "target": "#health_risk",
+      "type": "implication"
+    },
+    {
+      "source": "\"microplastics\"",
+      "target": "#microplastics",
+      "type": "implication"
+    },
+    {
+      "source": "#microplastics",
+      "target": "#health_risk",
+      "type": "implication"
+    },
+    {
+      "source": "\"smoking\"",
+      "target": "#smoking",
+      "type": "implication"
+    },
+    {
+      "source": "#smoking",
+      "target": "#health_risk",
+      "type": "implication"
+    },
+    {
+      "source": "\"pollution\"",
+      "target": "#pollution",
+      "type": "implication"
+    },
+    {
+      "source": "#pollution",
+      "target": "#health_risk",
+      "type": "implication"
+    },
+    {
+      "source": "\"air pollution\"",
+      "target": "#pollution",
+      "type": "implication"
+    },
+    {
+      "source": "\"cholesterol\"",
+      "target": "#cholesterol",
+      "type": "implication"
+    },
+    {
+      "source": "#cholesterol",
+      "target": "#health_risk",
+      "type": "implication"
+    },
+    {
+      "source": "\"hypertension\"",
+      "target": "#hypertension",
+      "type": "implication"
+    },
+    {
+      "source": "\"high blood pressure\"",
+      "target": "#hypertension",
+      "type": "implication"
+    },
+    {
+      "source": "\"helicobacter pylori\"",
+      "target": "#helicobacter_pylori",
+      "type": "implication"
+    },
+    {
+      "source": "#helicobacter_pylori",
+      "target": "#infection",
+      "type": "implication"
+    },
+    {
+      "source": "\"h pylori\"",
+      "target": "#helicobacter_pylori",
+      "type": "implication"
+    },
+    {
+      "source": "\"immune system\"",
+      "target": "#immunity",
+      "type": "implication"
+    },
+    {
+      "source": "\"immunity\"",
+      "target": "#immunity",
+      "type": "implication"
+    },
+    {
+      "source": "\"chronic kidney disease\"",
+      "target": "#CKD",
+      "type": "implication"
+    },
+    {
+      "source": "#CKD",
+      "target": "#kidney",
+      "type": "implication"
+    },
+    {
+      "source": "\"ckd\"",
+      "target": "#CKD",
+      "type": "implication"
+    },
+    {
+      "source": "\"dialysis\"",
+      "target": "#dialysis",
+      "type": "implication"
+    },
+    {
+      "source": "#dialysis",
+      "target": "#kidney",
+      "type": "implication"
+    },
+    {
+      "source": "\"health span\"",
+      "target": "#health_span",
+      "type": "implication"
+    },
+    {
+      "source": "#health_span",
+      "target": "#life_span",
+      "type": "implication"
+    },
+    {
+      "source": "\"mortality\"",
+      "target": "#mortality",
+      "type": "implication"
+    },
+    {
+      "source": "#mortality",
+      "target": "#life_span",
+      "type": "implication"
+    },
+    {
+      "source": "\"longevity\"",
+      "target": "#mortality",
+      "type": "implication"
+    },
+    {
+      "source": "\"hepatitis b\"",
+      "target": "#hepatitis_b",
+      "type": "implication"
+    },
+    {
+      "source": "#hepatitis_b",
+      "target": "#liver",
+      "type": "implication"
+    },
+    {
+      "source": "\"hepatitis c\"",
+      "target": "#hepatitis_c",
+      "type": "implication"
+    },
+    {
+      "source": "#hepatitis_c",
+      "target": "#liver",
+      "type": "implication"
+    },
+    {
+      "source": "\"nafld\"",
+      "target": "#NAFLD",
+      "type": "implication"
+    },
+    {
+      "source": "#NAFLD",
+      "target": "#liver",
+      "type": "implication"
+    },
+    {
+      "source": "\"fatty liver\"",
+      "target": "#NAFLD",
+      "type": "implication"
+    },
+    {
+      "source": "\"gout\"",
+      "target": "#gout",
+      "type": "implication"
+    },
+    {
+      "source": "#gout",
+      "target": "#metabolic_conditions",
+      "type": "implication"
+    },
+    {
+      "source": "\"muscular dystrophy\"",
+      "target": "#muscular_dystrophy",
+      "type": "implication"
+    },
+    {
+      "source": "#muscular_dystrophy",
+      "target": "#muscle",
+      "type": "implication"
+    },
+    {
+      "source": "#muscular_dystrophy",
+      "target": "#neurological",
+      "type": "implication"
+    },
+    {
+      "source": "\"bipolar disorder\"",
+      "target": "#bipolar_disorder",
+      "type": "implication"
+    },
+    {
+      "source": "#bipolar_disorder",
+      "target": "#neurological",
+      "type": "implication"
+    },
+    {
+      "source": "\"carpal tunnel syndrome\"",
+      "target": "#carpal_tunnel_syndrome",
+      "type": "implication"
+    },
+    {
+      "source": "#carpal_tunnel_syndrome",
+      "target": "#neurological",
+      "type": "implication"
+    },
+    {
+      "source": "\"chronic fatigue\"",
+      "target": "#chronic_fatigue",
+      "type": "implication"
+    },
+    {
+      "source": "#chronic_fatigue",
+      "target": "#neurological",
+      "type": "implication"
+    },
+    {
+      "source": "\"epilepsy\"",
+      "target": "#epilepsy",
+      "type": "implication"
+    },
+    {
+      "source": "#epilepsy",
+      "target": "#neurological",
+      "type": "implication"
+    },
+    {
+      "source": "\"parkinson's disease\"",
+      "target": "#parkinsons",
+      "type": "implication"
+    },
+    {
+      "source": "#parkinsons",
+      "target": "#neurological",
+      "type": "implication"
+    },
+    {
+      "source": "\"restless legs\"",
+      "target": "#restless_legs",
+      "type": "implication"
+    },
+    {
+      "source": "#restless_legs",
+      "target": "#neurological",
+      "type": "implication"
+    },
+    {
+      "source": "\"sleep disorders\"",
+      "target": "#sleep",
+      "type": "implication"
+    },
+    {
+      "source": "#sleep",
+      "target": "#neurological",
+      "type": "implication"
+    },
+    {
+      "source": "\"sleep apnea\"",
+      "target": "#sleep_apnea",
+      "type": "implication"
+    },
+    {
+      "source": "#sleep_apnea",
+      "target": "#neurological",
+      "type": "implication"
+    },
+    {
+      "source": "\"spinal cord\"",
+      "target": "#spinal_cord",
+      "type": "implication"
+    },
+    {
+      "source": "#spinal_cord",
+      "target": "#neurological",
+      "type": "implication"
+    },
+    {
+      "source": "\"vertigo\"",
+      "target": "#vertigo",
+      "type": "implication"
+    },
+    {
+      "source": "#vertigo",
+      "target": "#neurological",
+      "type": "implication"
+    },
+    {
+      "source": "(#obesity #cancer)",
+      "target": "#obesity_and_cancer",
+      "type": "implication"
+    },
+    {
+      "source": "(#obesity #child)",
+      "target": "#childhood_obesity",
+      "type": "implication"
+    },
+    {
+      "source": "(#obesity #vitamin_d_receptor)",
+      "target": "#obesity_and_vitamin_d_receptor",
+      "type": "implication"
+    },
+    {
+      "source": "(#obesity #virus)",
+      "target": "#virus_and_obesity",
+      "type": "implication"
+    },
+    {
+      "source": "\"weight loss\"",
+      "target": "#weight_loss",
+      "type": "implication"
+    },
+    {
+      "source": "\"chronic pain\"",
+      "target": "#chronic_pain",
+      "type": "implication"
+    },
+    {
+      "source": "#chronic_pain",
+      "target": "#pain",
+      "type": "implication"
+    },
+    {
+      "source": "\"back pain\"",
+      "target": "#back_pain",
+      "type": "implication"
+    },
+    {
+      "source": "#back_pain",
+      "target": "#pain",
+      "type": "implication"
+    },
+    {
+      "source": "(#back_pain #lumbar_degeneration)",
+      "target": "#lumbar_degenerative_back_pain",
+      "type": "implication"
+    },
+    {
+      "source": "#lumbar_degenerative_back_pain",
+      "target": "#pain",
+      "type": "implication"
+    },
+    {
+      "source": "\"headache\"",
+      "target": "#headache",
+      "type": "implication"
+    },
+    {
+      "source": "#headache",
+      "target": "#pain",
+      "type": "implication"
+    },
+    {
+      "source": "\"endometriosis\"",
+      "target": "#endometriosis",
+      "type": "implication"
+    },
+    {
+      "source": "#endometriosis",
+      "target": "#pregnancy",
+      "type": "implication"
+    },
+    {
+      "source": "\"fertility\"",
+      "target": "#fertility_sperm",
+      "type": "implication"
+    },
+    {
+      "source": "#fertility_sperm",
+      "target": "#pregnancy",
+      "type": "implication"
+    },
+    {
+      "source": "\"sperm\"",
+      "target": "#fertility_sperm",
+      "type": "implication"
+    },
+    {
+      "source": "\"breastfed\"",
+      "target": "#breastfed",
+      "type": "implication"
+    },
+    {
+      "source": "#breastfed",
+      "target": "#pregnancy",
+      "type": "implication"
+    },
+    {
+      "source": "\"breastfeeding\"",
+      "target": "#breastfed",
+      "type": "implication"
+    },
+    {
+      "source": "\"caesarean\"",
+      "target": "#caesarean",
+      "type": "implication"
+    },
+    {
+      "source": "#caesarean",
+      "target": "#pregnancy",
+      "type": "implication"
+    },
+    {
+      "source": "\"c-section\"",
+      "target": "#caesarean",
+      "type": "implication"
+    },
+    {
+      "source": "(#depression #pregnancy)",
+      "target": "#depression_and_pregnancy",
+      "type": "implication"
+    },
+    {
+      "source": "#depression_and_pregnancy",
+      "target": "#pregnancy",
+      "type": "implication"
+    },
+    {
+      "source": "(#dark_skin #pregnancy)",
+      "target": "#dark_skin_and_pregnancy",
+      "type": "implication"
+    },
+    {
+      "source": "#dark_skin_and_pregnancy",
+      "target": "#pregnancy",
+      "type": "implication"
+    },
+    {
+      "source": "\"gestational diabetes\"",
+      "target": "#gestational_diabetes",
+      "type": "implication"
+    },
+    {
+      "source": "#gestational_diabetes",
+      "target": "#pregnancy",
+      "type": "implication"
+    },
+    {
+      "source": "\"in vitro fertilization\"",
+      "target": "#in_vitro_fertilization",
+      "type": "implication"
+    },
+    {
+      "source": "#in_vitro_fertilization",
+      "target": "#pregnancy",
+      "type": "implication"
+    },
+    {
+      "source": "\"ivf\"",
+      "target": "#in_vitro_fertilization",
+      "type": "implication"
+    },
+    {
+      "source": "\"iodine\"",
+      "target": "#iodine",
+      "type": "implication"
+    },
+    {
+      "source": "#iodine",
+      "target": "#pregnancy",
+      "type": "implication"
+    },
+    {
+      "source": "\"low birth weight\"",
+      "target": "#low_birth_weight",
+      "type": "implication"
+    },
+    {
+      "source": "#low_birth_weight",
+      "target": "#pregnancy",
+      "type": "implication"
+    },
+    {
+      "source": "(#magnesium #pregnancy)",
+      "target": "#magnesium_and_pregnancy",
+      "type": "implication"
+    },
+    {
+      "source": "#magnesium_and_pregnancy",
+      "target": "#pregnancy",
+      "type": "implication"
+    },
+    {
+      "source": "\"miscarriage\"",
+      "target": "#miscarriage",
+      "type": "implication"
+    },
+    {
+      "source": "#miscarriage",
+      "target": "#pregnancy",
+      "type": "implication"
+    },
+    {
+      "source": "(#multiple_sclerosis #pregnancy)",
+      "target": "#multiple_sclerosis_and_pregnancy",
+      "type": "implication"
+    },
+    {
+      "source": "#multiple_sclerosis_and_pregnancy",
+      "target": "#pregnancy",
+      "type": "implication"
+    },
+    {
+      "source": "(#omega_3 #pregnancy)",
+      "target": "#omega_3_and_pregnancy",
+      "type": "implication"
+    },
+    {
+      "source": "#omega_3_and_pregnancy",
+      "target": "#pregnancy",
+      "type": "implication"
+    },
+    {
+      "source": "\"pcos\"",
+      "target": "#PCOS",
+      "type": "implication"
+    },
+    {
+      "source": "#PCOS",
+      "target": "#pregnancy",
+      "type": "implication"
+    },
+    {
+      "source": "\"polycystic ovary syndrome\"",
+      "target": "#PCOS",
+      "type": "implication"
+    },
+    {
+      "source": "\"placenta\"",
+      "target": "#placenta",
+      "type": "implication"
+    },
+    {
+      "source": "#placenta",
+      "target": "#pregnancy",
+      "type": "implication"
+    },
+    {
+      "source": "\"preeclampsia\"",
+      "target": "#preeclampsia",
+      "type": "implication"
+    },
+    {
+      "source": "#preeclampsia",
+      "target": "#pregnancy",
+      "type": "implication"
+    },
+    {
+      "source": "\"preterm birth\"",
+      "target": "#preterm",
+      "type": "implication"
+    },
+    {
+      "source": "#preterm",
+      "target": "#pregnancy",
+      "type": "implication"
+    },
+    {
+      "source": "(#preterm #omega_3)",
+      "target": "#preterm_and_omega_3",
+      "type": "implication"
+    },
+    {
+      "source": "#preterm_and_omega_3",
+      "target": "#pregnancy",
+      "type": "implication"
+    },
+    {
+      "source": "\"stillbirth\"",
+      "target": "#stillbirth",
+      "type": "implication"
+    },
+    {
+      "source": "#stillbirth",
+      "target": "#pregnancy",
+      "type": "implication"
+    },
+    {
+      "source": "(#vaccination #pregnancy)",
+      "target": "#vaccination_and_pregnancy",
+      "type": "implication"
+    },
+    {
+      "source": "#vaccination_and_pregnancy",
+      "target": "#pregnancy",
+      "type": "implication"
+    },
+    {
+      "source": "\"acne\"",
+      "target": "#acne",
+      "type": "implication"
+    },
+    {
+      "source": "#acne",
+      "target": "#dermatology",
+      "type": "implication"
+    },
+    {
+      "source": "\"aging skin\"",
+      "target": "#aging_skin",
+      "type": "implication"
+    },
+    {
+      "source": "#aging_skin",
+      "target": "#dermatology",
+      "type": "implication"
+    },
+    {
+      "source": "\"atopic dermatitis\"",
+      "target": "#atopic_dermatitis",
+      "type": "implication"
+    },
+    {
+      "source": "#atopic_dermatitis",
+      "target": "#dermatology",
+      "type": "implication"
+    },
+    {
+      "source": "\"eczema\"",
+      "target": "#atopic_dermatitis",
+      "type": "implication"
+    },
+    {
+      "source": "\"hair loss\"",
+      "target": "#hair",
+      "type": "implication"
+    },
+    {
+      "source": "#hair",
+      "target": "#dermatology",
+      "type": "implication"
+    },
+    {
+      "source": "\"alopecia\"",
+      "target": "#hair",
+      "type": "implication"
+    },
+    {
+      "source": "\"hives\"",
+      "target": "#hives",
+      "type": "implication"
+    },
+    {
+      "source": "#hives",
+      "target": "#dermatology",
+      "type": "implication"
+    },
+    {
+      "source": "\"urticaria\"",
+      "target": "#hives",
+      "type": "implication"
+    },
+    {
+      "source": "\"psoriasis\"",
+      "target": "#psoriasis",
+      "type": "implication"
+    },
+    {
+      "source": "#psoriasis",
+      "target": "#dermatology",
+      "type": "implication"
+    },
+    {
+      "source": "\"vitiligo\"",
+      "target": "#vitiligo",
+      "type": "implication"
+    },
+    {
+      "source": "#vitiligo",
+      "target": "#dermatology",
+      "type": "implication"
+    },
+    {
+      "source": "\"concussion\"",
+      "target": "#concussions",
+      "type": "implication"
+    },
+    {
+      "source": "#concussions",
+      "target": "#trauma_surgery",
+      "type": "implication"
+    },
+    {
+      "source": "\"concussions\"",
+      "target": "#concussions",
+      "type": "implication"
+    },
+    {
+      "source": "#bariatric_surgery",
+      "target": "#trauma_surgery",
+      "type": "implication"
+    },
+    {
+      "source": "\"bone surgery\"",
+      "target": "#bone_surgery",
+      "type": "implication"
+    },
+    {
+      "source": "#bone_surgery",
+      "target": "#trauma_surgery",
+      "type": "implication"
+    },
+    {
+      "source": "\"bone surgeries\"",
+      "target": "#bone_surgery",
+      "type": "implication"
+    },
+    {
+      "source": "(#ICU #loading_dose)",
+      "target": "#icu_loading_dose",
+      "type": "implication"
+    },
+    {
+      "source": "#icu_loading_dose",
+      "target": "#trauma_surgery",
+      "type": "implication"
+    },
+    {
+      "source": "(#surgery #vitamin_d_need)",
+      "target": "#surgery_vitamin_d_needs",
+      "type": "implication"
+    },
+    {
+      "source": "#surgery_vitamin_d_needs",
+      "target": "#trauma_surgery",
+      "type": "implication"
+    },
+    {
+      "source": "(#orthopedic #hip)",
+      "target": "#orthopedic_hip",
+      "type": "implication"
+    },
+    {
+      "source": "#orthopedic_hip",
+      "target": "#trauma_surgery",
+      "type": "implication"
+    },
+    {
+      "source": "\"sepsis\"",
+      "target": "#sepsis",
+      "type": "implication"
+    },
+    {
+      "source": "#sepsis",
+      "target": "#trauma_surgery",
+      "type": "implication"
+    },
+    {
+      "source": "\"transplant\"",
+      "target": "#transplant",
+      "type": "implication"
+    },
+    {
+      "source": "#transplant",
+      "target": "#trauma_surgery",
+      "type": "implication"
+    },
+    {
+      "source": "\"transplants\"",
+      "target": "#transplant",
+      "type": "implication"
+    },
+    {
+      "source": "\"organ transplant\"",
+      "target": "#transplant",
+      "type": "implication"
+    },
+    {
+      "source": "\"organ transplants\"",
+      "target": "#transplant",
+      "type": "implication"
+    },
+    {
+      "source": "\"traumatic brain injury\"",
+      "target": "#TBI",
+      "type": "implication"
+    },
+    {
+      "source": "#TBI",
+      "target": "#trauma_surgery",
+      "type": "implication"
+    },
+    {
+      "source": "\"traumatic brain injuries\"",
+      "target": "#TBI",
+      "type": "implication"
+    },
+    {
+      "source": "\"tbi\"",
+      "target": "#TBI",
+      "type": "implication"
+    },
+    {
+      "source": "\"rhinovirus\"",
+      "target": "#virus",
+      "type": "implication"
+    },
+    {
+      "source": "\"rhinoviruses\"",
+      "target": "#virus",
+      "type": "implication"
+    },
+    {
+      "source": "\"common cold\"",
+      "target": "#virus",
+      "type": "implication"
+    },
+    {
+      "source": "\"influenza\"",
+      "target": "#influenza",
+      "type": "implication"
+    },
+    {
+      "source": "#influenza",
+      "target": "#virus",
+      "type": "implication"
+    },
+    {
+      "source": "\"flu\"",
+      "target": "#influenza",
+      "type": "implication"
+    },
+    {
+      "source": "\"bird flu\"",
+      "target": "#bird_flu",
+      "type": "implication"
+    },
+    {
+      "source": "#bird_flu",
+      "target": "#virus",
+      "type": "implication"
+    },
+    {
+      "source": "\"avian flu\"",
+      "target": "#bird_flu",
+      "type": "implication"
+    },
+    {
+      "source": "\"dengue\"",
+      "target": "#dengue",
+      "type": "implication"
+    },
+    {
+      "source": "#dengue",
+      "target": "#virus",
+      "type": "implication"
+    },
+    {
+      "source": "\"dengue fever\"",
+      "target": "#dengue",
+      "type": "implication"
+    },
+    {
+      "source": "\"epstein-barr virus\"",
+      "target": "#EBV",
+      "type": "implication"
+    },
+    {
+      "source": "#EBV",
+      "target": "#virus",
+      "type": "implication"
+    },
+    {
+      "source": "\"epstein barr virus\"",
+      "target": "#EBV",
+      "type": "implication"
+    },
+    {
+      "source": "\"ebv\"",
+      "target": "#EBV",
+      "type": "implication"
+    },
+    {
+      "source": "\"herpes\"",
+      "target": "#herpes_shingles",
+      "type": "implication"
+    },
+    {
+      "source": "#herpes_shingles",
+      "target": "#virus",
+      "type": "implication"
+    },
+    {
+      "source": "\"herpes virus\"",
+      "target": "#herpes_shingles",
+      "type": "implication"
+    },
+    {
+      "source": "\"shingles\"",
+      "target": "#herpes_shingles",
+      "type": "implication"
+    },
+    {
+      "source": "\"mononucleosis\"",
+      "target": "#mononucleosis",
+      "type": "implication"
+    },
+    {
+      "source": "#mononucleosis",
+      "target": "#virus",
+      "type": "implication"
+    },
+    {
+      "source": "\"mono\"",
+      "target": "#mononucleosis",
+      "type": "implication"
+    },
+    {
+      "source": "\"rsv\"",
+      "target": "#RSV",
+      "type": "implication"
+    },
+    {
+      "source": "#RSV",
+      "target": "#virus",
+      "type": "implication"
+    },
+    {
+      "source": "\"respiratory syncytial virus\"",
+      "target": "#RSV",
+      "type": "implication"
+    },
+    {
+      "source": "(#virus #air_pollution)",
+      "target": "#virus_and_air_pollution",
+      "type": "implication"
+    },
+    {
+      "source": "#virus_and_air_pollution",
+      "target": "#virus",
+      "type": "implication"
+    },
+    {
+      "source": "(#virus #all_studies)",
+      "target": "#virus_studies",
+      "type": "implication"
+    },
+    {
+      "source": "#virus_studies",
+      "target": "#virus",
+      "type": "implication"
+    },
+    {
+      "source": "(#virus #cardiovascular)",
+      "target": "#virus_and_cardiovascular",
+      "type": "implication"
+    },
+    {
+      "source": "#virus_and_cardiovascular",
+      "target": "#virus",
+      "type": "implication"
+    },
+    {
+      "source": "(#cancer #vaccination)",
+      "target": "#cancers_after_vaccination",
+      "type": "implication"
+    },
+    {
+      "source": "#cancers_after_vaccination",
+      "target": "#virus",
+      "type": "implication"
+    },
+    {
+      "source": "(#child #vaccination #years_later)",
+      "target": "#childhood_vaccination_effects",
+      "type": "implication"
+    },
+    {
+      "source": "#childhood_vaccination_effects",
+      "target": "#virus",
+      "type": "implication"
+    },
+    {
+      "source": "(#virus #cognitive)",
+      "target": "#virus_and_cognitive",
+      "type": "implication"
+    },
+    {
+      "source": "#virus_and_cognitive",
+      "target": "#virus",
+      "type": "implication"
+    },
+    {
+      "source": "(#virus #dark_skin)",
+      "target": "#virus_and_dark_skin",
+      "type": "implication"
+    },
+    {
+      "source": "#virus_and_dark_skin",
+      "target": "#virus",
+      "type": "implication"
+    },
+    {
+      "source": "(#hepatitis #virus)",
+      "target": "#viral_hepatitis",
+      "type": "implication"
+    },
+    {
+      "source": "#viral_hepatitis",
+      "target": "#virus",
+      "type": "implication"
+    },
+    {
+      "source": "(#virus #magnesium)",
+      "target": "#magnesium_and_viruses",
+      "type": "implication"
+    },
+    {
+      "source": "#magnesium_and_viruses",
+      "target": "#virus",
+      "type": "implication"
+    },
+    {
+      "source": "(#virus #meta_analyses)",
+      "target": "#virus_meta_analyses",
+      "type": "implication"
+    },
+    {
+      "source": "#virus_meta_analyses",
+      "target": "#virus",
+      "type": "implication"
+    },
+    {
+      "source": "(#virus #omega_3)",
+      "target": "#omega_3_and_viruses",
+      "type": "implication"
+    },
+    {
+      "source": "#omega_3_and_viruses",
+      "target": "#virus",
+      "type": "implication"
+    },
+    {
+      "source": "(#virus #pregnancy)",
+      "target": "#viruses_and_pregnancy",
+      "type": "implication"
+    },
+    {
+      "source": "#viruses_and_pregnancy",
+      "target": "#virus",
+      "type": "implication"
+    },
+    {
+      "source": "(#virus #vitamin_d)",
+      "target": "#vitamin_d_and_viruses",
+      "type": "implication"
+    },
+    {
+      "source": "#vitamin_d_and_viruses",
+      "target": "#virus",
+      "type": "implication"
+    },
+    {
+      "source": "(#virus #vitamin_d_receptor)",
+      "target": "#viruses_and_vitamin_d_receptor",
+      "type": "implication"
+    },
+    {
+      "source": "#viruses_and_vitamin_d_receptor",
+      "target": "#virus",
+      "type": "implication"
+    },
+    {
+      "source": "(#virus #vitamin_k)",
+      "target": "#vitamin_k_and_viruses",
+      "type": "implication"
+    },
+    {
+      "source": "#vitamin_k_and_viruses",
+      "target": "#virus",
+      "type": "implication"
+    },
+    {
+      "source": "(#virus #zinc)",
+      "target": "#zinc_and_viruses",
+      "type": "implication"
+    },
+    {
+      "source": "#zinc_and_viruses",
+      "target": "#virus",
+      "type": "implication"
+    },
+    {
+      "source": "\"ivermectin\"",
+      "target": "#ivermectin",
+      "type": "implication"
+    },
+    {
+      "source": "#ivermectin",
+      "target": "#virus",
+      "type": "implication"
+    },
+    {
+      "source": "\"masks\"",
+      "target": "#masks",
+      "type": "implication"
+    },
+    {
+      "source": "#masks",
+      "target": "#virus",
+      "type": "implication"
+    },
+    {
+      "source": "\"pfizer\"",
+      "target": "#pfizer",
+      "type": "implication"
+    },
+    {
+      "source": "#pfizer",
+      "target": "#virus",
+      "type": "implication"
+    },
+    {
+      "source": "\"ultraviolet light\"",
+      "target": "#ultraviolet_light",
+      "type": "implication"
+    },
+    {
+      "source": "#ultraviolet_light",
+      "target": "#virus",
+      "type": "implication"
+    },
+    {
+      "source": "\"uv light\"",
+      "target": "#ultraviolet_light",
+      "type": "implication"
+    },
+    {
+      "source": "\"vaccination\"",
+      "target": "#vaccination",
+      "type": "implication"
+    },
+    {
+      "source": "#vaccination",
+      "target": "#virus",
+      "type": "implication"
+    },
+    {
+      "source": "\"long covid\"",
+      "target": "#long_covid",
+      "type": "implication"
+    },
+    {
+      "source": "#long_covid",
+      "target": "#virus",
+      "type": "implication"
+    },
+    {
+      "source": "\"excess deaths\"",
+      "target": "#excess_deaths",
+      "type": "implication"
+    },
+    {
+      "source": "#excess_deaths",
+      "target": "#virus",
+      "type": "implication"
+    },
+    {
+      "source": "\"cataract\"",
+      "target": "#cataracts",
+      "type": "implication"
+    },
+    {
+      "source": "#cataracts",
+      "target": "#vision",
+      "type": "implication"
+    },
+    {
+      "source": "\"cataracts\"",
+      "target": "#cataracts",
+      "type": "implication"
+    },
+    {
+      "source": "#diabetic_retinopathy",
+      "target": "#vision",
+      "type": "implication"
+    },
+    {
+      "source": "\"dry eye\"",
+      "target": "#dry_eye",
+      "type": "implication"
+    },
+    {
+      "source": "#dry_eye",
+      "target": "#vision",
+      "type": "implication"
+    },
+    {
+      "source": "\"dry eyes\"",
+      "target": "#dry_eye",
+      "type": "implication"
+    },
+    {
+      "source": "\"glaucoma\"",
+      "target": "#glaucoma",
+      "type": "implication"
+    },
+    {
+      "source": "#glaucoma",
+      "target": "#vision",
+      "type": "implication"
+    },
+    {
+      "source": "\"macular degeneration\"",
+      "target": "#macular_degeneration",
+      "type": "implication"
+    },
+    {
+      "source": "#macular_degeneration",
+      "target": "#vision",
+      "type": "implication"
+    },
+    {
+      "source": "\"myopia\"",
+      "target": "#myopia",
+      "type": "implication"
+    },
+    {
+      "source": "#myopia",
+      "target": "#vision",
+      "type": "implication"
+    },
+    {
+      "source": "\"nearsightedness\"",
+      "target": "#myopia",
+      "type": "implication"
+    },
+    {
+      "source": "\"uveitis\"",
+      "target": "#uveitis",
+      "type": "implication"
+    },
+    {
+      "source": "#uveitis",
+      "target": "#vision",
+      "type": "implication"
+    },
+    {
+      "source": "\"omega-3\"",
+      "target": "#omega_3",
+      "type": "implication"
+    },
+    {
+      "source": "\"omega 3\"",
+      "target": "#omega_3",
+      "type": "implication"
+    },
+    {
+      "source": "\"fish oil\"",
+      "target": "#omega_3",
+      "type": "implication"
+    },
+    {
+      "source": "\"magnesium\"",
+      "target": "#magnesium",
+      "type": "implication"
+    },
+    {
+      "source": "\"zinc\"",
+      "target": "#zinc",
+      "type": "implication"
+    },
+    {
+      "source": "\"vitamin k\"",
+      "target": "#vitamin_k",
+      "type": "implication"
+    },
+    {
+      "source": "#vitamin_k",
+      "target": "#bone_health",
+      "type": "association"
+    },
+    {
+      "source": "#vitamin_k",
+      "target": "#cardiovascular",
+      "type": "association"
+    },
+    {
+      "source": "#vitamin_k",
+      "target": "#virus",
+      "type": "association"
+    },
+    {
+      "source": "\"vitamin k2\"",
+      "target": "#vitamin_k",
+      "type": "implication"
+    }
+  ]
+}

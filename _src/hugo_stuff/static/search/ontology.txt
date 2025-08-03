@@ -1,0 +1,4 @@
+/* cancer related implications */
+cancer => disease
+lymphoma => cancer
+lung_cancer => cancer

@@ -1,0 +1,53 @@
+baseURL = "/"  # "http://localhost:1313/"
+languageCode = "en-us"
+title = "VitaminDWiki"
+
+# Use .html URLs instead of folder/index.html to prevent circular redirects
+uglyURLs = true
+
+# Enable alias generation for redirects to work
+disableAliases = false
+
+# Enable minification for HTML, CSS, and JS
+[minify]
+  disableCSS = false    # CSS minification is enabled
+  disableHTML = false   # HTML minification is enabled
+  disableJS = false     # JavaScript minification is enabled
+  disableJSON = false   # JSON minification is enabled
+  disableSVG = false    # SVG minification is enabled
+  disableXML = false    # XML minification is enabled
+  minifyOutput = true   # Apply minification to final output
+
+# Suppress warnings
+ignoreLogs = ['warning-goldmark-raw-html']
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+    [markup.goldmark.parser]
+      attribute = true
+      autoHeadingID = true
+    [markup.goldmark.extensions]
+      definitionList = true
+      footnote = true
+      linkify = true
+      strikethrough = true
+      table = true
+      taskList = true
+      typographer = true
+  
+  # Table of Contents Configuration
+  [markup.tableOfContents]
+    startLevel = 2    # Start with H2
+    endLevel = 4      # End with H4
+    ordered = false   # Use bullet points
+
+[taxonomies]
+  category = "categories"
+  tag = "tags"
+
+# Add pagination settings
+[params]
+  paginate = 10
+  paginatePath = "page"
