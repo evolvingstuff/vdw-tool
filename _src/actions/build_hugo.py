@@ -8,6 +8,7 @@ import sys
 sys.path.append('_src/utils')
 from build_search_index import build_search_index
 from generate_search_data import generate_search_data
+from tag_processor import load_ontology_engine, process_markdown_file, write_processed_markdown, analyze_tag_expansion, print_expansion_analysis
 
 def clean_directory(directory, preserve_hidden=True):
     """
@@ -141,21 +142,88 @@ def build_hugo_site():
     # Copy static files (CSS, JS, search data, etc)
     copy_static_files(hugo_stuff_path, site_dir)
     
-    # Copy all markdown files from posts/ to content/posts/
-    print("📄 Copying markdown files...")
+    # Process markdown files with ontology-based tag expansion
+    print("📄 Processing markdown files with ontology tag expansion...")
     md_files = [f for f in os.listdir('posts') if f.endswith('.md')]
     
     if not md_files:
         raise ValueError("❌ No markdown files found in posts/ directory")
     
-    with tqdm(total=len(md_files), desc="Copying markdown files", unit="files") as pbar:
+    # Load ontology engine
+    ontology_file = 'ontology.txt'
+    if os.path.exists(ontology_file):
+        print("🧠 Loading ontology engine for tag expansion...")
+        try:
+            ontology_engine = load_ontology_engine(ontology_file)
+        except Exception as e:
+            print(f"⚠️  Warning: Failed to load ontology engine: {e}")
+            print("📄 Falling back to simple file copying without tag expansion")
+            ontology_engine = None
+    else:
+        print(f"⚠️  Ontology file not found at {ontology_file}, skipping tag expansion")
+        ontology_engine = None
+    
+    # Process files with tag expansion if ontology is available
+    processed_files = []
+    with tqdm(total=len(md_files), desc="Processing markdown files", unit="files") as pbar:
         for filename in md_files:
             source_path = os.path.join('posts', filename)
             target_path = os.path.join(content_posts_dir, filename)
-            shutil.copy2(source_path, target_path)
+            
+            if ontology_engine:
+                try:
+                    # Process with ontology tag expansion
+                    processed_data = process_markdown_file(source_path, ontology_engine)
+                    write_processed_markdown(processed_data, target_path)
+                    processed_files.append(processed_data)
+                    pbar.set_postfix(tags_added=processed_data['tags_added'])
+                except Exception as e:
+                    print(f"❌ Failed to process {filename} with ontology: {e}")
+                    # FAIL FAST: Don't fall back to copying, raise the error
+                    raise RuntimeError(f"❌ Ontology processing failed for {filename}: {e}")
+            else:
+                # Simple copy without tag expansion
+                shutil.copy2(source_path, target_path)
+            
             pbar.update(1)
     
-    print(f"📦 Copied {len(md_files)} markdown files")
+    if ontology_engine and processed_files:
+        # Analyze and report tag expansion results
+        analysis = analyze_tag_expansion(processed_files)
+        print(f"📦 Processed {len(md_files)} markdown files with ontology tag expansion")
+        print(f"📊 Tag expansion summary: {analysis['files_with_expansion']}/{analysis['total_files']} files expanded, "
+              f"{analysis['expansion_factor']:.1f}x expansion factor")
+        
+        # FAIL FAST: If we have a large ontology but no tag expansion, something is wrong
+        if analysis['total_files'] > 100 and analysis['files_with_expansion'] == 0:
+            print(f"🐛 DEBUGGING ONTOLOGY FAILURE:")
+            print(f"🐛 Text mappings loaded: {len(ontology_engine.text_mapping.text_to_tags)}")
+            print(f"🐛 Regex patterns loaded: {len(ontology_engine.text_mapping.regex_patterns)}")
+            print(f"🐛 Sample text mappings: {list(ontology_engine.text_mapping.text_to_tags.items())[:5]}")
+            
+            # Test with first processed file
+            if processed_files:
+                test_file = processed_files[0]
+                print(f"🐛 Testing first file: {os.path.basename(test_file['file_path'])}")
+                print(f"🐛 Original tags: {test_file['original_tags']}")
+                print(f"🐛 Expanded tags: {test_file['expanded_tags']}")
+                print(f"🐛 Associated tags: {test_file['associated_tags']}")
+                
+                # Test text extraction directly on content snippet
+                content_snippet = test_file.get('content', '')[:500]  # First 500 chars
+                if 'vitamin' in content_snippet.lower():
+                    text_derived = ontology_engine.text_mapping.extract_tags_from_text(content_snippet)
+                    print(f"🐛 Text-derived from snippet: {text_derived}")
+                    
+            raise RuntimeError(f"❌ ONTOLOGY FAILURE: Processed {analysis['total_files']} files but 0 got tag expansion. "
+                             f"This indicates the ontology engine is not working properly. "
+                             f"Expected expansion with vitamin D research content and comprehensive ontology rules.")
+        
+        # Print detailed analysis if significant expansion occurred
+        if analysis['expansion_factor'] > 1.1:  # More than 10% expansion
+            print_expansion_analysis(analysis)
+    else:
+        print(f"📦 Copied {len(md_files)} markdown files")
     
     # Build the Hugo site
     print("🔨 Running Hugo build...")

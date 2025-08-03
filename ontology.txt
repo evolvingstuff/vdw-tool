@@ -1,0 +1,434 @@
+/* Vitamin D3 Health Website Ontology - Based on Actual Topic List */
+
+/* Core vitamin D3 terminology */
+"vitamin d3" "cholecalciferol" => #vitamin_d3
+"vitamin d" "calciferol" => #vitamin_d
+"25-hydroxyvitamin d" "25(oh)d" => #vitamin_d_blood_test
+/\d+\s*iu/i => #dosage
+/\d+\s*ng\/ml/i /\d+\s*nmol\/l/i => #blood_levels
+
+/* Vitamin D3 equals vitamin D for practical purposes */
+#vitamin_d3 = #vitamin_d
+
+/* Common medical equivalencies */
+#inflammatory_bowel_disease = #IBD
+#irritable_bowel_syndrome = #IBS
+#non_alcoholic_fatty_liver_disease = #NAFLD
+#seasonal_affective_disorder = #SAD
+#polycystic_ovary_syndrome = #PCOS
+#chronic_kidney_disease = #CKD
+#traumatic_brain_injury = #TBI
+#respiratory_syncytial_virus = #RSV
+#epstein_barr_virus = #EBV
+#heart_rate_variability = #HRV
+
+/* High-dose protocols */
+"high dose" "high doses" "loading dose" "loading doses" />\s*10000\s*iu/i => #high_dose
+(#vitamin_d3 #high_dose) => #therapeutic_intervention
+
+/* Core health categories */
+"virus" "viruses" "viral infection" "viral infections" => #virus
+"bacteria" "bacterial infection" "bacterial infections" => #bacteria
+"cancer" "cancers" "malignancy" "malignancies" "tumor" "tumors" => #cancer
+"autoimmune" "autoimmune disease" "autoimmune diseases" => #autoimmune
+"pregnancy" "pregnant" => #pregnancy
+"child" "children" "infant" "infants" "pediatric" => #child
+
+/* Vitamin D Receptor - central to many conditions */
+"vitamin d receptor" "vdr" => #vitamin_d_receptor
+#vitamin_d_receptor ~ #genetics #autoimmune #cancer #obesity #diabetes
+
+/* AUTOIMMUNE CONDITIONS */
+"multiple sclerosis" "ms" => #multiple_sclerosis
+"lupus" "sle" "systemic lupus erythematosus" => #lupus
+"rheumatoid arthritis" "ra" => #rheumatoid_arthritis
+"systemic sclerosis" "scleroderma" => #systemic_sclerosis
+
+#multiple_sclerosis #lupus #rheumatoid_arthritis #systemic_sclerosis => #autoimmune
+#autoimmune ~ #vitamin_d_receptor #inflammation #immune_dysfunction
+(#autoimmune #pregnancy) => #autoimmune_and_pregnancy
+(#autoimmune #child) => #pediatric_autoimmune
+#autoimmune => #intervention #high_dose
+
+/* BACTERIA & INFECTIONS */
+"urinary tract infection" "urinary tract infections" "uti" "utis" => #urinary_tract_infection
+"tuberculosis" "tb" => #tuberculosis
+"antibiotic" "antibiotics" => #antibiotics
+"probiotic" "probiotics" => #probiotics
+#antibiotics ~ #probiotics #gut_microbiome
+
+#tuberculosis #urinary_tract_infection => #bacteria
+#bacteria ~ #immune_system #vitamin_d_deficiency
+
+/* BREATHING/RESPIRATORY */
+"asthma" => #asthma
+"cystic fibrosis" "cf" => #cystic_fibrosis
+"hay fever" "allergic rhinitis" => #hay_fever
+"pneumonia" => #pneumonia
+"respiratory infection" "respiratory infections" => #respiratory
+
+(#asthma #vitamin_d_receptor) => #asthma_receptor
+#asthma #cystic_fibrosis #hay_fever #pneumonia #respiratory => #breathing
+#breathing ~ #inflammation #immune_response
+
+/* BONE HEALTH */
+"bone mineral density" "bmd" => #bone_mineral_density
+"bone loss" => #bone_loss
+"ankle fracture" "ankle fractures" => #ankle_fractures
+"bone fracture" "bone fractures" "stress fracture" "stress fractures" => #bone_stress_fractures
+"children fracture" "children fractures" "pediatric fracture" "pediatric fractures" => #children_fractures
+"hip fracture" "hip fractures" => #hip_fractures
+"fall" "falls" "fracture" "fractures" => #falls_fractures
+"rickets" => #rickets
+"osteoporosis" => #osteoporosis
+
+#bone_mineral_density #bone_loss #ankle_fractures #bone_stress_fractures => #bone
+#children_fractures #hip_fractures #falls_fractures #rickets #osteoporosis => #bone
+#bone ~ #calcium #phosphorus #vitamin_d_deficiency
+
+/* CANCER - Major category */
+"bladder cancer" => #bladder_cancer
+"breast cancer" => #breast_cancer
+"colon cancer" "colorectal cancer" => #colon_cancer
+"endometrial cancer" => #endometrial_cancer
+"gastric cancer" "stomach cancer" => #gastric_cancer
+"head and neck cancer" => #head_and_neck_cancer
+"leukemia" => #leukemia
+"liver cancer" => #liver_cancer
+"lung cancer" => #lung_cancer
+"lymphoma" => #lymphoma
+"melanoma" => #melanoma
+"multiple myeloma" => #multiple_myeloma
+"ovarian cancer" => #ovarian_cancer
+"pancreatic cancer" => #pancreatic_cancer
+"prostate cancer" => #prostate_cancer
+"skin cancer" => #skin_cancer
+"thyroid cancer" => #thyroid_cancer
+
+/* Cancer contexts and modifiers */
+(#cancer #after_diagnosis) => #cancer_after_diagnosis
+(#cancer #bone) => #bone_cancer
+(#cancer #child) => #childhood_cancer
+(#cancer #metastatic) => #metastatic_cancer
+(#cancer #obesity) => #obesity_and_cancer
+(#cancer #palliative_care) => #palliative_care
+(#cancer #survive) => #cancer_survival
+(#magnesium #cancer) => #magnesium_and_cancer
+(#vitamin_d_receptor #cancer) => #cancer_in_VDR
+
+#bladder_cancer #breast_cancer #colon_cancer #endometrial_cancer => #cancer
+#gastric_cancer #head_and_neck_cancer #leukemia #liver_cancer => #cancer
+#lung_cancer #lymphoma #melanoma #multiple_myeloma => #cancer
+#ovarian_cancer #pancreatic_cancer #prostate_cancer #skin_cancer #thyroid_cancer => #cancer
+
+/* CARDIOVASCULAR */
+"atherosclerosis" => #atherosclerosis
+"atrial fibrillation" "afib" "a-fib" => #atrial_fibrillation
+"blood clotting" "blood clot" "blood clots" => #blood_clotting
+"heart failure" => #heart_failure
+"heart rate variability" "hrv" => #heart_rate_variability
+"stroke" "strokes" => #stroke
+"statin" "statins" => #statins
+
+(#stroke #cognitive_impairment) => #stroke_and_cognitive_impairment
+(#stroke #depression) => #stroke_and_depression
+(#stroke #ischemic) => #ischemic_stroke
+
+#atherosclerosis #atrial_fibrillation #blood_clotting #heart_failure => #cardiovascular
+#heart_rate_variability #stroke #statins => #cardiovascular
+#cardiovascular ~ #omega_3 #inflammation
+
+/* INFANT/CHILD CONDITIONS */
+(#cancer #child) => #childhood_cancer
+"cerebral palsy" => #cerebral_palsy
+"down syndrome" => #down_syndrome
+(#fracture #low_energy) => #low_energy_fractures
+"growing pains" => #growing_pains
+(#pneumonia #child) => #childhood_pneumonia
+"preemie" "premature infant" => #preemie
+(#puberty #early #vitamin_d_deficiency) => #early_puberty_low_d
+(#respiratory #child) => #childhood_respiratory
+"tic disorders" => #tic_disorders
+"tonsils" "tonsillitis" => #tonsils
+(#vaccination #child) => #childhood_vaccination
+(#virus #child) => #childhood_viruses
+
+#childhood_cancer #cerebral_palsy #down_syndrome #low_energy_fractures => #child
+#growing_pains #childhood_pneumonia #preemie #early_puberty_low_d => #child
+#childhood_respiratory #tic_disorders #tonsils => #child
+#childhood_vaccination #childhood_viruses => #child
+
+/* COGNITIVE & MENTAL HEALTH */
+"brain" "cognitive function" => #brain
+"delirium" => #delirium
+"dementia" => #dementia
+"mental illness" => #mental_illness
+"mental stress" => #mental_stress
+
+#brain #delirium #dementia #mental_illness #mental_stress => #cognitive
+
+/* DENTAL */
+"fluoridation" => #fluoridation
+(#implant #vitamin_d) => #dental_implant_vitamin_d
+"periodontitis" => #periodontitis
+
+#fluoridation #dental_implant_vitamin_d #periodontitis => #dental
+
+/* DEPRESSION & MOOD */
+"depression" => #depression
+"anxiety" => #anxiety
+"seasonal affective disorder" "sad" => #seasonal_affective_disorder
+
+#depression #anxiety #seasonal_affective_disorder => #mood_disorders
+#mood_disorders ~ #omega_3 #vitamin_d_deficiency
+
+/* DIABETES & METABOLIC */
+"diabetes" => #diabetes
+"hemodialysis" => #hemodialysis
+"metabolic syndrome" => #metabolic_syndrome
+"neuropathy" "diabetic neuropathy" => #neuropathy
+"prediabetes" => #prediabetes
+"retinopathy" "diabetic retinopathy" => #retinopathy
+"type 1 diabetes" => #type_1_diabetes
+
+(#metabolic_syndrome #magnesium) => #metabolic_syndrome_and_magnesium
+(#diabetes #vitamin_d_receptor) => #diabetes_and_vitamin_d_receptor
+
+#diabetes #hemodialysis #metabolic_syndrome #neuropathy => #metabolic
+#prediabetes #retinopathy #type_1_diabetes => #metabolic
+#metabolic ~ #magnesium #zinc #red_meat
+
+/* EAR CONDITIONS */
+"otitis media" "ear infection" => #otitis_media
+#otitis_media => #ear
+
+/* GENETICS */
+"cyp24a1" => #CYPA
+"cyp27b1" => #CYPR
+"cyp2r1" => #CYPB
+"epigenetics" => #epigenetics
+"telomere" => #telomere
+"vitamin d binding protein" => #vitamin_d_binding
+"vitamin d receptor" => #vitamin_d_receptor
+
+#CYPA #CYPR #CYPB #epigenetics #telomere => #genetics
+#vitamin_d_binding #vitamin_d_receptor => #genetics
+
+/* GUT HEALTH */
+"bariatric surgery" => #bariatric
+"celiac disease" => #celiac
+"clostridium difficile" "c diff" => #clostridium_difficile
+"crohn's disease" => #crohns
+"inflammatory bowel disease" "ibd" => #inflammatory_bowel_disease
+"irritable bowel syndrome" "ibs" => #irritable_bowel_syndrome
+"pancreatitis" => #pancreatitis
+"ulcerative colitis" => #ulcerative_colitis
+
+#bariatric #celiac #clostridium_difficile #crohns => #gut
+#inflammatory_bowel_disease #irritable_bowel_syndrome #pancreatitis #ulcerative_colitis => #gut
+
+/* HEALTH RISKS */
+"alcohol" => #alcohol
+"obesity" => #obesity
+"ultraprocessed foods" => #ultraprocessed_foods
+"microplastics" => #microplastics
+"smoking" => #smoking
+"pollution" "air pollution" => #pollution
+"cholesterol" => #cholesterol
+
+#alcohol #mental_stress #obesity #ultraprocessed_foods => #health_risk
+#microplastics #smoking #pollution #cholesterol => #health_risk
+
+/* HYPERTENSION */
+"hypertension" "high blood pressure" => #hypertension
+
+/* INFECTIONS */
+"helicobacter pylori" "h pylori" => #helicobacter_pylori
+#helicobacter_pylori #urinary_tract_infection => #infection
+
+/* IMMUNITY */
+"immune system" "immunity" => #immunity
+
+/* KIDNEY */
+"chronic kidney disease" "ckd" => #chronic_kidney_disease
+"dialysis" => #dialysis
+#chronic_kidney_disease #dialysis #urinary_tract_infection => #kidney
+
+/* LIFE SPAN */
+"health span" => #health_span
+"mortality" "longevity" => #mortality
+#health_span #mortality => #life_span
+
+/* LIVER */
+"hepatitis b" => #hepatitis_b
+"hepatitis c" => #hepatitis_c
+"nafld" "fatty liver" => #non_alcoholic_fatty_liver_disease
+#hepatitis_b #hepatitis_c #non_alcoholic_fatty_liver_disease => #liver
+
+/* METABOLIC CONDITIONS */
+"gout" => #gout
+#gout #metabolic_syndrome => #metabolic_conditions
+
+/* MUSCLE */
+"muscular dystrophy" => #muscular_dystrophy
+#muscular_dystrophy => #muscle
+
+/* NEUROLOGICAL */
+"bipolar disorder" => #bipolar_disorder
+"carpal tunnel syndrome" => #carpal_tunnel_syndrome
+"chronic fatigue" => #chronic_fatigue
+"epilepsy" => #epilepsy
+"parkinson's disease" => #parkinsons
+"restless legs" => #restless_legs
+"sleep disorders" => #sleep
+"sleep apnea" => #sleep_apnea
+"spinal cord" => #spinal_cord
+"vertigo" => #vertigo
+
+#bipolar_disorder #carpal_tunnel_syndrome #cerebral_palsy #chronic_fatigue => #neurological
+#epilepsy #muscular_dystrophy #parkinsons #restless_legs => #neurological
+#sleep #sleep_apnea #spinal_cord #vertigo => #neurological
+
+/* OBESITY CONTEXTS */
+(#obesity #cancer) => #obesity_and_cancer
+(#obesity #child) => #childhood_obesity
+(#obesity #vitamin_d_receptor) => #obesity_and_vitamin_d_receptor
+(#obesity #virus) => #virus_and_obesity
+"weight loss" => #weight_loss
+
+/* PAIN CONDITIONS */
+"chronic pain" => #chronic_pain
+"back pain" => #back_pain
+(#back_pain #lumbar_degeneration) => #lumbar_degenerative_back_pain
+"headache" => #headache
+
+#chronic_pain #back_pain #lumbar_degenerative_back_pain => #pain
+#headache #rheumatoid_arthritis => #pain
+
+/* PREGNANCY CONDITIONS */
+"endometriosis" => #endometriosis
+"fertility" "sperm" => #fertility_sperm
+"breastfed" "breastfeeding" => #breastfed
+"caesarean" "c-section" => #caesarean
+(#depression #pregnancy) => #depression_and_pregnancy
+(#dark_skin #pregnancy) => #dark_skin_and_pregnancy
+"gestational diabetes" => #gestational_diabetes
+"in vitro fertilization" "ivf" => #in_vitro_fertilization
+"iodine" => #iodine
+"low birth weight" => #low_birth_weight
+(#magnesium #pregnancy) => #magnesium_and_pregnancy
+"miscarriage" => #miscarriage
+(#multiple_sclerosis #pregnancy) => #multiple_sclerosis_and_pregnancy
+(#omega_3 #pregnancy) => #omega_3_and_pregnancy
+"pcos" "polycystic ovary syndrome" => #polycystic_ovary_syndrome
+"placenta" => #placenta
+"preeclampsia" => #preeclampsia
+"preterm birth" => #preterm
+(#preterm #omega_3) => #preterm_and_omega_3
+"stillbirth" => #stillbirth
+(#vaccination #pregnancy) => #vaccination_and_pregnancy
+
+#endometriosis #fertility_sperm #breastfed #caesarean => #pregnancy
+#depression_and_pregnancy #dark_skin_and_pregnancy #gestational_diabetes #in_vitro_fertilization => #pregnancy
+#iodine #low_birth_weight #magnesium_and_pregnancy #miscarriage => #pregnancy
+#multiple_sclerosis_and_pregnancy #omega_3_and_pregnancy #polycystic_ovary_syndrome #placenta => #pregnancy
+#preeclampsia #preterm #preterm_and_omega_3 #stillbirth #vaccination_and_pregnancy => #pregnancy
+
+/* DERMATOLOGY */
+"acne" => #acne
+"aging skin" => #aging_skin
+"atopic dermatitis" "eczema" => #atopic_dermatitis
+"hair loss" "alopecia" => #hair
+"hives" "urticaria" => #hives
+"psoriasis" => #psoriasis
+"vitiligo" => #vitiligo
+
+#acne #aging_skin #atopic_dermatitis #hair #hives #psoriasis #vitiligo => #dermatology
+
+/* TRAUMA/SURGERY */
+"concussion" "concussions" => #concussions
+"bariatric surgery" => #bariatric_surgery
+"bone surgery" "bone surgeries" => #bone_surgery
+(#ICU #loading_dose) => #icu_loading_dose
+(#surgery #vitamin_d_need) => #surgery_vitamin_d_needs
+(#orthopedic #hip) => #orthopedic_hip
+"sepsis" => #sepsis
+"transplant" "transplants" "organ transplant" "organ transplants" => #transplant
+"traumatic brain injury" "traumatic brain injuries" "tbi" => #traumatic_brain_injury
+
+#concussions #bariatric_surgery #bone_surgery #icu_loading_dose => #trauma_surgery
+#surgery_vitamin_d_needs #orthopedic_hip #sepsis #transplant #traumatic_brain_injury => #trauma_surgery
+
+/* VIRUS CONDITIONS - Major category with specific viruses */
+"rhinovirus" "rhinoviruses" "common cold" => #virus
+"influenza" "flu" => #influenza
+"bird flu" "avian flu" => #bird_flu
+"dengue" "dengue fever" => #dengue
+"epstein-barr virus" "epstein barr virus" "ebv" => #epstein_barr_virus
+"herpes" "herpes virus" "shingles" => #herpes_shingles
+"mononucleosis" "mono" => #mononucleosis
+"rsv" "respiratory syncytial virus" => #respiratory_syncytial_virus
+
+/* Virus-related contexts */
+(#virus #air_pollution) => #virus_and_air_pollution
+(#virus #all_studies) => #virus_studies
+(#virus #cardiovascular) => #virus_and_cardiovascular
+(#cancer #vaccination) => #cancers_after_vaccination
+(#child #vaccination #years_later) => #childhood_vaccination_effects
+(#virus #cognitive) => #virus_and_cognitive
+(#virus #dark_skin) => #virus_and_dark_skin
+(#hepatitis #virus) => #viral_hepatitis
+(#virus #magnesium) => #magnesium_and_viruses
+(#virus #meta_analyses) => #virus_meta_analyses
+(#virus #omega_3) => #omega_3_and_viruses
+(#virus #pregnancy) => #viruses_and_pregnancy
+(#virus #vitamin_d) => #vitamin_d_and_viruses
+(#virus #vitamin_d_receptor) => #viruses_and_vitamin_d_receptor
+(#virus #vitamin_k) => #vitamin_k_and_viruses
+(#virus #zinc) => #zinc_and_viruses
+
+/* Virus interventions and treatments */
+"ivermectin" => #ivermectin
+"masks" => #masks
+"pfizer" => #pfizer
+"ultraviolet light" "uv light" => #ultraviolet_light
+"vaccination" => #vaccination
+"long covid" => #long_covid
+"excess deaths" => #excess_deaths
+
+#virus_and_air_pollution #virus_studies #bird_flu #virus_and_cardiovascular => #virus
+#cancers_after_vaccination #childhood_vaccination_effects #virus_and_cognitive #virus_and_dark_skin => #virus
+#dengue #epstein_barr_virus #excess_deaths #viral_hepatitis => #virus
+#herpes_shingles #ivermectin #long_covid #magnesium_and_viruses => #virus
+#masks #virus_meta_analyses #mononucleosis #omega_3_and_viruses => #virus
+#pfizer #viruses_and_pregnancy #respiratory_syncytial_virus #ultraviolet_light => #virus
+#vaccination #vitamin_d_and_viruses #viruses_and_vitamin_d_receptor #vitamin_k_and_viruses => #virus
+#zinc_and_viruses #influenza => #virus
+
+/* VISION CONDITIONS */
+"cataract" "cataracts" => #cataracts
+"diabetic retinopathy" => #diabetic_retinopathy
+"dry eye" "dry eyes" => #dry_eye
+"glaucoma" => #glaucoma
+"macular degeneration" => #macular_degeneration
+"myopia" "nearsightedness" => #myopia
+"uveitis" => #uveitis
+
+#cataracts #diabetic_retinopathy #dry_eye #glaucoma => #vision
+#macular_degeneration #myopia #uveitis => #vision
+
+/* Key nutrient associations that span multiple categories */
+"omega-3" "omega 3" "fish oil" => #omega_3
+"magnesium" => #magnesium
+"zinc" => #zinc
+"vitamin k" "vitamin k2" => #vitamin_k
+
+#omega_3 ~ #cardiovascular #depression #pregnancy #virus #inflammation
+#magnesium ~ #diabetes #metabolic_syndrome #pregnancy #virus #muscle_function
+#zinc ~ #diabetes #virus #immune_system #wound_healing
+#vitamin_k ~ #bone_health #cardiovascular #virus
+
+/* Central vitamin D relationships */
+#vitamin_d_deficiency => #immune_dysfunction #bone_loss #autoimmune_risk #infection_risk
+#vitamin_d_receptor ~ #genetics #autoimmune #cancer #diabetes #obesity #virus
+#high_dose ~ #therapeutic_intervention #autoimmune #cancer #virus #infection

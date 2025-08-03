@@ -1,3 +1,11 @@
+# Permission Pattern
+
+**Reading**: You can read any file proactively without asking when you need to understand the codebase, explore functionality, or gather information.
+
+**Writing/Editing**: Always describe what you plan to change and get confirmation before making any modifications to files.
+
+# Git Workflow
+
 If I say:
 
 FEATURE: I would like to ... (description goes here)
