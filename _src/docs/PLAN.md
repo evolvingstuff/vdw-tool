@@ -217,7 +217,7 @@ pagefind                      # Search indexing tool
 7. ✅ **DONE** - Test tag expansion with real vitamin D content
 8. ✅ **DONE** - Fix critical frontmatter format preservation bug (JSON vs YAML)
 
-### Phase 4: Data Conversion Integration (Week 4) - CURRENT PHASE
+### Phase 4: Data Conversion Integration ✅ COMPLETED
 **Overview**: Port TikiWiki to Markdown conversion from vitD for complete end-to-end pipeline
 
 **Data Flow**:
@@ -233,30 +233,63 @@ data/ (gitignored, copied from vitD)
 posts/ 
   └── *.md                       # Markdown files with JSON frontmatter
     ↓ EXISTING HUGO BUILD PIPELINE
-Hugo Site (with ontology tag expansion + search)
+posts-expanded/ (ontology-expanded tags for search)
+    ↓ SEARCH DATA GENERATION
+Hugo Site (with ontology tag expansion + rich search suggestions)
 ```
 
 **Tasks**:
-1. 🆕 Port core conversion logic from vitD main.py and utils/utils.py
-2. 🆕 Create `convert_tiki_data.py` action (replace Hello World action)
-3. 🆕 Port TikiWiki markup parser (parsing/parser.py) for content conversion
-4. 🆕 Port data models (Page, Category, Attachment) and JSON loading functions
-5. 🆕 Port slug generation utilities for post filenames and URLs
-6. 🆕 Generate JSON frontmatter (title, slug, aliases, categories, date, tiki_page_id)
-7. 🆕 Integrate conversion action into main app.py menu
-8. 🆕 Test complete pipeline: data/ → posts/ → Hugo Build
+1. ✅ **DONE** - Port core conversion logic from vitD main.py and utils/utils.py
+2. ✅ **DONE** - Create `convert_tiki_data.py` action (replace Hello World action)
+3. ✅ **DONE** - Port TikiWiki markup parser (parsing/parser.py) for content conversion
+4. ✅ **DONE** - Port data models (Page, Category, Attachment) and JSON loading functions
+5. ✅ **DONE** - Port slug generation utilities for post filenames and URLs
+6. ✅ **DONE** - Generate JSON frontmatter (title, slug, aliases, categories, date, tiki_page_id)
+7. ✅ **DONE** - Integrate conversion action into main app.py menu
+8. ✅ **DONE** - Fix search suggestions with posts-expanded/ workflow
+9. ✅ **DONE** - Test complete pipeline: data/ → posts/ → Hugo Build → Search
 
 **Scope Limitations**:
 - ❌ **Skip attachment handling** for initial implementation  
 - ✅ **Focus on core content conversion** (TikiWiki markup → Markdown)
 - ✅ **Maintain existing Hugo build pipeline** compatibility
 
-### Phase 5: Deployment & Optimization (Week 5)
-1. 🆕 CloudFront deployment integration
-2. 🆕 Performance optimization  
-3. 🆕 Build analytics
-4. 🆕 Documentation
-5. 🆕 Complete testing suite
+### Phase 5: S3/CloudFront Deployment - CURRENT PHASE
+**Overview**: Deploy Hugo sites directly to S3 and serve via CloudFront for production hosting
+
+**Deployment Architecture**:
+```
+hugo_output/ (local built site)
+    ↓ S3 SYNC
+s3://vitdwiki2/public/ (static website hosting)
+    ├── index.html              # Root document
+    ├── posts/*/index.html      # Individual posts
+    ├── css/, js/, images/      # Static assets
+    └── pagefind/               # Search index
+    ↓ CLOUDFRONT CDN
+https://domain.com/             # Clean URLs, global CDN
+```
+
+**Tasks**:
+1. 🆕 Create `deploy_hugo_site.py` action to sync hugo_output/ → s3://vitdwiki2/public/
+2. 🆕 Configure S3 bucket for static website hosting (index.html as default document)  
+3. 🆕 Handle MIME types correctly for all file types (CSS, JS, HTML, etc.)
+4. 🆕 Add progress indicators for large deployments
+5. 🆕 Implement cache invalidation for CloudFront distribution
+6. 🆕 Add "Deploy Hugo Site" to main app.py menu
+7. 🆕 Test deployment and verify clean URLs work (domain.com/ not domain.com/index.html)
+
+**Key Benefits**:
+- ✅ **Clean URLs**: Home page accessible at domain.com/ instead of domain.com/index.html
+- ✅ **Global CDN**: Fast content delivery worldwide via CloudFront
+- ✅ **Reliability**: More stable than git-based deployment hooks
+- ✅ **Cost-effective**: Pay-as-you-go S3 + CloudFront pricing
+
+### Phase 6: Optimization & Analytics (Future)
+1. 🆕 Performance optimization  
+2. 🆕 Build analytics
+3. 🆕 Documentation
+4. 🆕 Complete testing suite
 
 ## Success Criteria
 
