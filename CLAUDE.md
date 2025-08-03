@@ -21,3 +21,7 @@ If I say:
 ROLLBACK
 
 I want you to rollback all the changes made on that branch.
+
+# Build Philosophy
+
+FAIL FAST AND LOUD: If anything fails during build processes, it should fail as fast and as loudly as possible. No error recovery, no graceful degradation, no silent failures. The build should stop immediately with clear error messages so issues can be identified and fixed quickly.
