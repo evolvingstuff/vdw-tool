@@ -6,12 +6,13 @@ sys.path.append('_src/actions')
 from sync_posts_from_s3 import sync_posts
 from build_hugo import build_hugo_site
 from serve_hugo import serve_hugo_site
+from convert_tiki_data import convert_tiki_data
 
 def show_menu():
     print('\n' + '='*50)
     print('VDW Tool - Build Pipeline')
     print('='*50)
-    print('1) Hello World')
+    print('1) Convert TikiWiki Data to Markdown')
     print('2) Sync Posts from S3')
     print('3) Build Hugo Site')
     print('4) Serve Hugo Site (localhost:1313)')
@@ -24,7 +25,7 @@ def main():
     while True:
         response = input('>> ')
         if response == '1':
-            print('Hello World')
+            convert_tiki_data()
             show_menu()
         elif response == '2':
             sync_posts()

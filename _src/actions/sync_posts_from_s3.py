@@ -1,8 +1,9 @@
 import os
 import sys
-sys.path.append('..')
-from config import s3_bucket_arn
-from aws_config import get_s3_client
+# Add parent directory to path for imports
+parent_path = os.path.join(os.path.dirname(__file__), '..')
+sys.path.append(parent_path)
+from aws_config import s3_bucket_arn, get_s3_client
 from tqdm import tqdm
 
 def sync_posts():

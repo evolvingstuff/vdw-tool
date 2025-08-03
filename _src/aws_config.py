@@ -2,7 +2,9 @@ import os
 from dotenv import load_dotenv, set_key
 import boto3
 from botocore.exceptions import ClientError
-from config import region
+# AWS configuration
+s3_bucket_arn = 'arn:aws:s3:::vitdwiki2'
+region = 'us-west-2'
 
 def load_aws_credentials():
     """Load AWS credentials from .env file"""
