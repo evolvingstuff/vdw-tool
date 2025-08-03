@@ -8,5 +8,5 @@ if %errorlevel% neq 0 (
 )
 
 echo Build successful! Running VDW Tool...
-docker run -it --rm vdw-tool
+docker run -it --rm -v "%cd%":/data -w /data vdw-tool
 pause

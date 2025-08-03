@@ -18,9 +18,9 @@ vdw-tool/
 
 ### Goals
 - [x] Basic project structure with src/ organization
-- [ ] Create Dockerfile for Python environment
+- [x] Create Dockerfile for Python environment
 - [ ] Set up docker-compose.yml for easy execution
-- [ ] Test containerized execution of master_script.py
+- [x] Test containerized execution of master_script.py
 - [ ] Create simple README for dad's usage
 
 ### Docker Implementation Plan
@@ -42,12 +42,12 @@ vdw-tool/
 
 **Files Created:**
 - `src/Dockerfile` - Container definition with Python environment
-- `build.bat` - Windows script with error handling and pause
-- `build.sh` - Mac/Linux script for testing
+- `build_docker.bat` - Windows script with error handling and pause
+- `build_docker.sh` - Mac/Linux script for testing
 
 **Usage:**
-- Dad just needs to double-click `build.bat`
-- You can run `./build.sh` for testing
+- Dad just needs to double-click `build_docker.bat`
+- You can run `./build_docker.sh` for testing
 - Both scripts build the container and run it interactively
 
 ## Development Notes

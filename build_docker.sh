@@ -9,4 +9,4 @@ if [ $? -ne 0 ]; then
 fi
 
 echo "Build successful! Running VDW Tool..."
-docker run -it --rm vdw-tool
+docker run -it --rm -v "$(pwd)":/data -w /data vdw-tool
