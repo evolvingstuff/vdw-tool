@@ -25,9 +25,9 @@ def generate_search_data():
     if not os.path.exists(hugo_output_dir):
         raise FileNotFoundError("❌ No hugo_output/ directory found. Run 'Build Hugo Site' first.")
     
-    posts_dir = 'posts'
+    posts_dir = 'posts-expanded'
     if not os.path.exists(posts_dir):
-        raise FileNotFoundError("❌ No posts/ directory found. Run 'Sync Posts from S3' first.")
+        raise FileNotFoundError("❌ No posts-expanded/ directory found. Run 'Build Hugo Site' first to generate expanded posts.")
     
     # Create search data directories in hugo_output
     js_dir = os.path.join(hugo_output_dir, 'js')
@@ -35,7 +35,7 @@ def generate_search_data():
     os.makedirs(js_dir, exist_ok=True)
     os.makedirs(search_dir, exist_ok=True)
     
-    print("🔍 Analyzing markdown files for search data...")
+    print(f"🔍 Analyzing markdown files from {posts_dir}/ for search data...")
     
     # Process all markdown files to extract tags and generate search data
     cooccurrences = defaultdict(set)
@@ -45,7 +45,7 @@ def generate_search_data():
     # Get all markdown files
     md_files = list(Path(posts_dir).glob('*.md'))
     if not md_files:
-        raise ValueError("❌ No markdown files found in posts/ directory")
+        raise ValueError(f"❌ No markdown files found in {posts_dir}/ directory")
     
     print(f"📄 Processing {len(md_files)} markdown files...")
     
@@ -114,6 +114,12 @@ def generate_search_data():
     cooccurrences_json = {}
     for tag, related_tags in cooccurrences.items():
         cooccurrences_json[tag] = list(related_tags)
+    
+    # FAIL FAST: Cooccurrences must not be empty
+    if not cooccurrences_json:
+        raise ValueError("❌ Generated cooccurrences.json is empty! This means no tags were found in the markdown files. "
+                        f"Check that {posts_dir}/ contains markdown files with 'tags' in the frontmatter, "
+                        "or that the ontology expansion is working properly.")
     
     # Generate text suggestions (top terms by frequency)
     text_suggestions = {

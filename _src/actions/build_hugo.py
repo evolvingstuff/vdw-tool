@@ -133,6 +133,15 @@ def build_hugo_site():
     content_posts_dir = os.path.join(site_dir, 'content', 'posts')
     os.makedirs(content_posts_dir, exist_ok=True)
     
+    # Create posts-expanded directory for search data generation
+    posts_expanded_dir = 'posts-expanded'
+    if os.path.exists(posts_expanded_dir):
+        print(f"🧹 Cleaning existing posts-expanded directory: {posts_expanded_dir}")
+        clean_directory(posts_expanded_dir, preserve_hidden=True)
+    else:
+        os.makedirs(posts_expanded_dir)
+        print(f"📁 Created posts-expanded directory: {posts_expanded_dir}")
+    
     # Copy Hugo configuration with local development settings
     copy_hugo_config(hugo_stuff_path, site_dir)
     
@@ -169,12 +178,19 @@ def build_hugo_site():
         for filename in md_files:
             source_path = os.path.join('posts', filename)
             target_path = os.path.join(content_posts_dir, filename)
+            expanded_path = os.path.join(posts_expanded_dir, filename)
             
             if ontology_engine:
                 try:
                     # Process with ontology tag expansion
                     processed_data = process_markdown_file(source_path, ontology_engine)
+                    
+                    # Write to Hugo build directory
                     write_processed_markdown(processed_data, target_path)
+                    
+                    # Also write to posts-expanded directory for search data generation
+                    write_processed_markdown(processed_data, expanded_path)
+                    
                     processed_files.append(processed_data)
                     pbar.set_postfix(tags_added=processed_data['tags_added'])
                 except Exception as e:
@@ -184,6 +200,8 @@ def build_hugo_site():
             else:
                 # Simple copy without tag expansion
                 shutil.copy2(source_path, target_path)
+                # Also copy to posts-expanded directory (without expansion)
+                shutil.copy2(source_path, expanded_path)
             
             pbar.update(1)
     
