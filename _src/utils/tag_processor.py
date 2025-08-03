@@ -115,9 +115,8 @@ def process_markdown_file(file_path: str, ontology_engine: OntologyEngine) -> Di
                 assoc_tags.append(tag)
         
         # Update metadata with expanded tags - write back to "tags" field 
+        # Note: Don't add associated_tags to frontmatter, keep them only for search data generation
         metadata['tags'] = sorted(final_tags)
-        if assoc_tags:
-            metadata['associated_tags'] = sorted(assoc_tags)
         
         return {
             'file_path': file_path,
