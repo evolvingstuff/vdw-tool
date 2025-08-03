@@ -37,26 +37,28 @@ From analyzing `hugo.py` and related files:
 ### New Actions Structure
 ```
 _src/actions/
-├── build_hugo.py              # ✅ ENHANCED - Custom layouts, static files, FAIL FAST
-├── serve_hugo.py              # ✅ Already exists  
+├── build_hugo.py              # ✅ ENHANCED - Custom layouts, static files, FAIL FAST, search integration
+├── serve_hugo.py              # ✅ Enhanced with port conflict resolution  
 ├── sync_posts_from_s3.py      # ✅ Enhanced with tqdm progress, pagination
 ├── process_ontology.py        # 🆕 Tag expansion & relationships
-├── build_search_index.py      # 🆕 Pagefind integration
-├── generate_search_data.py    # 🆕 Search suggestions & metadata
-├── optimize_static_files.py   # 🆕 Asset optimization (integrated into build_hugo.py)
 ├── analyze_content.py         # 🆕 Content analytics
 └── deploy_to_cloudfront.py    # 🆕 Direct CloudFront deployment
-```
 
-### Supporting Modules
-```
 _src/utils/
+├── build_search_index.py      # ✅ DONE - Pagefind integration
+├── generate_search_data.py    # ✅ DONE - Search suggestions & metadata
 ├── ontology_engine.py         # 🆕 Core ontology processing
 ├── search_utils.py            # 🆕 Search-related utilities  
 ├── tag_processor.py           # 🆕 Tag expansion logic
 ├── content_analyzer.py        # 🆕 Content analysis tools
 └── build_utils.py             # 🆕 Build helper functions
 ```
+
+### Infrastructure Enhancements ✅ COMPLETED
+- ✅ **Docker auto-start** - Automatically detects and starts Docker Desktop
+- ✅ **Port conflict resolution** - Kills processes using port 1313 safely
+- ✅ **FAIL FAST philosophy** - No silent failures, immediate clear error messages
+- ✅ **Enhanced user experience** - Works seamlessly for non-technical users
 
 ## Components to Port
 
@@ -195,18 +197,23 @@ pagefind                      # Search indexing tool
 5. ✅ **DONE** - Renamed master_script.py to app.py with menu improvements
 6. ✅ **DONE** - Directory cleaning with hidden file preservation
 
-### Phase 2: Search Integration (Week 2) - LOCAL FIRST
-1. 🆕 Pagefind integration and indexing
-2. 🆕 Search data generation (suggestions JSON)
-3. 🆕 JavaScript search functionality integration
-4. 🆕 Search UI components working locally
-5. 🆕 Search configuration and testing
+### Phase 2: Search Integration ✅ COMPLETED - LOCAL FIRST
+1. ✅ **DONE** - Pagefind integration and indexing (creates pagefind/ directory)
+2. ✅ **DONE** - Search data generation (cooccurrences.json, text_suggestions.json)
+3. ✅ **DONE** - JavaScript search functionality integration (existing search.js works)
+4. ✅ **DONE** - Search UI components working locally at localhost:1313
+5. ✅ **DONE** - Enhanced search suggestions from real tag relationships
+6. ✅ **DONE** - FAIL FAST error handling throughout search pipeline
+7. ✅ **DONE** - Automatic search integration in Hugo build workflow
 
-### Phase 3: Content Intelligence (Week 3-4)
-1. 🆕 Port ontology engine
-2. 🆕 Implement tag processing
-3. 🆕 Add content analysis
-4. 🆕 Create ontology configuration
+### Phase 3: Content Intelligence (Week 3-4) - CURRENT PHASE
+1. 🆕 Port ontology engine (OntologyEngine class from ontology_parse.py)
+2. 🆕 Create ontology parsing utilities (parse ontology rules: A => B, A ~ B, A = B)
+3. 🆕 Implement tag expansion logic (process markdown frontmatter, expand tags)
+4. 🆕 Create content analysis tools (cooccurrence tracking, tag relationships)
+5. 🆕 Integrate ontology processing into Hugo build workflow
+6. 🆕 Add ontology.txt configuration support
+7. 🆕 Test tag expansion with real vitamin D content
 
 ### Phase 4: Deployment & Optimization (Week 5)
 1. 🆕 CloudFront deployment integration
