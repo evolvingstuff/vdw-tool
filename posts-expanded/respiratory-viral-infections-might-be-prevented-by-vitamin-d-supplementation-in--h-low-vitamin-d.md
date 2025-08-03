@@ -1,0 +1,187 @@
+{
+    "title": "Respiratory viral infections might be prevented by vitamin D supplementation in those with low vitamin D",
+    "slug": "respiratory-viral-infections-might-be-prevented-by-vitamin-d-supplementation-in--h-low-vitamin-d",
+    "aliases": [
+        "/Respiratory+viral+infections+might+be+prevented+by+vitamin+D+supplementation+in+those+with+low+vitamin+D+\u2013+Sept+2014",
+        "/5584"
+    ],
+    "tiki_page_id": 5584,
+    "date": "2014-07-18",
+    "categories": [
+        "Breathing"
+    ],
+    "tags": [
+        "Breathing",
+        "breathing",
+        "influenza",
+        "respiratory",
+        "virus",
+        "vitamin d",
+        "vitamin d and viruses"
+    ],
+    "associated_tags": [
+        "CYPA",
+        "CYPB",
+        "CYPR",
+        "EBV",
+        "HRV",
+        "PCOS",
+        "RSV",
+        "SAD",
+        "ankle fractures",
+        "anxiety",
+        "asthma",
+        "atherosclerosis",
+        "atrial fibrillation",
+        "autoimmune",
+        "bacteria",
+        "bird flu",
+        "bladder cancer",
+        "blood clotting",
+        "bone",
+        "bone health",
+        "bone loss",
+        "bone mineral density",
+        "bone stress fractures",
+        "breast cancer",
+        "breastfed",
+        "caesarean",
+        "calcium",
+        "cancer",
+        "cancers after vaccination",
+        "cardiovascular",
+        "childhood vaccination effects",
+        "children fractures",
+        "colon cancer",
+        "cystic fibrosis",
+        "dark skin and pregnancy",
+        "dengue",
+        "depression",
+        "depression and pregnancy",
+        "diabetes",
+        "endometrial cancer",
+        "endometriosis",
+        "epigenetics",
+        "excess deaths",
+        "falls fractures",
+        "fertility sperm",
+        "gastric cancer",
+        "genetics",
+        "gestational diabetes",
+        "hay fever",
+        "head and neck cancer",
+        "heart failure",
+        "helicobacter pylori",
+        "hemodialysis",
+        "herpes shingles",
+        "high dose",
+        "hip fractures",
+        "immune dysfunction",
+        "immune response",
+        "immune system",
+        "in vitro fertilization",
+        "infection",
+        "inflammation",
+        "iodine",
+        "ivermectin",
+        "leukemia",
+        "liver cancer",
+        "long covid",
+        "low birth weight",
+        "lung cancer",
+        "lupus",
+        "lymphoma",
+        "magnesium",
+        "magnesium and pregnancy",
+        "magnesium and viruses",
+        "masks",
+        "melanoma",
+        "metabolic",
+        "metabolic syndrome",
+        "miscarriage",
+        "mononucleosis",
+        "mood disorders",
+        "multiple myeloma",
+        "multiple sclerosis",
+        "multiple sclerosis and pregnancy",
+        "muscle function",
+        "neuropathy",
+        "obesity",
+        "omega 3",
+        "omega 3 and pregnancy",
+        "omega 3 and viruses",
+        "osteoporosis",
+        "ovarian cancer",
+        "pancreatic cancer",
+        "pfizer",
+        "phosphorus",
+        "placenta",
+        "pneumonia",
+        "prediabetes",
+        "preeclampsia",
+        "pregnancy",
+        "preterm",
+        "preterm and omega 3",
+        "prostate cancer",
+        "red meat",
+        "retinopathy",
+        "rheumatoid arthritis",
+        "rickets",
+        "skin cancer",
+        "statins",
+        "stillbirth",
+        "stroke",
+        "systemic sclerosis",
+        "telomere",
+        "therapeutic intervention",
+        "thyroid cancer",
+        "tuberculosis",
+        "type 1 diabetes",
+        "ultraviolet light",
+        "urinary tract infection",
+        "vaccination",
+        "vaccination and pregnancy",
+        "viral hepatitis",
+        "virus and air pollution",
+        "virus and cardiovascular",
+        "virus and cognitive",
+        "virus and dark skin",
+        "virus meta analyses",
+        "virus studies",
+        "viruses and pregnancy",
+        "viruses and vitamin d receptor",
+        "vitamin d binding",
+        "vitamin d deficiency",
+        "vitamin d receptor",
+        "vitamin k",
+        "vitamin k and viruses",
+        "wound healing",
+        "zinc",
+        "zinc and viruses"
+    ]
+}
+
+
+### Does vitamin D protect against respiratory viral infections?
+
+Epidemiology and Infection / Volume 142 / Issue 09 / September 2014, pp 1789-DOI: http://dx.doi.org/10.1017/S0950268814000193 Influenza/Respiratory viruses
+
+K. J. BRYSONa1 c1, A. A. NASHa1 and M. NORVALa2
+
+a1 The Roslin Institute and Royal (Dick) School of Veterinary Studies, University of Edinburgh, UK
+
+a2 Biomedical Sciences, University of Edinburgh Medical School, UK
+
+c1 Author for correspondence: Dr K. J. Bryson, The Roslin Institute and the Royal (Dick) School of Veterinary Studies, University of Edinburgh, Easter Bush, Midlothian EH25 9RG, UK (Email: karen.bryson@roslin.ed.ac.uk)
+
+The active form of vitamin D has effects on both innate and adaptive immune responses that may influence the outcome in many infectious diseases. Observational studies conclusively show that a low vitamin D status is associated with an increased occurrence of respiratory viral infections, which globally represent significant health and financial burdens. However, no consistent protective effects are evident in prospective clinical trials carried out to date where vitamin D was provided as a dietary supplement,  **except possibly in cases where the starting vitamin D status of the individual was considered deficient** . Thus far, vitamin D has not been found to enhance the immune response to vaccines. The design of future prospective clinical trials assessing a role for vitamin D in respiratory viral infections requires very careful planning to avoid the uncertainties associated with the data available currently.
+
+ **[Can rent PDF from publisher for $7](http://journals.cambridge.org/action/displayAbstract?fromPage=online&aid=9303863&utm_source=Issue_Alert&utm_medium=RSS&utm_campaign=HYG&utm_reader=feedly)** 
+
+---
+
+## See also VitaminDWiki
+
+* [Search RTI OR "Respiratory Tract Infection"](https://www.VitaminDWiki.com/Search+Results?hl=en&oe=UTF-8&ie=UTF-8&btnG=Google+Search&googles.x=0&googles.y=0&q=RTI+OR+%22respiratory+tract+infection%22&domains=VitaminDWiki.com&sitesearch=VitaminDWiki.com)  177 items as of July 2014
+
+* [Acute respiratory infection treated by vitamin D in 6 of 12 clinical trials – review Nov 2012](/posts/acute-respiratory-infection-treated-by-vitamin-d-in-6-of-12-clinical-trials-review)

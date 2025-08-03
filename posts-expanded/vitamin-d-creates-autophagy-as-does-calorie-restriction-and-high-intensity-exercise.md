@@ -1,0 +1,187 @@
+{
+    "title": "Vitamin D creates autophagy, as does calorie restriction and high intensity exercise",
+    "slug": "vitamin-d-creates-autophagy-as-does-calorie-restriction-and-high-intensity-exercise",
+    "aliases": [
+        "/Vitamin+D+creates+autophagy+as+does+calorie+restriction+and+high+intensity+exercise+\u2013+Feb+2013",
+        "/3773"
+    ],
+    "tiki_page_id": 3773,
+    "date": "2013-02-11",
+    "categories": [
+        "How much"
+    ],
+    "tags": [
+        "How much",
+        "genetics",
+        "vitamin d",
+        "vitamin d receptor"
+    ],
+    "associated_tags": [
+        "CYPA",
+        "CYPB",
+        "CYPR",
+        "EBV",
+        "HRV",
+        "PCOS",
+        "RSV",
+        "SAD",
+        "ankle fractures",
+        "anxiety",
+        "asthma",
+        "atherosclerosis",
+        "atrial fibrillation",
+        "autoimmune",
+        "bacteria",
+        "bird flu",
+        "bladder cancer",
+        "blood clotting",
+        "bone",
+        "bone health",
+        "bone loss",
+        "bone mineral density",
+        "bone stress fractures",
+        "breast cancer",
+        "breastfed",
+        "breathing",
+        "caesarean",
+        "calcium",
+        "cancer",
+        "cancers after vaccination",
+        "cardiovascular",
+        "childhood vaccination effects",
+        "children fractures",
+        "colon cancer",
+        "cystic fibrosis",
+        "dark skin and pregnancy",
+        "dengue",
+        "depression",
+        "depression and pregnancy",
+        "diabetes",
+        "endometrial cancer",
+        "endometriosis",
+        "epigenetics",
+        "excess deaths",
+        "falls fractures",
+        "fertility sperm",
+        "gastric cancer",
+        "gestational diabetes",
+        "hay fever",
+        "head and neck cancer",
+        "heart failure",
+        "helicobacter pylori",
+        "hemodialysis",
+        "herpes shingles",
+        "high dose",
+        "hip fractures",
+        "immune dysfunction",
+        "immune response",
+        "immune system",
+        "in vitro fertilization",
+        "infection",
+        "inflammation",
+        "influenza",
+        "iodine",
+        "ivermectin",
+        "leukemia",
+        "liver cancer",
+        "long covid",
+        "low birth weight",
+        "lung cancer",
+        "lupus",
+        "lymphoma",
+        "magnesium",
+        "magnesium and pregnancy",
+        "magnesium and viruses",
+        "masks",
+        "melanoma",
+        "metabolic",
+        "metabolic syndrome",
+        "miscarriage",
+        "mononucleosis",
+        "mood disorders",
+        "multiple myeloma",
+        "multiple sclerosis",
+        "multiple sclerosis and pregnancy",
+        "muscle function",
+        "neuropathy",
+        "obesity",
+        "omega 3",
+        "omega 3 and pregnancy",
+        "omega 3 and viruses",
+        "osteoporosis",
+        "ovarian cancer",
+        "pancreatic cancer",
+        "pfizer",
+        "phosphorus",
+        "placenta",
+        "pneumonia",
+        "prediabetes",
+        "preeclampsia",
+        "pregnancy",
+        "preterm",
+        "preterm and omega 3",
+        "prostate cancer",
+        "red meat",
+        "respiratory",
+        "retinopathy",
+        "rheumatoid arthritis",
+        "rickets",
+        "skin cancer",
+        "statins",
+        "stillbirth",
+        "stroke",
+        "systemic sclerosis",
+        "telomere",
+        "therapeutic intervention",
+        "thyroid cancer",
+        "tuberculosis",
+        "type 1 diabetes",
+        "ultraviolet light",
+        "urinary tract infection",
+        "vaccination",
+        "vaccination and pregnancy",
+        "viral hepatitis",
+        "virus",
+        "virus and air pollution",
+        "virus and cardiovascular",
+        "virus and cognitive",
+        "virus and dark skin",
+        "virus meta analyses",
+        "virus studies",
+        "viruses and pregnancy",
+        "viruses and vitamin d receptor",
+        "vitamin d and viruses",
+        "vitamin d binding",
+        "vitamin d deficiency",
+        "vitamin k",
+        "vitamin k and viruses",
+        "wound healing",
+        "zinc",
+        "zinc and viruses"
+    ]
+}
+
+
+#### [An alternative to vitamin D supplements?](http://gettingstronger.org/2013/02/an-alternative-to-vitamin-d-supplements/#more-4125%20) Getting Stronger Feb 2013
+
+Author considers Vitamin D supplements to be like hormone supplements –in that there could be a danger in taking too much, since the body only limits internally generated hormones.
+
+Author cites three recent studies which indicate that one of the key functions of the vitamin D receptor is to regulate autophagy.
+
+Author fails to notice that the body does NOT accumulate hormone d.  
+
+No matter what the source of hormone d, it decays away in a half life which ranges from a week to 2 months, depending on the level of hormone D in the body.
+
+Yes, there is a concern about having too much vitamin/hormone D in the body, especially for years.  
+
+The question is, how much is too much.
+
+---
+
+#### See also VitaminDWiki
+
+* [Half-life of vitamin D varies](/posts/half-life-of-vitamin-d-varies)
+
+* [Is 50 ng of vitamin D too high, just right, or not enough](/tags/is-50-ng-of-vitamin-d-too-high-just-right-or-not-enough.html)
+
+* [Vitamin D aids the clearing out of old cells (autophagy) – many studies ](/tags/vitamin-d-aids-the-clearing-out-of-old-cells-autophagy-many-studies.html)
