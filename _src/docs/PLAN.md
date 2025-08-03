@@ -1,12 +1,12 @@
 # VDW Tool - Project Plan
 
 ## Overview
-A Dockerized administration tool for managing dad's website. The tool centralizes all development within the `src/` directory and uses Docker to eliminate the need for local installation of Python, npm, and other dependencies.
+A Dockerized administration tool for managing dad's website. The tool centralizes all development within the `_src/` directory and uses Docker to eliminate the need for local installation of Python, npm, and other dependencies.
 
 ## Project Structure
 ```
 vdw-tool/
-├── src/                    # All development code
+├── _src/                   # All development code
 │   └── master_script.py    # Main Python script with multiple options
 ├── docs/                   # Documentation
 ├── Dockerfile              # Container definition
@@ -17,7 +17,7 @@ vdw-tool/
 ## Phase 1: Dockerization Setup
 
 ### Goals
-- [x] Basic project structure with src/ organization
+- [x] Basic project structure with _src/ organization
 - [x] Create Dockerfile for Python environment
 - [ ] Set up docker-compose.yml for easy execution
 - [x] Test containerized execution of master_script.py
@@ -25,7 +25,7 @@ vdw-tool/
 
 ### Docker Implementation Plan
 1. **Base Container**: Python slim image with necessary dependencies
-2. **Volume Mounting**: Map src/ directory for development
+2. **Volume Mounting**: Map _src/ directory for development
 3. **Entry Point**: master_script.py as the main execution point
 4. **Port Exposure**: If web interface is added later
 
@@ -41,7 +41,7 @@ vdw-tool/
 - **You (Mac)**: `build.sh` - Execute to build and run for testing
 
 **Files Created:**
-- `src/Dockerfile` - Container definition with Python environment
+- `_src/Dockerfile` - Container definition with Python environment
 - `build_docker.bat` - Windows script with error handling and pause
 - `build_docker.sh` - Mac/Linux script for testing
 
@@ -51,7 +51,7 @@ vdw-tool/
 - Both scripts build the container and run it interactively
 
 ## Development Notes
-- Keep main directory clean - all code in src/
+- Keep main directory clean - all code in _src/
 - Use Docker for all dependencies
 - Master script will expand with multiple administration options
 - Focus on ease of use for non-technical user

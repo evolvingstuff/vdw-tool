@@ -10,4 +10,4 @@ RUN pip install -r requirements.txt
 COPY . .
 
 # Run the master script from /data/src when volume mounted
-CMD ["python", "/data/src/master_script.py"]
+CMD ["python", "/data/_src/master_script.py"]

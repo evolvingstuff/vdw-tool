@@ -1,6 +1,6 @@
 @echo off
 echo Building VDW Tool Docker container...
-docker build -t vdw-tool ./src
+docker build -t vdw-tool ./_src
 if %errorlevel% neq 0 (
     echo Build failed!
     pause
