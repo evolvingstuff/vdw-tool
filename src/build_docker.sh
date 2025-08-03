@@ -1,6 +1,7 @@
 #!/bin/bash
 
 echo "Building VDW Tool Docker container..."
+cd ..
 docker build -t vdw-tool ./src
 
 if [ $? -ne 0 ]; then
