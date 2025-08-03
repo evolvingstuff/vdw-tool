@@ -40,17 +40,18 @@ _src/actions/
 ├── build_hugo.py              # ✅ ENHANCED - Custom layouts, static files, FAIL FAST, search integration
 ├── serve_hugo.py              # ✅ Enhanced with port conflict resolution  
 ├── sync_posts_from_s3.py      # ✅ Enhanced with tqdm progress, pagination
-├── process_ontology.py        # 🆕 Tag expansion & relationships
-├── analyze_content.py         # 🆕 Content analytics
+├── convert_tiki_data.py        # 🆕 TikiWiki JSON to Markdown conversion
 └── deploy_to_cloudfront.py    # 🆕 Direct CloudFront deployment
 
 _src/utils/
 ├── build_search_index.py      # ✅ DONE - Pagefind integration
 ├── generate_search_data.py    # ✅ DONE - Search suggestions & metadata
-├── ontology_engine.py         # 🆕 Core ontology processing
-├── search_utils.py            # 🆕 Search-related utilities  
-├── tag_processor.py           # 🆕 Tag expansion logic
-├── content_analyzer.py        # 🆕 Content analysis tools
+├── ontology_engine.py         # ✅ DONE - Core ontology processing
+├── ontology_utils.py          # ✅ DONE - Ontology parsing utilities
+├── tag_processor.py           # ✅ DONE - Tag expansion logic
+├── conversion_utils.py        # 🆕 Data conversion utilities
+├── content_cleaner.py         # 🆕 Content cleaning and conversion
+├── attachment_handler.py      # 🆕 File and attachment management
 └── build_utils.py             # 🆕 Build helper functions
 ```
 
@@ -206,21 +207,56 @@ pagefind                      # Search indexing tool
 6. ✅ **DONE** - FAIL FAST error handling throughout search pipeline
 7. ✅ **DONE** - Automatic search integration in Hugo build workflow
 
-### Phase 3: Content Intelligence (Week 3-4) - CURRENT PHASE
-1. 🆕 Port ontology engine (OntologyEngine class from ontology_parse.py)
-2. 🆕 Create ontology parsing utilities (parse ontology rules: A => B, A ~ B, A = B)
-3. 🆕 Implement tag expansion logic (process markdown frontmatter, expand tags)
-4. 🆕 Create content analysis tools (cooccurrence tracking, tag relationships)
-5. 🆕 Integrate ontology processing into Hugo build workflow
-6. 🆕 Add ontology.txt configuration support
-7. 🆕 Test tag expansion with real vitamin D content
+### Phase 3: Content Intelligence ✅ COMPLETED
+1. ✅ **DONE** - Port ontology engine (OntologyEngine class from ontology_parse.py)
+2. ✅ **DONE** - Create ontology parsing utilities (parse ontology rules: A => B, A ~ B, A = B)
+3. ✅ **DONE** - Implement tag expansion logic (process markdown frontmatter, expand tags)
+4. ✅ **DONE** - Create content analysis tools (cooccurrence tracking, tag relationships)
+5. ✅ **DONE** - Integrate ontology processing into Hugo build workflow
+6. ✅ **DONE** - Add ontology.txt configuration support
+7. ✅ **DONE** - Test tag expansion with real vitamin D content
+8. ✅ **DONE** - Fix critical frontmatter format preservation bug (JSON vs YAML)
 
-### Phase 4: Deployment & Optimization (Week 5)
+### Phase 4: Data Conversion Integration (Week 4) - CURRENT PHASE
+**Overview**: Port TikiWiki to Markdown conversion from vitD for complete end-to-end pipeline
+
+**Data Flow**:
+```
+data/ (gitignored, copied from vitD)
+  ├── tiki_pages_*.json          # Page content with TikiWiki markup
+  ├── tiki_categories_*.json     # Category definitions
+  ├── tiki_wiki_attachments_*.json # File attachments (skip for now)
+  ├── catId-to-catName.csv       # Category ID to name mapping
+  ├── pageId-to-catId.csv        # Page to category relationships
+  └── rosetta.csv                # Category name remapping
+    ↓ CONVERSION PROCESS
+posts/ 
+  └── *.md                       # Markdown files with JSON frontmatter
+    ↓ EXISTING HUGO BUILD PIPELINE
+Hugo Site (with ontology tag expansion + search)
+```
+
+**Tasks**:
+1. 🆕 Port core conversion logic from vitD main.py and utils/utils.py
+2. 🆕 Create `convert_tiki_data.py` action (replace Hello World action)
+3. 🆕 Port TikiWiki markup parser (parsing/parser.py) for content conversion
+4. 🆕 Port data models (Page, Category, Attachment) and JSON loading functions
+5. 🆕 Port slug generation utilities for post filenames and URLs
+6. 🆕 Generate JSON frontmatter (title, slug, aliases, categories, date, tiki_page_id)
+7. 🆕 Integrate conversion action into main app.py menu
+8. 🆕 Test complete pipeline: data/ → posts/ → Hugo Build
+
+**Scope Limitations**:
+- ❌ **Skip attachment handling** for initial implementation  
+- ✅ **Focus on core content conversion** (TikiWiki markup → Markdown)
+- ✅ **Maintain existing Hugo build pipeline** compatibility
+
+### Phase 5: Deployment & Optimization (Week 5)
 1. 🆕 CloudFront deployment integration
 2. 🆕 Performance optimization  
 3. 🆕 Build analytics
 4. 🆕 Documentation
-5. 🆕 Testing
+5. 🆕 Complete testing suite
 
 ## Success Criteria
 
