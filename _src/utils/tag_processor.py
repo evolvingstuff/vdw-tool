@@ -137,20 +137,31 @@ def write_processed_markdown(processed_data: Dict[str, Any], output_path: Option
     """
     Write processed markdown data back to file with updated frontmatter
     FAIL FAST: Any write errors will raise exceptions immediately
+    
+    CRITICAL: Must re-read original file with frontmatter.load() to preserve format!
+    - frontmatter.Post() constructor defaults to YAML format
+    - frontmatter.load() preserves original format (JSON in our case)
+    - This matches vitD approach exactly (hugo.py:310 + 370)
     """
     if output_path is None:
         output_path = processed_data['file_path']
     
     try:
-        # Create frontmatter post object
-        post = frontmatter.Post(
-            content=processed_data['content'],
-            metadata=processed_data['metadata']
-        )
+        # CRITICAL: Re-read the original file to get the frontmatter Post object with correct format
+        # This preserves JSON frontmatter format - DO NOT use frontmatter.Post() constructor!
+        with open(processed_data['file_path'], 'r', encoding='utf-8') as f:
+            post = frontmatter.load(f)
         
-        # Write to file
+        # Update the metadata with processed data
+        post.metadata.update(processed_data['metadata'])
+        post.content = processed_data['content']
+        
+        # Write using frontmatter.dumps() exactly like vitD does on hugo.py:370
+        # The post object remembers its original format (JSON) and dumps() preserves it
+        updated_content = frontmatter.dumps(post)
+        
         with open(output_path, 'w', encoding='utf-8') as f:
-            f.write(frontmatter.dumps(post))
+            f.write(updated_content)
         
         return output_path
         
