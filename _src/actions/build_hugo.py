@@ -4,6 +4,10 @@ import shutil
 import re
 from tqdm import tqdm
 from pathlib import Path
+import sys
+sys.path.append('_src/utils')
+from build_search_index import build_search_index
+from generate_search_data import generate_search_data
 
 def clean_directory(directory, preserve_hidden=True):
     """
@@ -197,7 +201,16 @@ def build_hugo_site():
     
     print(f"✅ Hugo site built successfully!")
     print(f"📁 Output available in: {output_dir}/")
-    print(f"🌐 Open {output_dir}/index.html in a browser to view the site")
+    
+    # Generate search data (cooccurrences.json, text_suggestions.json)
+    # FAIL FAST: Search data generation failure should stop the build
+    generate_search_data()
+    
+    # Build search index with Pagefind  
+    # FAIL FAST: Search index creation failure should stop the build
+    build_search_index()
+    
+    print(f"🌐 Hugo site with search ready! Open {output_dir}/index.html in a browser")
     return True
 
 if __name__ == '__main__':
