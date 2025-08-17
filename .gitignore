@@ -2,6 +2,7 @@
 .env
 posts/
 posts-expanded/
+hugo_temp_site_build/
 data/
 __pycache__/
 hugo_output/

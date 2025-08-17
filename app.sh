@@ -82,4 +82,4 @@ else
     echo "lsof not available, attempting to start Docker anyway..."
 fi
 
-docker run -it --rm -p 1313:1313 -v "$(pwd)":/data -w /data vdw-tool
+docker run -it --rm -p 1313:1313 -v "$(pwd)":/data -w /data --memory="8g" --memory-swap="8g" vdw-tool

@@ -121,9 +121,9 @@ def build_hugo_site():
         raise FileNotFoundError(f"❌ Hugo configuration not found at {hugo_stuff_path}")
     
     # Clean up any existing build directory
-    site_dir = 'hugo_site_build'
+    site_dir = 'hugo_temp_site_build'
     if os.path.exists(site_dir):
-        print(f"🧹 Cleaning existing build directory: {site_dir}")
+        print(f"🧹 Cleaning existing temp build directory: {site_dir}")
         clean_directory(site_dir, preserve_hidden=True)
     else:
         os.makedirs(site_dir)
@@ -192,7 +192,7 @@ def build_hugo_site():
                     write_processed_markdown(processed_data, expanded_path)
                     
                     processed_files.append(processed_data)
-                    pbar.set_postfix(tags_added=processed_data['tags_added'])
+                    # pbar.set_postfix(tags_added=processed_data['tags_added'])
                 except Exception as e:
                     print(f"❌ Failed to process {filename} with ontology: {e}")
                     # FAIL FAST: Don't fall back to copying, raise the error
@@ -245,13 +245,29 @@ def build_hugo_site():
     
     # Build the Hugo site
     print("🔨 Running Hugo build...")
-    result = subprocess.run(['hugo'], cwd=site_dir, capture_output=True, text=True)
+    print(f"📊 Hugo build command: hugo --logLevel info --debug")
+    print(f"📁 Building in directory: {site_dir}")
+    print(f"📄 Number of content files: {len(os.listdir(content_posts_dir))}")
+    print("=" * 60)
+    
+    # Run Hugo with debug output and show progress in real-time
+    # Add timeout to prevent hanging forever
+    import time
+    start_time = time.time()
+    try:
+        result = subprocess.run(['hugo', '--logLevel', 'info', '--debug', '--printPathWarnings', '--printMemoryUsage'], 
+                              cwd=site_dir, capture_output=False, text=True, timeout=600)  # 10 minute timeout
+        elapsed = time.time() - start_time
+        print(f"⏱️  Hugo build completed in {elapsed:.1f} seconds")
+    except subprocess.TimeoutExpired:
+        print("❌ Hugo build timed out after 10 minutes!")
+        raise RuntimeError("Hugo build hung - likely due to complex templates or memory issues")
+    
+    print("=" * 60)
     
     # FAIL FAST: Hugo build must succeed completely
     if result.returncode != 0:
-        error_msg = f"❌ Hugo build failed with return code {result.returncode}\n"
-        error_msg += f"STDERR: {result.stderr}\n" 
-        error_msg += f"STDOUT: {result.stdout}"
+        error_msg = f"❌ Hugo build failed with return code {result.returncode}"
         raise RuntimeError(error_msg)
     
     # Verify that Hugo created the public directory
@@ -277,7 +293,7 @@ def build_hugo_site():
             shutil.copy2(source_item, target_item)
     
     # Clean up temporary build directory
-    print(f"🧹 Cleaning up temporary build directory: {site_dir}")
+    print(f"🧹 Cleaning up temp build directory: {site_dir}")
     shutil.rmtree(site_dir)
     
     # Verify final output

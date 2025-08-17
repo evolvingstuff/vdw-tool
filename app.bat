@@ -57,5 +57,5 @@ for /f "tokens=5" %%i in ('netstat -aon ^| findstr :1313') do (
     taskkill /F /PID %%i >nul 2>&1
 )
 
-docker run -it --rm -p 1313:1313 -v "%cd%":/data -w /data vdw-tool
+docker run -it --rm -p 1313:1313 -v "%cd%":/data -w /data --memory="8g" --memory-swap="8g" vdw-tool
 pause

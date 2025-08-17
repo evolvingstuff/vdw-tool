@@ -59,7 +59,7 @@ CLOUDFRONT_URL = 'https://d378j1rmrlek7x.cloudfront.net' # 'https://d1bk1kqxc0sy
 
 ########
 LIMIT_PROCESSING = True
-PROCESSING_START = 2500  # -1000
-PROCESSING_END = 5000  # -1  # -343  # this is the boundary for the last page to process
+PROCESSING_START = 2500  # 2500
+PROCESSING_END = 10000  # -1  # -343  # this is the boundary for the last page to process
 DEBUG_MODE = False  # shows tiki data underneath markdown data
 STATIC_SITE_DIR = '../vdw2'  # '../vitaminDWiki_static_site'
