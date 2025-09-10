@@ -11,6 +11,8 @@ import datetime
 from typing import List, Dict
 import sys
 
+import utils.slugs
+
 # Add utils to path for imports
 utils_path = os.path.join(os.path.dirname(__file__), '..', 'utils')
 sys.path.append(utils_path)
@@ -20,8 +22,7 @@ from utils import titles
 from utils.models import Page, Category, Attachment
 from utils.conversion_utils import convert_tiki_to_md
 from utils.slugs import (
-    generate_post_slug, 
-    post_slugs_that_exist, 
+    generate_post_slug,
     create_post_slugs,
     generate_tiki_wiki_slug
 )
@@ -102,17 +103,23 @@ def load_pages(cat_id_to_cat: Dict[int, Category]) -> Dict[int, Page]:
             
         except Exception as e:
             print(f"❌ Failed to process page {page_id}: {page_name} - {e}")
-            failed_pages.append(entry)
+            failed_pages.append((entry, str(e)))
             # FAIL FAST - uncomment next line to stop on first error
             # raise
 
     print(f'✅ Processed {len(pages)} pages')
     if failed_pages:
-        print(f'⚠️  Failed pages: {len(failed_pages)}')
-        for i, failed_page in enumerate(failed_pages[:5], 1):  # Show first 5
-            print(f"\t[{i}]:\t{failed_page['pageName']}")
-        if len(failed_pages) > 5:
-            print(f"\t... and {len(failed_pages) - 5} more")
+        path = 'errors.log'
+        with open(path, 'w') as f:
+            print(f'⚠️  Failed pages: {len(failed_pages)}')
+            f.write(f'⚠️  Failed pages: {len(failed_pages)}\n')
+            for i, failed_page in enumerate(failed_pages, 1):
+                try:
+                    print(f"\t[{i}]:\t{failed_page[0]['pageName']}")
+                    f.write(f"\t[{i}]:\t{failed_page[0]['pageName']}\n")
+                    f.write(f"\t\t\t{failed_page[1]}\n")
+                except Exception as e:
+                    print(f'WFT? {e}')
 
     if len(pages) == 0:
         raise ValueError("❌ No pages processed successfully")
@@ -290,6 +297,28 @@ def generate_posts(page_id_to_page: Dict[int, Page],
     return posts
 
 
+def write_tiki_to_directory(pages, output_dir_tiki: str):
+    """Write generated posts to output directory"""
+    print(f'Writing tiki to {output_dir_tiki}...')
+
+    # Create output directory if it doesn't exist
+    os.makedirs(output_dir_tiki, exist_ok=True)
+
+    # Clear existing posts
+    for filename in os.listdir(output_dir_tiki):
+        if filename.endswith('.tiki'):
+            os.remove(os.path.join(output_dir_tiki, filename))
+
+    for id in pages.keys():
+        page = pages[id]
+        slug = utils.slugs.generate_post_slug(page.page_name)
+        path = os.path.join(output_dir_tiki, f'{slug}.tiki')
+        with open(path, 'w') as outfile:
+            outfile.write(page.data_tiki)
+
+    print(f'✅ Wrote {len(pages.keys())} tiki to {output_dir_tiki}')
+
+
 def write_posts_to_directory(posts: List[tuple], output_dir: str):
     """Write generated posts to output directory"""
     print(f'Writing posts to {output_dir}...')
@@ -325,6 +354,9 @@ def convert_tiki_data():
         
         # Load and convert pages
         pages = load_pages(cat_id_to_cat)
+
+        # write tiki to dir
+        write_tiki_to_directory(pages, config.OUTPUT_DIR_TIKI)
         
         # Generate markdown posts
         posts = generate_posts(pages, cat_id_to_cat, page_id_to_cat_ids)
@@ -333,7 +365,7 @@ def convert_tiki_data():
         write_posts_to_directory(posts, config.OUTPUT_DIR)
         
         print('✅ TikiWiki to Markdown conversion completed successfully!')
-        print(f'📁 Output written to: {config.OUTPUT_DIR}')
+        print(f'📁 Output written to: {config.OUTPUT_DIR} and {config.OUTPUT_DIR_TIKI}')
         
     except Exception as e:
         print(f'❌ Conversion failed: {e}')

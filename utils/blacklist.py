@@ -1,5 +1,6 @@
 import re
 
+import config
 
 # TODO: add log of pages filtered using blacklist
 
@@ -29,46 +30,46 @@ BLACKLISTED_TITLES = {
     "search_smartmenu_dropdown",
     "Paywall in title",
     "Test Meta-analysis",
-    "Transcripts in VitaminDWiki",
-    "Top Vitamin D",
-    "Cancer - Liver",
-    "Deficiency of Vitamin D",
-    "Food sources for Vitamin D",
-    "Interactions with Vitamin D",
-    "Vitamin D in the Middle East",
-    "Vitamin D far from the Equator",
-    "Vitamin D in Canada",
-    "Vitamin D and Vitiman A",
-    "Vitamin D3 instead of D2",
-    "Tests for Vitamin D",
-    "Fortification with Vitamin D",
-    "UV and Vitamin D",
-    "Toxicity of Vitamin D",
-    "Vitamin D and Vitamin K",
-    "Vitamin D and Omega-3",
-    "Vitamin D and Magnesium",
-    "Vitamin D and Calcium",
-    "Diseases TREATED by Vitamin D",
-    "Sun and Vitamin D",
-    "Loading dose for Vitamin D",
-    "UV and D",
-    "Veterinary and D",
-    "Health",
-    "Overviews",
-    "Hypertension",
-    "Immunity",
+    # "Transcripts in VitaminDWiki",
+    # "Top Vitamin D",
+    # "Cancer - Liver",
+    # "Deficiency of Vitamin D",
+    # "Food sources for Vitamin D",
+    # "Interactions with Vitamin D",
+    # "Vitamin D in the Middle East",
+    # "Vitamin D far from the Equator",
+    # "Vitamin D in Canada",
+    # "Vitamin D and Vitiman A",
+    # "Vitamin D3 instead of D2",
+    # "Tests for Vitamin D",
+    # "Fortification with Vitamin D",
+    # "UV and Vitamin D",
+    # "Toxicity of Vitamin D",
+    # "Vitamin D and Vitamin K",
+    # "Vitamin D and Omega-3",
+    # "Vitamin D and Magnesium",
+    # "Vitamin D and Calcium",
+    # "Diseases TREATED by Vitamin D",
+    # "Sun and Vitamin D",
+    # "Loading dose for Vitamin D",
+    # "UV and D",
+    # "Veterinary and D",
+    # "Health",
+    # "Overviews",
+    # "Hypertension",
+    # "Immunity",
     "Sample Category Page",
     "Search other sites",
     "Test WYSIYWG",
     "Suggestions on how to record a meeting",
     "Moved 60",
     "Rick's Test Page",
-    "Medline and vitamin D",
+    # "Medline and vitamin D",
     "Google Translate of VitaminDWiki",
-    ". Vitamin D",
-    "Vaccine vs vitamin D",
-    "Tinnitus and vitamin D",
-    "Popular Pages",
+    # ". Vitamin D",
+    # "Vaccine vs vitamin D",
+    # "Tinnitus and vitamin D",
+    # "Popular Pages",
     "Searching Vitamin D Wiki",
 }
 
@@ -95,8 +96,8 @@ BLACKLIST_PATTERNS = [
     re.compile(r'\(test\)', re.IGNORECASE),
     # Match titles starting with "Test: "
     re.compile(r'^test: ', re.IGNORECASE),
-    # Match single-word titles
-    re.compile(r'^[A-Za-z]+$'),
+    # # Match single-word titles
+    # re.compile(r'^[A-Za-z]+$'),
     # Match titles containing "Tiki"
     re.compile(r'tiki', re.IGNORECASE)
 ]
@@ -109,6 +110,9 @@ def is_blacklisted(title: str) -> bool:
     - Matches exactly with BLACKLISTED_TITLES
     - Matches any of the blacklist patterns
     """
+    if not config.APPLY_TITLE_BLACKLISTING:
+        return False
+
     # Check exact matches
     if title in BLACKLISTED_TITLES:
         return True

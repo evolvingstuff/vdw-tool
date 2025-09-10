@@ -2,7 +2,7 @@ import re
 import unicodedata
 from typing import Dict
 import config
-import titles
+import utils.titles
 
 unique_post_slugs = set()
 post_slug_counter: Dict[str, int] = {}
@@ -39,7 +39,7 @@ def generate_post_slug(title: str, enforce_unique: bool = False) -> str:
         pass
 
     if config.REMOVE_DATES_FROM_TITLES:
-        title = titles.remove_dates_from_title_ends(title)  # sometimes redundant but needed for local links...
+        title = utils.titles.remove_dates_from_title_ends(title)  # sometimes redundant but needed for local links...
 
     # Convert to lowercase and normalize unicode
     slug = title.lower()

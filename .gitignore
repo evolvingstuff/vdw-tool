@@ -4,3 +4,4 @@ posts/
 posts_tiki/
 data/
 __pycache__/
+*.log
