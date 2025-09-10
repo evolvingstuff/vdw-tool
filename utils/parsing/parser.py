@@ -8,17 +8,17 @@ import sys
 import os
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))  # Add utils to path
 
-import conversion_config as config
-import slugs
-from vitd_utils.files_and_attachments import map_id_to_path
-from slugs import tag_slugs_that_exist, post_slugs_that_exist, generate_post_slug, generate_hugo_tag_slug
+import config
+import utils.slugs
+from utils.vitd_utils.files_and_attachments import map_id_to_path
+from utils.slugs import tag_slugs_that_exist, post_slugs_that_exist, generate_post_slug, generate_hugo_tag_slug
 
 try:
     # Try local import first (when running lr.py directly)
     from attrs import parse_attrs
 except ImportError:
     # Fall back to package import (when imported from main.py)
-    from parsing.attrs import parse_attrs
+    from utils.parsing.attrs import parse_attrs
 
 
 class BaseNode(BaseModel):
@@ -102,7 +102,7 @@ class LinkNode(BaseNode):
             page_id = page_id_match.group(1)
 
             # Check if it exists in the post set first
-            post_slug = slugs.generate_post_slug(text, enforce_unique=False)
+            post_slug = utils.slugs.generate_post_slug(text, enforce_unique=False)
             if post_slug in post_slugs_that_exist:
                 return f"[{text}](/posts/{post_slug})"
             else:  # we ASSUME existence of tags to avoid circular discovery reference problems
@@ -354,7 +354,7 @@ class LocalLinkNode(BaseNode):
 
     def render(self) -> str:
         # For local links, we'll use relative paths in the Hugo site
-        post_slug = slugs.generate_post_slug(self.page, enforce_unique=False)
+        post_slug = utils.slugs.generate_post_slug(self.page, enforce_unique=False)
 
         # The text is either the children content or the page name if no children
         text = "".join(child.render() for child in self.children) if self.children else self.page
@@ -362,7 +362,7 @@ class LocalLinkNode(BaseNode):
         if post_slug in post_slugs_that_exist:
             return f"[{text}](/posts/{post_slug})"
         else:  # we ASSUME existence of tags to avoid circular discovery reference problems
-            tag_slug = slugs.generate_hugo_tag_slug(self.page)              
+            tag_slug = utils.slugs.generate_hugo_tag_slug(self.page)
             return f"[{text}](/tags/{tag_slug}.html)"
 
 class AliasedLocalLinkNode(BaseNode):
@@ -373,7 +373,7 @@ class AliasedLocalLinkNode(BaseNode):
 
     def render(self) -> str:
         # For local links, we'll use relative paths in the Hugo site
-        post_slug = slugs.generate_post_slug(self.page, enforce_unique=False)
+        post_slug = utils.slugs.generate_post_slug(self.page, enforce_unique=False)
         
         # Use the explicit display text for the link text
         text = self.display_text

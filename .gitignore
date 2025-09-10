@@ -1,9 +1,6 @@
 .idea/
 .env
 posts/
-posts-expanded/
-hugo_temp_site_build/
+posts_tiki/
 data/
 __pycache__/
-hugo_output/
-hugo_site_build/

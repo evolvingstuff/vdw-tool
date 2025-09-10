@@ -1,5 +1,5 @@
-import conversion_config as config
-import parsing.parser as parser
+import config
+import utils.parsing.parser as parser
 import re
 import urllib.parse
 

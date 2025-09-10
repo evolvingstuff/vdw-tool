@@ -1,7 +1,7 @@
 import re
 from typing import List
 
-import conversion_config as config
+import config
 
 def break_into_sections(md: str) -> List[str]:
     # Validate input

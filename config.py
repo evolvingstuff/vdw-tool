@@ -18,9 +18,12 @@ REPLACE_ASTERISKS_INSIDE_HTML = True
 ASTERISK_REPLACEMENT = '✻'  # '✱'
 # VDW Tool paths - adjust for project structure
 import os
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))  # Go up to project root
-DATA_DIR = os.path.join(BASE_DIR, 'data')
-OUTPUT_DIR = os.path.join(BASE_DIR, 'posts')
+# BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))  # Go up to project root
+# DATA_DIR = os.path.join(BASE_DIR, 'data')
+# OUTPUT_DIR = os.path.join(BASE_DIR, 'posts')
+
+DATA_DIR = 'data'
+OUTPUT_DIR = 'posts'
 
 PATH_TIKI_PAGES = os.path.join(DATA_DIR, '_src_files', 'tiki_pages_2025-05-04.json')
 PATH_TIKI_CATEGORIES = os.path.join(DATA_DIR, '_src_files', 'tiki_categories_2025-05-04.json')
@@ -60,6 +63,5 @@ CLOUDFRONT_URL = 'https://d378j1rmrlek7x.cloudfront.net' # 'https://d1bk1kqxc0sy
 ########
 LIMIT_PROCESSING = True
 PROCESSING_START = 2500  # 2500
-PROCESSING_END = 10000  # -1  # -343  # this is the boundary for the last page to process
+PROCESSING_END = 3000  # -1  # -343  # this is the boundary for the last page to process
 DEBUG_MODE = False  # shows tiki data underneath markdown data
-STATIC_SITE_DIR = '../vdw2'  # '../vitaminDWiki_static_site'

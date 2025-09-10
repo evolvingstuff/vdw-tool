@@ -15,18 +15,18 @@ import sys
 utils_path = os.path.join(os.path.dirname(__file__), '..', 'utils')
 sys.path.append(utils_path)
 
-import conversion_config as config
-import titles
-from models import Page, Category, Attachment
-from conversion_utils import convert_tiki_to_md
-from slugs import (
+import config
+from utils import titles
+from utils.models import Page, Category, Attachment
+from utils.conversion_utils import convert_tiki_to_md
+from utils.slugs import (
     generate_post_slug, 
     post_slugs_that_exist, 
     create_post_slugs,
     generate_tiki_wiki_slug
 )
-from blacklist import is_blacklisted
-import vitd_utils.globals as globals
+from utils.blacklist import is_blacklisted
+import utils.vitd_utils.globals as globals
 
 
 def load_pages(cat_id_to_cat: Dict[int, Category]) -> Dict[int, Page]:

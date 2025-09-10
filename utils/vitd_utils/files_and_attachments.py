@@ -2,10 +2,10 @@ import sys
 import os
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))  # Add utils to path
 
-import conversion_config as config
-import vitd_utils.globals
-from models import Attachment
-from vitd_utils.filenames import sanitize_filename
+import config
+import utils.vitd_utils.globals
+from utils.models import Attachment
+from utils.vitd_utils.filenames import sanitize_filename
 
 
 def map_id_to_path(id_type: str, id: int, attachment_type: str) -> str:
@@ -19,8 +19,8 @@ def map_id_to_path(id_type: str, id: int, attachment_type: str) -> str:
         # TODO: asdfasdfasdf
         pass
     elif id_type in ['id', 'attId']:
-        assert id in vitd_utils.globals.att_id_to_file, 'missing id'
-        att: Attachment = vitd_utils.globals.att_id_to_file[id]
+        assert id in utils.vitd_utils.globals.att_id_to_file, 'missing id'
+        att: Attachment = utils.vitd_utils.globals.att_id_to_file[id]
         raw_filename = att.filename
         sanitized_file_name = sanitize_filename(raw_filename)
         attachment_type = att.filetype.split('/')[-1]

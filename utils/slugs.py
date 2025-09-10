@@ -1,7 +1,7 @@
 import re
 import unicodedata
 from typing import Dict
-import conversion_config as config
+import config
 import titles
 
 unique_post_slugs = set()
