@@ -31,3 +31,4 @@ class Page(BaseModel):
     data_md: Optional[str] = None
     created: int
     last_modified: int
+    censored_sections: List[str] = []

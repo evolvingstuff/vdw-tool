@@ -166,14 +166,15 @@ def convert_tiki_to_md(tiki):
 
     md = parser.render_as_markdown(ast)
 
+    censored_sections = []
     if config.POST_CENSOR:
-        md = vitd_utils.censor_pass.post_censor(md)
+        md, censored_sections = vitd_utils.censor_pass.post_censor(md)
 
     # print('MD STR:')
     # print(md)
 
     if not config.DEBUG_MODE:
-        return md
+        return md, censored_sections
     
     # Format the output with all stages, using HTML to ensure proper rendering
     return f"""
@@ -194,4 +195,4 @@ Original Tiki:
 {escape_for_html(tiki)}
 </code>
 </pre>
-"""
+""", censored_sections

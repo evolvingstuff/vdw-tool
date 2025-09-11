@@ -9,7 +9,9 @@ def break_into_sections(md: str) -> List[str]:
         raise ValueError(f"Expected string input, got {type(md).__name__}")
     
     if not md:
-        raise ValueError("Input markdown content is empty")
+        # Return empty list for empty content instead of raising error
+        # This can happen when all content has been censored
+        return []
     
     # The pattern for section delimiter: newline, three or more dashes, newline
     section_pattern = r'\n-{3,}\n'
@@ -46,13 +48,14 @@ def process_section(section: str) -> str:
     return section
 
 
-def post_censor(md: str) -> str:
+def post_censor(md: str) -> tuple[str, List[str]]:
 
     sections: List[str] = break_into_sections(md)
     
     # print(f"DEBUG: Found {len(sections)} sections")
 
     processed_sections: List[str] = []
+    censored_sections: List[str] = []
 
     for i, section in enumerate(sections):
         # Process the section first
@@ -77,6 +80,7 @@ def post_censor(md: str) -> str:
             # print(f"DEBUG: Skipping effectively empty section #{i} (original length: {len(section)})")
             # print(f"DEBUG: Original content (first 50 chars): '{orig_stripped[:50]}'")
             # print(f"DEBUG: Processed content (first 50 chars): '{proc_stripped[:50]}'")
+            censored_sections.append(section)  # Store the original censored section
             continue
             
         # Only add non-blank processed sections
@@ -85,4 +89,4 @@ def post_censor(md: str) -> str:
     # print(f"DEBUG: After processing, {len(processed_sections)} non-empty sections remain")
     processed_md = '\n---\n'.join(processed_sections)
 
-    return processed_md
+    return processed_md, censored_sections
