@@ -1,4 +1,4 @@
-from pydantic import BaseModel, FilePath, field_validator, model_validator
+from pydantic import BaseModel, Field, FilePath, field_validator, model_validator
 from typing import List, Optional
 from datetime import datetime
 from enum import Enum
@@ -31,4 +31,5 @@ class Page(BaseModel):
     data_md: Optional[str] = None
     created: int
     last_modified: int
-    censored_sections: List[str] = []
+    sections_included: List[int] = Field(default_factory=list)
+    sections_excluded: List[int] = Field(default_factory=list)

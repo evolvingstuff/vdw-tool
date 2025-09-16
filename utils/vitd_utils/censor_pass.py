@@ -1,5 +1,5 @@
 import re
-from typing import List
+from typing import List, Tuple
 
 import config
 
@@ -48,14 +48,15 @@ def process_section(section: str) -> str:
     return section
 
 
-def post_censor(md: str) -> tuple[str, List[str]]:
+def post_censor(md: str) -> Tuple[str, List[int], List[int]]:
 
     sections: List[str] = break_into_sections(md)
     
     # print(f"DEBUG: Found {len(sections)} sections")
 
     processed_sections: List[str] = []
-    censored_sections: List[str] = []
+    sections_included: List[int] = []
+    sections_excluded: List[int] = []
 
     for i, section in enumerate(sections):
         # Process the section first
@@ -80,15 +81,14 @@ def post_censor(md: str) -> tuple[str, List[str]]:
             # print(f"DEBUG: Skipping effectively empty section #{i} (original length: {len(section)})")
             # print(f"DEBUG: Original content (first 50 chars): '{orig_stripped[:50]}'")
             # print(f"DEBUG: Processed content (first 50 chars): '{proc_stripped[:50]}'")
-            # TODO for Claude: this is breaking
-            # censored_sections.append(section)  # Store the original censored section
-            censored_sections.append('todo')
+            sections_excluded.append(i)
             continue
             
         # Only add non-blank processed sections
         processed_sections.append(processed_section)
+        sections_included.append(i)
 
     # print(f"DEBUG: After processing, {len(processed_sections)} non-empty sections remain")
     processed_md = '\n---\n'.join(processed_sections)
 
-    return processed_md, censored_sections
+    return processed_md, sections_included, sections_excluded

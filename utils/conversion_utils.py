@@ -1,3 +1,5 @@
+from typing import List
+
 import config
 import utils.parsing.parser as parser
 import re
@@ -166,15 +168,19 @@ def convert_tiki_to_md(tiki):
 
     md = parser.render_as_markdown(ast)
 
-    censored_sections = []
+    sections_included: List[int] = []
+    sections_excluded: List[int] = []
     if config.POST_CENSOR:
-        md, censored_sections = vitd_utils.censor_pass.post_censor(md)
+        md, sections_included, sections_excluded = vitd_utils.censor_pass.post_censor(md)
+    else:
+        sections = vitd_utils.censor_pass.break_into_sections(md)
+        sections_included = list(range(len(sections))) if sections else []
 
     # print('MD STR:')
     # print(md)
 
     if not config.DEBUG_MODE:
-        return md, censored_sections
+        return md, sections_included, sections_excluded
     
     # Format the output with all stages, using HTML to ensure proper rendering
     return f"""
@@ -195,4 +201,4 @@ Original Tiki:
 {escape_for_html(tiki)}
 </code>
 </pre>
-""", censored_sections
+""", sections_included, sections_excluded

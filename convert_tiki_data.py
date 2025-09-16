@@ -81,7 +81,7 @@ def load_pages(cat_id_to_cat: Dict[int, Category]) -> Dict[int, Page]:
         data_tiki = entry['data']
 
         try:
-            data_md, censored_sections = convert_tiki_to_md(data_tiki)
+            data_md, sections_included, sections_excluded = convert_tiki_to_md(data_tiki)
             created = entry['created']
             last_modified = entry['lastModif']
 
@@ -95,7 +95,8 @@ def load_pages(cat_id_to_cat: Dict[int, Category]) -> Dict[int, Page]:
                 data_md=data_md,
                 created=created,
                 last_modified=last_modified,
-                censored_sections=censored_sections
+                sections_included=sections_included,
+                sections_excluded=sections_excluded
             )
             
             if page_id in pages:
@@ -279,7 +280,8 @@ def generate_posts(page_id_to_page: Dict[int, Page],
             "aliases": aliases,
             "tiki_page_id": page_id,
             "date": formatted_date,
-            "censored_sections": page_id_to_page[page_id].censored_sections
+            "sections_included": page_id_to_page[page_id].sections_included,
+            "sections_excluded": page_id_to_page[page_id].sections_excluded
         }
         
         if categories:
