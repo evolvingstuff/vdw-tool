@@ -80,7 +80,9 @@ def post_censor(md: str) -> tuple[str, List[str]]:
             # print(f"DEBUG: Skipping effectively empty section #{i} (original length: {len(section)})")
             # print(f"DEBUG: Original content (first 50 chars): '{orig_stripped[:50]}'")
             # print(f"DEBUG: Processed content (first 50 chars): '{proc_stripped[:50]}'")
-            censored_sections.append(section)  # Store the original censored section
+            # TODO for Claude: this is breaking
+            # censored_sections.append(section)  # Store the original censored section
+            censored_sections.append('todo')
             continue
             
         # Only add non-blank processed sections

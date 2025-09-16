@@ -313,7 +313,10 @@ def write_tiki_to_directory(pages, output_dir_tiki: str):
 
     for id in pages.keys():
         page = pages[id]
-        slug = utils.slugs.generate_post_slug(page.page_name)
+        page_name = page.page_name
+        if config.REMOVE_DATES_FROM_TITLES:
+            page_name = titles.remove_dates_from_title_ends(page_name)
+        slug = utils.slugs.generate_post_slug(page_name)
         path = os.path.join(output_dir_tiki, f'{slug}.tiki')
         with open(path, 'w') as outfile:
             outfile.write(page.data_tiki)

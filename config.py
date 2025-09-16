@@ -62,7 +62,7 @@ USE_PAGEFIND_YAML = False  # not working yet
 CLOUDFRONT_URL = 'https://d378j1rmrlek7x.cloudfront.net' # 'https://d1bk1kqxc0sym.cloudfront.net'
 
 ########
-LIMIT_PROCESSING = True
+LIMIT_PROCESSING = False
 PROCESSING_START = 2500  # 2500
 PROCESSING_END = 5000  # -1  # -343  # this is the boundary for the last page to process
 DEBUG_MODE = False  # shows tiki data underneath markdown data
