@@ -1,3 +1,5 @@
+import re
+
 NO_TABLE_HEADERS = True
 LOOSE_RENDERING = False
 DOUBLE_TEXT_NODE_NEWLINES = True
@@ -38,19 +40,112 @@ path_tiki_attachments = PATH_TIKI_ATTACHMENTS
 FRONT_MATTER_FORMAT = 'json'  # json | yaml
 INCLUDE_ASSOCIATED_TAGS = False  # Whether to include associated tags from ontology in page tags
 ###################
-POST_CENSOR = True
-REMOVE_VITAMIN_D_WIKI_DASH_PREFIX = True
-BLACKLIST = [
+# TODO: we should have all of the blacklists in one place...
+BLACKLISTED_SECTIONS = [
     '{include',
     '{SQL',
     '{LIST()',
     '{category',
     '{LISTPAGES',
-    'in the title',
-    'VitaminDWiki - ',
-    'VitaminDWiki – '
+    # 'in the title',
+    # 'VitaminDWiki - ',
+    # 'VitaminDWiki – '
 ]
-# BLACKLIST = []
+BLACKLISTED_TITLES = {
+    "Wiki Help",
+    "Registered HomePage",
+    "Instructions",
+    "Community",
+    "New pages",
+    "Moved76",
+    "removed2",
+    "HelpOpenFiles"
+    "HelpSize",
+    "VDWMostViewed",
+    "list pages",
+    "PagesFiles",
+    "ShowPages",
+    "iPadTips",
+    "MakeASimplePage",
+    "GoogleTranslate",
+    "ScreenMagnification",
+    "Tet of getting Toc of another page",
+    "interactive pdf test",
+    "Tiki reference material",
+    "top 1000 most visited",
+    "search_smartmenu_dropdown",
+    "Paywall in title",
+    "Test Meta-analysis",
+    # "Transcripts in VitaminDWiki",
+    # "Top Vitamin D",
+    # "Cancer - Liver",
+    # "Deficiency of Vitamin D",
+    # "Food sources for Vitamin D",
+    # "Interactions with Vitamin D",
+    # "Vitamin D in the Middle East",
+    # "Vitamin D far from the Equator",
+    # "Vitamin D in Canada",
+    # "Vitamin D and Vitiman A",
+    # "Vitamin D3 instead of D2",
+    # "Tests for Vitamin D",
+    # "Fortification with Vitamin D",
+    # "UV and Vitamin D",
+    # "Toxicity of Vitamin D",
+    # "Vitamin D and Vitamin K",
+    # "Vitamin D and Omega-3",
+    # "Vitamin D and Magnesium",
+    # "Vitamin D and Calcium",
+    # "Diseases TREATED by Vitamin D",
+    # "Sun and Vitamin D",
+    # "Loading dose for Vitamin D",
+    # "UV and D",
+    # "Veterinary and D",
+    # "Health",
+    # "Overviews",
+    # "Hypertension",
+    # "Immunity",
+    "Sample Category Page",
+    "Search other sites",
+    "Test WYSIYWG",
+    "Suggestions on how to record a meeting",
+    "Moved 60",
+    "Rick's Test Page",
+    # "Medline and vitamin D",
+    "Google Translate of VitaminDWiki",
+    # ". Vitamin D",
+    # "Vaccine vs vitamin D",
+    # "Tinnitus and vitamin D",
+    # "Popular Pages",
+    "Searching Vitamin D Wiki",
+}
+# Compile regex patterns for efficiency
+BLACKLIST_PATTERNS = [
+    re.compile(r'^moved\d+$', re.IGNORECASE),
+    re.compile(r'^removed\d+$', re.IGNORECASE),
+    # Match CamelCase/PascalCase pattern: word starting with capital followed by
+    # at least one more capitalized word
+    re.compile(r'^[A-Z][a-z]+([A-Z][a-z]+)+$'),
+    # Match "test page" at start of title, case insensitive
+    re.compile(r'^test '),
+    # Match any word immediately followed by number(s), e.g. "Junk6"
+    re.compile(r'^[a-zA-Z]+\d+$'),
+    # Match titles starting with "redirected "
+    re.compile(r'^redirected ', re.IGNORECASE),
+    # Match titles ending with " most visited"
+    re.compile(r' most visited$', re.IGNORECASE),
+    # Match words connected by underscores (2 or more words)
+    re.compile(r'^[a-zA-Z]+(_[a-zA-Z]+)+$'),
+    # Match titles starting with lowercase letter
+    re.compile(r'^[a-z]'),
+    # Match titles containing "(test)"
+    re.compile(r'\(test\)', re.IGNORECASE),
+    # Match titles starting with "Test: "
+    re.compile(r'^test: ', re.IGNORECASE),
+    # # Match single-word titles
+    # re.compile(r'^[A-Za-z]+$'),
+    # Match titles containing "Tiki"
+    re.compile(r'tiki', re.IGNORECASE)
+]
 
 # 0 - 5000 yes
 # 2500 - 5000 yes
@@ -59,6 +154,7 @@ MYSTERY_ERRORS = [
     'fix-thyroid-then-increase-vitamin-d'
 ]
 USE_PAGEFIND_YAML = False  # not working yet
+# TODO move to .env
 CLOUDFRONT_URL = 'https://d378j1rmrlek7x.cloudfront.net' # 'https://d1bk1kqxc0sym.cloudfront.net'
 
 ########
@@ -67,4 +163,6 @@ PROCESSING_START = 2500  # 2500
 PROCESSING_END = 5000  # -1  # -343  # this is the boundary for the last page to process
 DEBUG_MODE = False  # shows tiki data underneath markdown data
 
-APPLY_TITLE_BLACKLISTING = True
+########################################
+APPLY_TITLE_BLACKLISTING = False  # True
+POST_CENSOR = False  # True
