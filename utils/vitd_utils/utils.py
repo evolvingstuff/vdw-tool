@@ -143,6 +143,9 @@ def escape_url(url):
 
 
 def convert_tiki_to_md(tiki):
+    print('DEBUG: convert_tiki_to_md 2')
+
+    raise Exception('are we using this?')
 
     # print('TIKI DATA:')
     # print(tiki)

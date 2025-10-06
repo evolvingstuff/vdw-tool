@@ -34,6 +34,7 @@ PATH_TIKI_ATTACHMENTS = os.path.join(DATA_DIR, '_src_files', 'tiki_wiki_attachme
 PATH_CAT_ID_TO_NAME = os.path.join(DATA_DIR, 'catId-to-catName.csv')
 PATH_PAGE_ID_TO_CAT = os.path.join(DATA_DIR, 'pageId-to-catId.csv')
 PATH_ROSETTA = os.path.join(DATA_DIR, 'rosetta.csv')
+PATH_TIKI_FILES = os.path.join(DATA_DIR, '_src_files', 'tiki_files_2025-05-04.json')
 
 COPY_ATTACHMENTS = False
 path_tiki_attachments = PATH_TIKI_ATTACHMENTS
@@ -159,8 +160,8 @@ CLOUDFRONT_URL = 'https://d378j1rmrlek7x.cloudfront.net' # 'https://d1bk1kqxc0sy
 
 ########
 LIMIT_PROCESSING = False
-PROCESSING_START = 2500  # 2500
-PROCESSING_END = 5000  # -1  # -343  # this is the boundary for the last page to process
+PROCESSING_START = -200  # 2500
+PROCESSING_END = None  # -1  # -343  # this is the boundary for the last page to process
 DEBUG_MODE = False  # shows tiki data underneath markdown data
 
 ########################################

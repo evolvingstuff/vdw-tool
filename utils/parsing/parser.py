@@ -26,7 +26,7 @@ class BaseNode(BaseModel):
     full_match: str
     inner_content: str
 
-    def render(self) -> str:
+    def render(self) -> str:  # TODO asdf
         """Basic rendering that just returns text content.
         Complex nodes like LIST and TABLE will be skipped.
         No markdown formatting is applied yet."""
@@ -259,7 +259,6 @@ class ImgNode(BaseNode):
                     raise ValueError(f"Invalid {id_type} format: '{id_value}'. Error: {str(e)}") from e
             
             # Try different ID attributes in order of preference
-            # TODO asdfasdf handle correctly for file vs attachment
             if 'attId' in self.attrs_dict:
                 process_id('attId', self.attrs_dict.get('attId'))
             elif 'fileId' in self.attrs_dict:
@@ -758,7 +757,6 @@ class ImgBlockNode(BaseNode):
             else:
                 # Throw exception for missing ID
                 raise ValueError(f"Missing attachment ID or src in image block node: {self.attrs_dict}")
-            
             try:
                 # If the ID contains commas, it's multiple images
                 if ',' in id_value:
@@ -790,7 +788,6 @@ class ImgBlockNode(BaseNode):
                 print(f"ERROR: Failed to parse {id_type}: '{id_value}', full attrs: {self.attrs_dict}")
                 # Enhanced error with the raw ID value and original error
                 raise ValueError(f"Invalid {id_type} format in block: '{id_value}'. Error: {str(e)}") from e
-            
             # Join all images together
             return '\n'.join(result_images)
 
@@ -920,7 +917,6 @@ class TablePattern(Pattern):
 
 
 class ImgPattern(Pattern):
-    # TODO asdfasdf is it true that always an attId?
     """Pattern for image tags like {img type="attId" attId="21139" width="400"}"""
     def __init__(self):
         super().__init__(

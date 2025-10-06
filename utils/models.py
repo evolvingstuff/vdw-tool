@@ -33,3 +33,8 @@ class Page(BaseModel):
     last_modified: int
     sections_included: List[int] = Field(default_factory=list)
     sections_excluded: List[int] = Field(default_factory=list)
+
+
+class TikiFile(BaseModel):
+    file_id: int
+    filename: str

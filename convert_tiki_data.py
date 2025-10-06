@@ -19,7 +19,7 @@ sys.path.append(utils_path)
 
 import config
 from utils import titles
-from utils.models import Page, Category, Attachment
+from utils.models import Page, Category, Attachment, TikiFile
 from utils.conversion_utils import convert_tiki_to_md
 from utils.slugs import (
     generate_post_slug,
@@ -30,13 +30,39 @@ from utils.blacklist import is_blacklisted
 import utils.vitd_utils.globals as globals
 
 
+def load_file_id_to_tiki_file() -> Dict[int, TikiFile]:
+    if not os.path.exists(config.PATH_TIKI_FILES):
+        raise FileNotFoundError(f"❌ TikiWiki files file not found: {config.PATH_TIKI_FILES}")
+
+    with open(config.PATH_TIKI_FILES, 'r') as f:
+        tiki_files = json.load(f)
+
+    results: Dict[int, TikiFile] = {}
+    for tf in tiki_files:
+        try:
+            file_id = tf['fileId']
+            filename = tf['filename']
+            if '.' not in filename:
+                if 'filetype' in tf:
+                    filetype = tf['filetype'].split('/')[-1]
+                    filename = f'{filename}.{filetype}'
+                    print(f'\tUPDATED FILENAME TO {filename}')
+                else:
+                    raise Exception('no valid filename extension')
+            print(f'file_id: {file_id}, file_name: {filename}')
+            results[file_id] = TikiFile(file_id=file_id, filename=filename)
+        except Exception as e:
+            print(f'ERROR: filename: {filename} has no file type')
+    return results
+
+
 def load_pages(cat_id_to_cat: Dict[int, Category]) -> Dict[int, Page]:
     """Load pages from JSON file - ported from vitD main.py"""
     print('Loading pages from JSON...')
     
     if not os.path.exists(config.PATH_TIKI_PAGES):
         raise FileNotFoundError(f"❌ TikiWiki pages file not found: {config.PATH_TIKI_PAGES}")
-    
+
     with open(config.PATH_TIKI_PAGES, 'r') as f:
         entries = json.load(f)
 
@@ -52,7 +78,10 @@ def load_pages(cat_id_to_cat: Dict[int, Category]) -> Dict[int, Page]:
     entries = temp
 
     if config.LIMIT_PROCESSING:
-        entries = entries[config.PROCESSING_START:config.PROCESSING_END]
+        if config.PROCESSING_END is None:
+            entries = entries[config.PROCESSING_START:]
+        else:
+            entries = entries[config.PROCESSING_START:config.PROCESSING_END]
 
     if len(entries) == 0:
         raise ValueError("❌ No entries to process after filtering")
@@ -193,6 +222,8 @@ def load_page_id_to_cat_ids() -> Dict[int, List[int]]:
                     page_id_to_cat_id[page_id_int] = []
                 page_id_to_cat_id[page_id_int].append(cat_id_int)
                 valid += 1
+            else:
+                print('wut?')
                 
     print(f'✅ Loaded {valid} page-category mappings, skipped {skipped}')
     return page_id_to_cat_id
@@ -354,6 +385,8 @@ def convert_tiki_data():
     try:
         # Load attachment mappings into global variable (required by parser)
         globals.att_id_to_file = load_att_id_to_file()
+
+        globals.file_id_to_tiki_file = load_file_id_to_tiki_file()
         
         # Load categories and mappings
         cat_id_to_cat = load_categories()

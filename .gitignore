@@ -5,3 +5,9 @@ posts_tiki/
 data/
 __pycache__/
 *.log
+# Symlinked agents config
+AGENTS.md
+# Symlinked claude compatibility stub
+CLAUDE.md
+# Auto-generated project summary (created by SUMMARIZE command)
+AI-SUMMARY.md

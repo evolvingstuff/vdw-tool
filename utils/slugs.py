@@ -34,10 +34,6 @@ def generate_post_slug(title: str, enforce_unique: bool = False) -> str:
     if not title:
         raise ValueError("Title cannot be empty")
 
-    if 'Quercetin (a flavonoid) helps activate the Vitamin D receptor – many studies' == title:
-        print('debugging')
-        pass
-
     if config.REMOVE_DATES_FROM_TITLES:
         title = utils.titles.remove_dates_from_title_ends(title)  # sometimes redundant but needed for local links...
 

@@ -146,11 +146,6 @@ def escape_url(url):
 
 def convert_tiki_to_md(tiki):
 
-    # print('TIKI DATA:')
-    # print(tiki)
-
-    # print('========================')
-
     # Apply text substitutions before parsing
     tiki = apply_text_substitutions(tiki)
 
@@ -159,12 +154,10 @@ def convert_tiki_to_md(tiki):
     ast_str = []
     for node in ast:
         ast_str.append(parser.format_node(node))
-    # ast_str = "\n".join(ast_str)
-    ast_str = "".join(ast_str)
-    # print('AST STR:')
-    # print(ast_str)
 
-    # TODO: 'censor' pass goes here instead? in addition?
+
+
+    ast_str = "".join(ast_str)
 
     md = parser.render_as_markdown(ast)
 
