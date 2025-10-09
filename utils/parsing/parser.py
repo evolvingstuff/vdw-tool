@@ -583,14 +583,10 @@ class IndentNode(BaseNode):
     children: List['Node'] = []
     
     def render(self) -> str:
-        # Render indentation using non-breaking spaces
-        # Each level adds 4 non-breaking spaces
-        content = "".join(child.render() for child in self.children)
-        # indentation = "&nbsp;" * (self.level * 4)  # 4 spaces per level
-        indentation = "> " * self.level
-        
-        # Simply prepend the indentation to the content
-        return f'{indentation}{content}'
+        content = "".join(child.render() for child in self.children).strip()
+        indentation = "  " * self.level
+
+        return f'{indentation}* {content}' if content else f'{indentation}*'
 
 
 class WeirdCitationNode(BaseNode):
@@ -1749,12 +1745,39 @@ def render_as_markdown(nodes: List[Node]) -> str:
     if not isinstance(nodes, list):
         raise TypeError(f"Expected list of nodes, got {type(nodes)}")
 
-    rendered = []
-    for i, node in enumerate(nodes):
+    rendered: List[str] = []
+    i = 0
+    while i < len(nodes):
+        node = nodes[i]
         if not isinstance(node, BaseNode):
             raise TypeError(f"Node {i} must be BaseNode, got {type(node)}")
-        r = node.render()
-        rendered.append(r)
+
+        if isinstance(node, TextNode) and node.inner_content.strip() == "":
+            next_node = nodes[i + 1] if i + 1 < len(nodes) else None
+            prev_node = nodes[i - 1] if i - 1 >= 0 else None
+
+            if (next_node is not None
+                    and isinstance(next_node, IndentNode)
+                    and isinstance(prev_node, (ListItemNode, NumListItemNode, IndentNode))):
+                i += 1
+                continue
+
+            if (next_node is not None
+                    and isinstance(next_node, (ListItemNode, NumListItemNode))
+                    and isinstance(prev_node, IndentNode)):
+                i += 1
+                continue
+
+        if isinstance(node, IndentNode):
+            if rendered and not rendered[-1].endswith('\n'):
+                rendered[-1] += '\n'
+            nested_line = node.render()
+            rendered.append(nested_line + '\n')
+            i += 1
+            continue
+
+        rendered.append(node.render())
+        i += 1
 
     if config.LOOSE_RENDERING:
         # This will lead to "loose lists"
