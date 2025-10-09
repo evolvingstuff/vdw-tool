@@ -1829,7 +1829,12 @@ def _convert_markdown_inside_html(text: str) -> str:
                 return
             if self.tag_stack and self.tag_stack[-1] not in _HTML_SKIP_TAGS:
                 normalized = _normalize_basic_markdown(data)
-                self.output.append(render_html_fragment(normalized))
+                converted = render_html_fragment(normalized)
+                if converted and converted[0].isspace():
+                    stripped = converted.lstrip()
+                    if stripped.startswith('<'):
+                        converted = stripped
+                self.output.append(converted)
             else:
                 self.output.append(data)
 
@@ -1852,11 +1857,22 @@ def render_html_fragment(text: str) -> str:
     """Parse a fragment of markup and render it as HTML."""
     if not text:
         return ""
-    fragment_nodes = parse(text)
+    match = re.match(r'^(\s*)(.*?)(\s*)$', text, re.DOTALL)
+    if not match:
+        return text
+
+    leading_ws, core, trailing_ws = match.groups()
+    if not core:
+        return text
+
+    fragment_nodes = parse(core)
     if not fragment_nodes:
-        return _apply_basic_markdown(text)
-    html_fragment = render_as_html(fragment_nodes)
-    return _apply_basic_markdown(html_fragment)
+        converted = _apply_basic_markdown(core)
+    else:
+        html_fragment = render_as_html(fragment_nodes)
+        converted = _apply_basic_markdown(html_fragment)
+
+    return f"{leading_ws}{converted}{trailing_ws}"
 
 
 def render_as_html(nodes: List[Node]) -> str:
