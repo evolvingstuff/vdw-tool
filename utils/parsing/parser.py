@@ -3,6 +3,8 @@ from typing import Optional, List, Union, Tuple, Dict
 import re
 from pydantic import BaseModel
 from dataclasses import dataclass
+import html
+from html.parser import HTMLParser
 
 import sys
 import os
@@ -395,7 +397,7 @@ class AttachNode(BaseNode):
         id = int(self.attrs_dict.get('id'))
         attachment_type = 'pdf'  # TODO: this is an assumption that we will not hardcode later
         attachment_path = map_id_to_path('id', id, attachment_type)
-        text = "".join(child.render() for child in self.children) if self.children else self.inner_content
+        text = render_as_html(self.children) if self.children else render_html_fragment(self.inner_content)
         
         # Use span elements with Font Awesome classes inside MD link
         # This keeps the link in Markdown format while adding an icon via HTML
@@ -518,12 +520,12 @@ class BoxNode(BaseNode):
         # Process inner content - for now, just use inner_content
         # Later we can properly parse the children if needed
         if self.children:
-            content = "".join(child.render() for child in self.children)
+            content = render_as_html(self.children)
         else:
             # If for some reason children weren't populated correctly,
             # fall back to inner_content (defensive programming)
-            content = self.inner_content
-        
+            content = render_html_fragment(self.inner_content)
+
         # Return div with appropriate styling
         return f'<div{css_class}{style_attr}>{content}</div>'
 
@@ -536,7 +538,11 @@ class NoParseNode(BaseNode):
 class HtmlNode(BaseNode):
     attrs_dict: Dict[str, str]
     children: List['Node'] = []
-    flag_no_parse: bool = True
+
+    def render(self) -> str:
+        if not self.children:
+            return self.inner_content
+        return render_as_html(self.children)
 
 
 class AlinkNode(BaseNode):
@@ -549,20 +555,10 @@ class ColorNode(BaseNode):
     children: List['Node'] = []
 
     def render(self) -> str:
-        # Render the child content
-        text = "".join(child.render() for child in self.children)
+        # Render the child content as HTML so inline markdown is preserved
+        text = render_as_html(self.children) if self.children else self.inner_content
 
-        # only render color stuff IF all children are simple text nodes
-        all_text = True
-        for child in self.children:
-            if not isinstance(child, TextNode):
-                # Not all children are TextNodes
-                all_text = False
-                break
-        if not all_text:
-            return text
-
-        # need to replace asterisks as this can break the Hugo parser
+        # need to replace asterisks as this can break downstream HTML consumers
         if config.REPLACE_ASTERISKS_INSIDE_HTML:
             text = text.replace('*', config.ASTERISK_REPLACEMENT)
         
@@ -699,11 +695,7 @@ class SupNode(BaseNode):
         if not self.children:
             raise Exception('expected children')
             
-        rendered_children = []
-        for child in self.children:
-            rendered_children.append(child.render())
-        
-        inner_content = ''.join(rendered_children)
+        inner_content = render_as_html(self.children)
         # Safe HTML output using sup tags
         return f"<sup>{inner_content}</sup>"
 
@@ -1503,7 +1495,7 @@ class SimpleUrlPattern(Pattern):
     """Pattern for simple links like [url]"""
     def __init__(self):
         super().__init__(
-            r'\[([^\|\]]+?)\]',  # Match [anything-except-|or]-brackets], non-greedy
+            r'\[([^\|\]]+?)\](?!\()',  # Match [text] not followed by ( to avoid Markdown [text](url)
             "Simple link like [url]"
         )
     
@@ -1785,9 +1777,222 @@ def render_as_markdown(nodes: List[Node]) -> str:
     else:
         result = "".join(rendered)
 
+    result = _convert_markdown_inside_html(result)
+
     while "\n\n\n" in result:
         result = result.replace("\n\n\n", "\n\n")
     return result
+
+
+_HTML_VOID_TAGS = {
+    'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta',
+    'param', 'source', 'track', 'wbr'
+}
+_HTML_SKIP_TAGS = {'script', 'style', 'code', 'pre'}
+_BASIC_MARKDOWN_LINK_RE = re.compile(r'\[([^\]]+?)\]\(([^)]+?)\)')
+_BASIC_MARKDOWN_STRONG_RE = re.compile(r'\*\*(.+?)\*\*', re.DOTALL)
+
+
+def _convert_markdown_inside_html(text: str) -> str:
+    if not text:
+        return text
+
+    class _HTMLMarkdownConverter(HTMLParser):
+        def __init__(self) -> None:
+            super().__init__(convert_charrefs=False)
+            self.output: List[str] = []
+            self.tag_stack: List[str] = []
+
+        def handle_starttag(self, tag: str, attrs: List[Tuple[str, Optional[str]]]) -> None:
+            attr_str = ''.join(
+                f' {name}' if value is None else f' {name}="{html.escape(value, quote=True)}"'
+                for name, value in attrs
+            )
+            self.output.append(f"<{tag}{attr_str}>")
+            if tag.lower() not in _HTML_VOID_TAGS:
+                self.tag_stack.append(tag.lower())
+
+        def handle_endtag(self, tag: str) -> None:
+            self.output.append(f"</{tag}>")
+            if self.tag_stack and self.tag_stack[-1] == tag.lower():
+                self.tag_stack.pop()
+
+        def handle_startendtag(self, tag: str, attrs: List[Tuple[str, Optional[str]]]) -> None:
+            attr_str = ''.join(
+                f' {name}' if value is None else f' {name}="{html.escape(value, quote=True)}"'
+                for name, value in attrs
+            )
+            self.output.append(f"<{tag}{attr_str}/>")
+
+        def handle_data(self, data: str) -> None:
+            if not data:
+                return
+            if self.tag_stack and self.tag_stack[-1] not in _HTML_SKIP_TAGS:
+                normalized = _normalize_basic_markdown(data)
+                converted = render_html_fragment(normalized)
+                if converted and converted[0].isspace():
+                    stripped = converted.lstrip()
+                    if stripped.startswith('<'):
+                        converted = stripped
+                self.output.append(converted)
+            else:
+                self.output.append(data)
+
+        def handle_comment(self, data: str) -> None:
+            self.output.append(f"<!--{data}-->")
+
+        def handle_entityref(self, name: str) -> None:
+            self.output.append(f"&{name};")
+
+        def handle_charref(self, name: str) -> None:
+            self.output.append(f"&#{name};")
+
+    converter = _HTMLMarkdownConverter()
+    converter.feed(text)
+    converter.close()
+    return ''.join(converter.output)
+
+
+def render_html_fragment(text: str) -> str:
+    """Parse a fragment of markup and render it as HTML."""
+    if not text:
+        return ""
+    match = re.match(r'^(\s*)(.*?)(\s*)$', text, re.DOTALL)
+    if not match:
+        return text
+
+    leading_ws, core, trailing_ws = match.groups()
+    if not core:
+        return text
+
+    fragment_nodes = parse(core)
+    if not fragment_nodes:
+        converted = _apply_basic_markdown(core)
+    else:
+        html_fragment = render_as_html(fragment_nodes)
+        converted = _apply_basic_markdown(html_fragment)
+
+    return f"{leading_ws}{converted}{trailing_ws}"
+
+
+def render_as_html(nodes: List[Node]) -> str:
+    if not isinstance(nodes, list):
+        raise TypeError(f"Expected list of nodes, got {type(nodes)}")
+
+    parts: List[str] = []
+    for node in nodes:
+        parts.append(_render_node_html(node))
+    return "".join(parts)
+
+
+def _render_node_html(node: Node) -> str:
+    if isinstance(node, TextNode):
+        return node.inner_content
+    if isinstance(node, BoldNode):
+        return f"<strong>{render_as_html(node.children)}</strong>"
+    if isinstance(node, EmphasisNode):
+        return f"<em>{render_as_html(node.children)}</em>"
+    if isinstance(node, ItalixNode):
+        return f"<em>{render_as_html(node.children)}</em>"
+    if isinstance(node, LinkNode):
+        return _render_link_node_html(node)
+    if isinstance(node, LocalLinkNode):
+        return _render_local_link_node_html(node)
+    if isinstance(node, AliasedLocalLinkNode):
+        return _render_aliased_local_link_node_html(node)
+    if isinstance(node, SupNode):
+        return f"<sup>{render_as_html(node.children)}</sup>"
+
+    # Fall back to the node's default rendering (typically already HTML-safe)
+    return node.render()
+
+
+def _render_link_node_html(node: LinkNode) -> str:
+    link_text = render_as_html(node.children) if getattr(node, 'children', None) else node.inner_content
+
+    if 'tiki-index.php?page_id=' in node.url:
+        page_id_match = re.search(r'page_id=(\d+)', node.url)
+        if not page_id_match:
+            raise ValueError(f"Invalid Tiki URL format: {node.url} - Could not extract page_id")
+
+        post_slug = utils.slugs.generate_post_slug(link_text, enforce_unique=False)
+        if post_slug in post_slugs_that_exist:
+            href = f"/posts/{post_slug}"
+        else:
+            tag_slug = generate_hugo_tag_slug(link_text)
+            href = f"/tags/{tag_slug}.html"
+        return f'<a href="{html.escape(href, quote=True)}">{link_text}</a>'
+
+    if re.match(r'^\d+(?:\s*[,*]\s*\d+)*$', node.url):
+        return f"<sup>[{node.url}]</sup>"
+
+    if '/' in node.url or node.url.startswith('tiki-index') or node.url.startswith('https://'):
+        escaped_url = node.url
+        if escaped_url.startswith('tiki-index') and not escaped_url.startswith('https://'):
+            escaped_url = f"https://vitamindwiki.com/{escaped_url}"
+        if ' ' in escaped_url:
+            escaped_url = escaped_url.replace(' ', '%20')
+        return f'<a href="{html.escape(escaped_url, quote=True)}">{link_text}</a>'
+
+    return f"<span>[{html.escape(node.url or '', quote=True)}]</span>"
+
+
+def _render_local_link_node_html(node: LocalLinkNode) -> str:
+    post_slug = utils.slugs.generate_post_slug(node.page, enforce_unique=False)
+    link_text = render_as_html(node.children) if getattr(node, 'children', None) else node.page
+
+    if post_slug in post_slugs_that_exist:
+        href = f"/posts/{post_slug}"
+    else:
+        tag_slug = utils.slugs.generate_hugo_tag_slug(node.page)
+        href = f"/tags/{tag_slug}.html"
+    return f'<a href="{html.escape(href, quote=True)}">{link_text}</a>'
+
+
+def _render_aliased_local_link_node_html(node: AliasedLocalLinkNode) -> str:
+    post_slug = utils.slugs.generate_post_slug(node.page, enforce_unique=False)
+    link_text = node.display_text or node.page
+
+    if post_slug in post_slugs_that_exist:
+        href = f"/posts/{post_slug}"
+    else:
+        tag_slug = generate_hugo_tag_slug(link_text)
+        href = f"/tags/{tag_slug}.html"
+    return f'<a href="{html.escape(href, quote=True)}">{link_text}</a>'
+
+
+def _apply_basic_markdown(text: str) -> str:
+    if not text:
+        return ""
+
+    def replace_link(match: re.Match[str]) -> str:
+        label = match.group(1)
+        href = html.escape(match.group(2).strip(), quote=True)
+        return f'<a href="{href}">{label}</a>'
+
+    def replace_strong(match: re.Match[str]) -> str:
+        return f'<strong>{match.group(1)}</strong>'
+
+    converted = _BASIC_MARKDOWN_LINK_RE.sub(replace_link, text)
+    converted = _BASIC_MARKDOWN_STRONG_RE.sub(replace_strong, converted)
+    return converted
+
+
+def _normalize_basic_markdown(text: str) -> str:
+    if not text:
+        return ""
+
+    def replace_link(match: re.Match[str]) -> str:
+        label = match.group(1).strip()
+        href = match.group(2).strip()
+        return f'[{href}|{label}]'
+
+    def replace_strong(match: re.Match[str]) -> str:
+        return f'__{match.group(1)}__'
+
+    normalized = _BASIC_MARKDOWN_LINK_RE.sub(replace_link, text)
+    normalized = _BASIC_MARKDOWN_STRONG_RE.sub(replace_strong, normalized)
+    return normalized
 
 
 def format_node(node: Node, indent: int = 0) -> str:
