@@ -1499,6 +1499,44 @@ class SimpleUrlPattern(Pattern):
             "Simple link like [url]"
         )
     
+    def try_match(self, text: str, pos: int) -> Optional[Tuple[Node, int]]:
+        result = super().try_match(text, pos)
+        if not result:
+            return None
+
+        node, new_pos = result
+        if not self._should_treat_as_link(node.url):
+            return None
+
+        return node, new_pos
+
+    @staticmethod
+    def _should_treat_as_link(raw: str) -> bool:
+        content = raw.strip()
+        if not content:
+            return False
+
+        if re.fullmatch(r'\d+(?:\s*[,*]\s*\d+)*', content):
+            return True
+
+        if ' ' in content:
+            return False
+
+        lowered = content.lower()
+        if lowered.startswith(('http://', 'https://', 'ftp://', 'mailto:', 'tiki-index.php')):
+            return True
+
+        if lowered.startswith('www.'):
+            return True
+
+        if '://' in content:
+            return True
+
+        if '/' in content or '.' in content:
+            return True
+
+        return False
+
     def create_node(self, full_text: str, captures: List[str]) -> LinkNode:
         url = captures[0]
         return LinkNode(
