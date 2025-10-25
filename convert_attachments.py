@@ -148,6 +148,7 @@ def main():
                     for extracted_file in os.listdir(f'{temp_dir}/{extracted_dir}'):
                         print(f'\t{extracted_file}')
                         file_type = extracted_file.split('.')[-1]
+                        print(f'\textracted file type: {file_type}')
                         if file_type not in valid_extensions:
                             file_type = '_unknown'
                         temp_file_path = f'{temp_dir}/{extracted_dir}/{extracted_file}'
@@ -158,13 +159,20 @@ def main():
                             # Rename using your function
                             if extracted_file in hex_to_filename:
                                 readable_name = hex_to_filename[extracted_file]
+                                print(f'\treadable name: {readable_name}')
+
                                 readable_file_type = readable_name.split('.')[-1]
+                                print(f'\treadable file type: {readable_file_type}')
                                 assert readable_file_type == file_type, 'mismatched file type'
                             else:
                                 missing_files.append(extracted_file)
                                 print(f'WARNING: {extracted_file} is not in dict')
+                                continue
 
                             sanitized_readable_name = sanitize_filename(readable_name)
+
+                            if sanitized_readable_name.startswith('workshop2013-024'):
+                                pass
 
                             # Move to your destination
                             final_path = f'data/attachments/{file_type}/{sanitized_readable_name}'
