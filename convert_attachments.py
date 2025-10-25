@@ -6,16 +6,15 @@ import os
 from utils.filenames import sanitize_filename
 
 
-root = 'data'
-src_files = '_src_files'
-tiki_files = 'tiki_files_2025-05-04.json'
-tiki_wiki_attachments = 'tiki_wiki_attachments_2025-05-04.json'
+root = '../vdw-external-data'
+tiki_files = 'tiki_files_2025-10-24.json'
+tiki_wiki_attachments = 'tiki_wiki_attachments_2025-10-24.json'
 zipped_files = [
-    'vitamindwiki_file_gallery-20250512T214105Z-1-001.zip',
-    'vitamindwiki_wiki_attachments-20250512T214059Z-1-001.zip',
-    'vitamindwiki_wiki_attachments-20250512T214059Z-1-002.zip',
-    'vitamindwiki_wiki_attachments-20250512T214059Z-1-003.zip',
-    'vitamindwiki_wiki_attachments-20250512T214059Z-1-004.zip'
+    'vitamindwiki_file_gallery-20251018T020347Z-1-001.zip',
+    'vitamindwiki_wiki_attachments-20251018T020332Z-1-001.zip',
+    'vitamindwiki_wiki_attachments-20251018T020332Z-1-002.zip',
+    'vitamindwiki_wiki_attachments-20251018T020332Z-1-003.zip',
+    'vitamindwiki_wiki_attachments-20251018T020332Z-1-004.zip'
 ]
 destination = 'named-attachments'
 valid_extensions = [
@@ -52,6 +51,9 @@ valid_extensions = [
 def main():
     print("Converting attachments...")
 
+    for dir in valid_extensions:
+        os.makedirs(f'data/attachments/{dir}', exist_ok=True)
+
     hex_to_filename = {}
     file_id_to_hex = {}
     att_id_to_hex = {}
@@ -59,7 +61,7 @@ def main():
     invalid_extensions = []
     missing_file_ids = 0
     for path in [tiki_files, tiki_wiki_attachments]:
-        with open(f'{root}/{src_files}/{path}', 'r') as f:
+        with open(f'{root}/{path}', 'r') as f:
             file_data = json.load(f)
             for file in file_data:
                 try:
@@ -109,7 +111,7 @@ def main():
     # Open the zip file
     hit, miss = 0, 0
     for zipped_file in zipped_files:
-        path = f'{root}/{src_files}/{zipped_file}'
+        path = f'{root}/zips/{zipped_file}'
         with zipfile.ZipFile(path, 'r') as zip_ref:
             # Get the list of file names
             file_names = zip_ref.namelist()
@@ -130,18 +132,10 @@ def main():
     print(f"Total missed files: {miss}")
     print(f"Total hit files:    {hit}")
 
-
-
-    # Remove directory and all its contents
-    shutil.rmtree(f'{root}/attachments')
-
-    for dir in valid_extensions:
-        os.makedirs(f'{root}/attachments/{dir}', exist_ok=True)
-
     # extract and rename files
     missing_files = []
     for zipped_file in zipped_files:
-        path = f'{root}/{src_files}/{zipped_file}'
+        path = f'{root}/zips/{zipped_file}'
 
         with zipfile.ZipFile(path, 'r') as zip_ref:
             with tempfile.TemporaryDirectory() as temp_dir:
@@ -180,10 +174,10 @@ def main():
                             raise Exception(f'{temp_file_path} is not a file')
 
     print(f"Total missing files: {len(missing_files)}")
+    print(f"Total hit files: {hit}")
 
     return att_id_to_hex, file_id_to_hex, hex_to_filename
 
 
 if __name__ == "__main__":
-    raise Exception('need to change paths to new data')
     main()
