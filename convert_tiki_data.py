@@ -99,15 +99,6 @@ def load_pages(cat_id_to_cat: Dict[int, Category]) -> Dict[int, Page]:
             config.map_cat_id_to_obj_ids[categ_id].append(obj_id)
 
 
-    #########
-    # page_id_to_cat_ids
-    for page_id in config.map_page_id_to_page_name.keys():
-        page_name = config.map_page_id_to_page_name[page_id]
-        obj_id = config.map_page_name_to_obj_id[page_name]
-        cat_ids = config.map_obj_id_to_cat_ids[obj_id]
-        print(f'\t{page_id} -> {page_name} -> {obj_id} -> {cat_ids}')
-        config.map_page_id_to_cat_ids[page_id] = cat_ids
-
     ########
 
     
@@ -151,6 +142,16 @@ def load_pages(cat_id_to_cat: Dict[int, Category]) -> Dict[int, Page]:
         config.map_page_name_to_page_id[page_name] = page_id
         config.map_page_id_to_page_name[page_id] = page_name
         print(f">> Processing page {page_id}: {page_name}")
+        
+        # Populate page_id -> category_ids mapping now that we have page_id + page_name
+        # This relies on mappings built earlier:
+        #   page_name -> obj_id (from PATH_TIKI_OBJECTS)
+        #   obj_id    -> [cat_ids] (from PATH_CATEGORY_OBJECTS)
+        obj_id = config.map_page_name_to_obj_id.get(page_name)
+        if obj_id is not None:
+            cat_ids = config.map_obj_id_to_cat_ids.get(obj_id, [])
+            config.map_page_id_to_cat_ids[page_id] = cat_ids
+            print(f"\t{page_id} -> {page_name} -> {obj_id} -> {cat_ids}")
         
         page_slug = entry['pageSlug']
         hugo_slug = generate_post_slug(page_name, False)
