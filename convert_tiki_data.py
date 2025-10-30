@@ -59,12 +59,65 @@ def load_file_id_to_tiki_file() -> Dict[int, TikiFile]:
 def load_pages(cat_id_to_cat: Dict[int, Category]) -> Dict[int, Page]:
     """Load pages from JSON file - ported from vitD main.py"""
     print('Loading pages from JSON...')
+
+    ########
+
+    if not os.path.exists(config.PATH_TIKI_OBJECTS):
+        raise FileNotFoundError(f"❌ Tiki objects file not found: {config.PATH_TIKI_OBJECTS}")
+
+    with open(config.PATH_TIKI_OBJECTS, 'r') as f:
+        entries = json.load(f)
+        for entry in entries:
+            type = entry['type']
+            if type != 'wiki page':
+                continue
+            item_id = entry['itemId']
+            name = entry['name']
+            print(f'name: {name} / item_id: {item_id}')
+            if name != item_id:
+                print('\tmismatch?')
+            object_id = int(entry['objectId'])
+            print(f'\tProcessing {name}: {type} -> {object_id}')
+            # TODO: asdf asdf use first or second? both?
+            config.map_page_name_to_obj_id[item_id] = object_id
+            config.map_obj_id_to_page_name[object_id] = item_id
+
+    ###########
+    if not os.path.exists(config.PATH_CATEGORY_OBJECTS):
+        raise FileNotFoundError(f"❌ Category objects file not found: {config.PATH_CATEGORY_OBJECTS}")
+
+    with open(config.PATH_CATEGORY_OBJECTS, 'r') as f:
+        entries = json.load(f)
+        for entry in entries:
+            obj_id = int(entry['catObjectId'])
+            categ_id = int(entry['categId'])
+            if obj_id not in config.map_obj_id_to_cat_ids:
+                config.map_obj_id_to_cat_ids[obj_id] = []
+            config.map_obj_id_to_cat_ids[obj_id].append(categ_id)
+            if categ_id not in config.map_cat_id_to_obj_ids:
+                config.map_cat_id_to_obj_ids[categ_id] = []
+            config.map_cat_id_to_obj_ids[categ_id].append(obj_id)
+
+
+    #########
+    # page_id_to_cat_ids
+    for page_id in config.map_page_id_to_page_name.keys():
+        page_name = config.map_page_id_to_page_name[page_id]
+        obj_id = config.map_page_name_to_obj_id[page_name]
+        cat_ids = config.map_obj_id_to_cat_ids[obj_id]
+        print(f'\t{page_id} -> {page_name} -> {obj_id} -> {cat_ids}')
+        config.map_page_id_to_cat_ids[page_id] = cat_ids
+
+    ########
+
     
     if not os.path.exists(config.PATH_TIKI_PAGES):
         raise FileNotFoundError(f"❌ TikiWiki pages file not found: {config.PATH_TIKI_PAGES}")
 
     with open(config.PATH_TIKI_PAGES, 'r') as f:
         entries = json.load(f)
+
+    print(f'\tLoaded {len(entries)} pages')
 
     # Remove blacklisted pages
     temp = []
@@ -95,6 +148,8 @@ def load_pages(cat_id_to_cat: Dict[int, Category]) -> Dict[int, Page]:
     for e, entry in enumerate(entries):
         page_id = entry['page_id']
         page_name = entry['pageName']
+        config.map_page_name_to_page_id[page_name] = page_id
+        config.map_page_id_to_page_name[page_id] = page_name
         print(f">> Processing page {page_id}: {page_name}")
         
         page_slug = entry['pageSlug']
@@ -154,7 +209,9 @@ def load_pages(cat_id_to_cat: Dict[int, Category]) -> Dict[int, Page]:
 
     if len(pages) == 0:
         raise ValueError("❌ No pages processed successfully")
-    
+
+
+
     return pages
 
 
@@ -175,58 +232,100 @@ def load_categories() -> Dict[int, Category]:
                     pre, post = row[1], row[2]
                     rosetta_mapping[pre] = post
 
-    if not os.path.exists(config.PATH_CAT_ID_TO_NAME):
-        raise FileNotFoundError(f"❌ Categories file not found: {config.PATH_CAT_ID_TO_NAME}")
-        
-    with open(config.PATH_CAT_ID_TO_NAME, mode='r', newline='', encoding='utf-8') as csvfile:
-        reader = csv.reader(csvfile)
-        next(reader, None)  # Skip header
-        for row in reader:
-            if len(row) >= 2:
-                id_str, name = row[0], row[1]
-                # Apply rosetta mapping if available
-                if name in rosetta_mapping:
-                    name = rosetta_mapping[name]
-                id_int = int(id_str)
-                categories[id_int] = Category(cat_id=id_int, name=name)
-                
-                if name in names:
-                    raise ValueError(f"❌ Duplicate category name: {name}")
-                names.add(name)
-                
+    if not os.path.exists(config.PATH_CAT_ID_TO_CAT_NAME):
+        raise FileNotFoundError(f"❌ Categories file not found: {config.PATH_CAT_ID_TO_CAT_NAME}")
+
+    with open(config.PATH_CAT_ID_TO_CAT_NAME, 'r') as file:
+        data = json.load(file)
+        for row in data:
+            id_str, name = row['categId'], row['name']
+            # Apply rosetta mapping if available
+            if name in rosetta_mapping:
+                name = rosetta_mapping[name]
+            id_int = int(id_str)
+            categories[id_int] = Category(cat_id=id_int, name=name)
+            if name in names:
+                raise ValueError(f"❌ Duplicate category name: {name}")
+            names.add(name)
+
+    # with open(config.PATH_CAT_ID_TO_NAME2, mode='r', newline='', encoding='utf-8') as csvfile:
+    #     reader = csv.reader(csvfile)
+    #     next(reader, None)  # Skip header
+    #     for row in reader:
+    #         if len(row) >= 2:
+    #             id_str, name = row[0], row[1]
+    #             # Apply rosetta mapping if available
+    #             if name in rosetta_mapping:
+    #                 name = rosetta_mapping[name]
+    #             id_int = int(id_str)
+    #             categories[id_int] = Category(cat_id=id_int, name=name)
+    #
+    #             if name in names:
+    #                 raise ValueError(f"❌ Duplicate category name: {name}")
+    #             names.add(name)
+    #
+
     print(f'✅ Loaded {len(categories)} categories')
     return categories
 
 
-def load_page_id_to_cat_ids() -> Dict[int, List[int]]:
-    """Load page to category mappings - ported from vitD main.py"""
-    print('Loading page to category mappings from CSV...')
-    page_id_to_cat_id: Dict[int, List[int]] = {}
-    valid, skipped = 0, 0
-    
-    if not os.path.exists(config.PATH_PAGE_ID_TO_CAT):
-        print(f"⚠️  Page to category mapping file not found: {config.PATH_PAGE_ID_TO_CAT}")
-        return page_id_to_cat_id
-        
-    with open(config.PATH_PAGE_ID_TO_CAT, mode='r', newline='', encoding='utf-8') as csvfile:
-        reader = csv.reader(csvfile)
-        next(reader, None)  # Skip header
-        for row in reader:
-            if len(row) >= 5:
-                page_id_str, cat_id_str = row[3], row[4]
-                if page_id_str == '':
-                    skipped += 1
-                    continue
-                page_id_int, cat_id_int = int(page_id_str), int(cat_id_str)
-                if page_id_int not in page_id_to_cat_id:
-                    page_id_to_cat_id[page_id_int] = []
-                page_id_to_cat_id[page_id_int].append(cat_id_int)
-                valid += 1
-            else:
-                print('wut?')
-                
-    print(f'✅ Loaded {valid} page-category mappings, skipped {skipped}')
-    return page_id_to_cat_id
+# def load_page_id_to_cat_ids() -> Dict[int, List[int]]:
+#     """Load page to category mappings - ported from vitD main.py"""
+#     print('Loading page to category mappings from CSV...')
+#     page_id_to_cat_id: Dict[int, List[int]] = {}
+#     valid, skipped = 0, 0
+#
+#     if not os.path.exists(config.PATH_PAGE_ID_TO_CAT2):
+#         print(f"⚠️  Page to category mapping file not found: {config.PATH_PAGE_ID_TO_CAT2}")
+#         return page_id_to_cat_id
+#
+#     with open(config.PATH_PAGE_ID_TO_CAT2, 'r') as file:
+#         data = json.load(file)
+#         for row in data:
+#             page_id_str, cat_id_str = row['catObjectId'], row['categId']
+#             '''
+#             tiki_objects (type wiki page)
+#               {
+#                 "objectId": 3282,
+#                 "type": "wiki page",
+#                 "itemId": "Michael Holick – reduce health care costs 25 percent – interview Sept 2010",
+#                 "description": "",
+#                 "created": 1301406616,
+#                 "name": "Michael Holick – reduce health care costs 25 percent – interview Sept 2010",
+#                 "href": "tiki-index.php?page=Michael+Holick+%E2%80%93+reduce+health+care+costs+25+percent+%E2%80%93+interview+Sept+2010",
+#                 "hits": 0,
+#                 "comments_locked": "n"
+#               },
+#             '''
+#             raise NotImplementedError('this is NOT the page_id')
+#             if page_id_str == '':
+#                 skipped += 1
+#                 continue
+#             page_id_int, cat_id_int = int(page_id_str), int(cat_id_str)
+#             if page_id_int not in page_id_to_cat_id:
+#                 page_id_to_cat_id[page_id_int] = []
+#             page_id_to_cat_id[page_id_int].append(cat_id_int)
+#             valid += 1
+#
+#     # with open(config.PATH_PAGE_ID_TO_CAT2, mode='r', newline='', encoding='utf-8') as csvfile:
+#     #     reader = csv.reader(csvfile)
+#     #     next(reader, None)  # Skip header
+#     #     for row in reader:
+#     #         if len(row) >= 5:
+#     #             page_id_str, cat_id_str = row[3], row[4]
+#     #             if page_id_str == '':
+#     #                 skipped += 1
+#     #                 continue
+#     #             page_id_int, cat_id_int = int(page_id_str), int(cat_id_str)
+#     #             if page_id_int not in page_id_to_cat_id:
+#     #                 page_id_to_cat_id[page_id_int] = []
+#     #             page_id_to_cat_id[page_id_int].append(cat_id_int)
+#     #             valid += 1
+#     #         else:
+#     #             print('wut?')
+#
+#     print(f'✅ Loaded {valid} page-category mappings, skipped {skipped}')
+#     return page_id_to_cat_id
 
 
 def load_att_id_to_file() -> Dict[int, Attachment]:
@@ -390,10 +489,12 @@ def convert_tiki_data():
         
         # Load categories and mappings
         cat_id_to_cat = load_categories()
-        page_id_to_cat_ids = load_page_id_to_cat_ids()
+        # page_id_to_cat_ids = load_page_id_to_cat_ids()
         
         # Load and convert pages
         pages = load_pages(cat_id_to_cat)
+
+        page_id_to_cat_ids = config.map_page_id_to_cat_ids
 
         # write tiki to dir
         write_tiki_to_directory(pages, config.OUTPUT_DIR_TIKI)

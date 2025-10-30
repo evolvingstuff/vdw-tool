@@ -3,6 +3,7 @@
 posts/
 posts_tiki/
 data/
+.DS_Store
 __pycache__/
 *.log
 # Symlinked agents config

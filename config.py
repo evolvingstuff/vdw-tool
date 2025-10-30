@@ -28,15 +28,26 @@ DATA_DIR = '../vdw-external-data'
 OUTPUT_DIR = '../vdw-posts/posts'
 OUTPUT_DIR_TIKI = '../vdw-posts/posts_tiki'
 
-PATH_TIKI_PAGES = os.path.join(DATA_DIR, '_src_files', 'tiki_pages_2025-10-03.json')
-PATH_TIKI_CATEGORIES = os.path.join(DATA_DIR, '_src_files', 'tiki_categories_2025-10-03.json')
-PATH_TIKI_ATTACHMENTS = os.path.join(DATA_DIR, '_src_files', 'tiki_wiki_attachments_2025-10-24.json')
-PATH_TIKI_FILES = os.path.join(DATA_DIR, '_src_files', 'tiki_files_2025-10-24.json')
+PATH_TIKI_PAGES = os.path.join(DATA_DIR, 'tiki_pages_2025-10-03.json')
+PATH_TIKI_CATEGORIES = os.path.join(DATA_DIR, 'tiki_categories_2025-10-03.json')
+PATH_TIKI_ATTACHMENTS = os.path.join(DATA_DIR, 'tiki_wiki_attachments_2025-10-24.json')
+PATH_TIKI_FILES = os.path.join(DATA_DIR, 'tiki_files_2025-10-24.json')
+PATH_TIKI_OBJECTS = os.path.join(DATA_DIR, 'tiki_objects_2025-10-03.json')
+PATH_CAT_ID_TO_CAT_NAME = os.path.join(DATA_DIR, 'tiki_categories_2025-10-03.json')
+PATH_CATEGORY_OBJECTS = os.path.join(DATA_DIR, 'tiki_category_objects_2025-10-22.json')
 PATH_ROSETTA = os.path.join(DATA_DIR, 'rosetta.csv')
 
+map_page_id_to_page_name = {}  # 1:1
+map_page_name_to_page_id = {}  # 1:1
+map_page_name_to_obj_id = {}   # 1:1
+map_obj_id_to_page_name = {}   # 1:1
+map_obj_id_to_cat_ids = {}     # 1:many
+map_cat_id_to_obj_ids = {}     # 1:many
+map_page_id_to_cat_ids = {}    # 1:many
+
 # TODO asdf
-PATH_CAT_ID_TO_NAME = os.path.join(DATA_DIR, 'catId-to-catName.csv')
-PATH_PAGE_ID_TO_CAT = os.path.join(DATA_DIR, 'pageId-to-catId.csv')
+# PATH_CAT_ID_TO_NAME = os.path.join(DATA_DIR, 'catId-to-catName.csv')
+# PATH_PAGE_ID_TO_CAT = os.path.join(DATA_DIR, 'pageId-to-catId.csv')
 
 
 COPY_ATTACHMENTS = False
