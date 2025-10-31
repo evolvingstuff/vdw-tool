@@ -106,14 +106,15 @@ class LinkNode(BaseNode):
                 page_id=-1
             else:
                 page_id = page_id_match.group(1)
-
-            # Check if it exists in the post set first
-            post_slug = utils.slugs.generate_post_slug(text, enforce_unique=False)
-            if post_slug in post_slugs_that_exist:
-                return f"[{text}](/posts/{post_slug})"
-            else:  # we ASSUME existence of tags to avoid circular discovery reference problems
-                tag_slug = generate_hugo_tag_slug(text)
-                return f"[{text}](/tags/{tag_slug}.html)"
+            # If we have a page_id -> page_name mapping, prefer it to build slug
+            page_name = config.map_page_id_to_page_name.get(int(page_id)) if page_id != -1 else None
+            if page_name:
+                post_slug = utils.slugs.generate_post_slug(page_name, enforce_unique=False)
+            else:
+                # Fallback to link text when mapping isn't available (e.g., quick test mode)
+                post_slug = utils.slugs.generate_post_slug(text, enforce_unique=False)
+            # Always link tiki page_id references to pages
+            return f"[{text}](/pages/{post_slug}/)"
         
         # Check if this is a valid URL (contains a slash) or starts with tiki-index
         if '/' in self.url or self.url.startswith('tiki-index') or self.url.startswith('https://'):
@@ -145,6 +146,16 @@ class DivNode(BaseNode):
     attrs_dict: Dict[str, str]
     children: List['Node'] = []
     flag_passthru: bool = True
+
+
+class DivCloseNode(BaseNode):
+    """Node representing a stray closing DIV token like {DIV} or {/DIV}.
+    Invisible in output to clean up unmatched closures that appear in some Tiki content."""
+    flag_invisible: bool = True
+
+    def render(self) -> str:
+        # Always remove stray DIV tokens without leaving HTML comments
+        return ""
 
 
 class ListNode(BaseNode):
@@ -368,10 +379,10 @@ class LocalLinkNode(BaseNode):
         text = "".join(child.render() for child in self.children) if self.children else self.page
 
         if post_slug in post_slugs_that_exist:
-            return f"[{text}](/posts/{post_slug})"
+            return f"[{text}](/pages/{post_slug}/)"
         else:  # we ASSUME existence of tags to avoid circular discovery reference problems
             tag_slug = utils.slugs.generate_hugo_tag_slug(self.page)
-            return f"[{text}](/tags/{tag_slug}.html)"
+            return f"[{text}](/tags/{tag_slug}/)"
 
 class AliasedLocalLinkNode(BaseNode):
     """Node for local links with aliases like ((page name|display text))"""
@@ -387,10 +398,10 @@ class AliasedLocalLinkNode(BaseNode):
         text = self.display_text
         
         if post_slug in post_slugs_that_exist:
-            return f"[{text}](/posts/{post_slug})"
+            return f"[{text}](/pages/{post_slug}/)"
         else:  # we ASSUME existence of tags to avoid circular discovery reference problems
             tag_slug = generate_hugo_tag_slug(text)
-            return f"[{text}](/tags/{tag_slug}.html)"
+            return f"[{text}](/tags/{tag_slug}/)"
 
 
 class AttachNode(BaseNode):
@@ -883,6 +894,39 @@ class DivPattern(Pattern):
             inner_content=captures[1],
             attrs_dict=parse_attrs(captures[0]),
             children=[]
+        )
+
+
+class DivClosePattern(Pattern):
+    """Pattern to match closing DIV tokens like {DIV} or {/DIV} that may remain after nested parsing.
+    These should be removed from output."""
+    def __init__(self):
+        super().__init__(
+            r'\{/?DIV\}',
+            "DIV closing token like {DIV} or {/DIV}"
+        )
+
+    def create_node(self, full_text: str, captures: List[str]) -> DivCloseNode:
+        return DivCloseNode(
+            full_match=full_text,
+            inner_content=''  # no content
+        )
+
+
+class DivOpenPattern(Pattern):
+    """Pattern to match a standalone opening DIV token with attributes like {DIV(class="...")}
+    Used to strip stray wrappers when nested DIVs cause imperfect pairing in regex parsing."""
+    def __init__(self):
+        super().__init__(
+            r'\{DIV\([^}]*\)\}',
+            "DIV opening token with attributes like {DIV(class=\"...\")}"
+        )
+
+    def create_node(self, full_text: str, captures: List[str]) -> DivCloseNode:
+        # Reuse DivCloseNode semantics (invisible)
+        return DivCloseNode(
+            full_match=full_text,
+            inner_content=''
         )
 
 
@@ -1647,6 +1691,8 @@ PATTERNS = [
     SupPattern(),  # Add SupPattern before Box and Div patterns since it's more specific
     BoxPattern(),
     DivPattern(),  # Add DivPattern to parse DIV tags
+    DivOpenPattern(),  # Remove any stray opening DIV wrappers
+    DivClosePattern(),  # Clean up unmatched DIV closing tokens
     NoParsePattern(),
     HtmlPattern(),
     AlinkPattern(),
@@ -1971,12 +2017,13 @@ def _render_link_node_html(node: LinkNode) -> str:
         if not page_id_match:
             raise ValueError(f"Invalid Tiki URL format: {node.url} - Could not extract page_id")
 
-        post_slug = utils.slugs.generate_post_slug(link_text, enforce_unique=False)
-        if post_slug in post_slugs_that_exist:
-            href = f"/posts/{post_slug}"
+        page_id = int(page_id_match.group(1))
+        page_name = config.map_page_id_to_page_name.get(page_id)
+        if page_name:
+            post_slug = utils.slugs.generate_post_slug(page_name, enforce_unique=False)
         else:
-            tag_slug = generate_hugo_tag_slug(link_text)
-            href = f"/tags/{tag_slug}.html"
+            post_slug = utils.slugs.generate_post_slug(link_text, enforce_unique=False)
+        href = f"/pages/{post_slug}/"
         return f'<a href="{html.escape(href, quote=True)}">{link_text}</a>'
 
     if re.match(r'^\d+(?:\s*[,*]\s*\d+)*$', node.url):
@@ -1998,10 +2045,10 @@ def _render_local_link_node_html(node: LocalLinkNode) -> str:
     link_text = render_as_html(node.children) if getattr(node, 'children', None) else node.page
 
     if post_slug in post_slugs_that_exist:
-        href = f"/posts/{post_slug}"
+        href = f"/pages/{post_slug}/"
     else:
         tag_slug = utils.slugs.generate_hugo_tag_slug(node.page)
-        href = f"/tags/{tag_slug}.html"
+        href = f"/tags/{tag_slug}/"
     return f'<a href="{html.escape(href, quote=True)}">{link_text}</a>'
 
 
@@ -2010,10 +2057,10 @@ def _render_aliased_local_link_node_html(node: AliasedLocalLinkNode) -> str:
     link_text = node.display_text or node.page
 
     if post_slug in post_slugs_that_exist:
-        href = f"/posts/{post_slug}"
+        href = f"/pages/{post_slug}/"
     else:
         tag_slug = generate_hugo_tag_slug(link_text)
-        href = f"/tags/{tag_slug}.html"
+        href = f"/tags/{tag_slug}/"
     return f'<a href="{html.escape(href, quote=True)}">{link_text}</a>'
 
 

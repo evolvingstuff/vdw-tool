@@ -158,9 +158,10 @@ def generate_hugo_tag_slug(tag_name: str) -> str:
     if not tag_name:
         raise ValueError("Tag name cannot be empty")
     
-    # Convert underscores to spaces first, then to dashes for consistent normalization
-    # This handles both "Vitamin D" -> "vitamin-d" and "vitamin_d" -> "vitamin-d"
-    normalized = tag_name.replace('_', ' ')
+    # Convert underscores and slashes to spaces first, then to dashes for consistent normalization
+    # This handles both "Vitamin D" -> "vitamin-d", "vitamin_d" -> "vitamin-d", and
+    # "Amyotrophic Lateral Sclerosis/ALS" -> "amyotrophic-lateral-sclerosis-als"
+    normalized = tag_name.replace('_', ' ').replace('/', ' ')
     
     # Convert to lowercase and replace spaces/special chars with hyphens
     slug = re.sub(r'[^\w\s-]', '', normalized.lower())
@@ -195,10 +196,10 @@ def generate_tag_link(tag_name: str) -> str:
         tag_name: The name of the tag
         
     Returns:
-        A formatted markdown link: [Tag Name](/tags/tag-slug.html)
+        A formatted markdown link: [Tag Name](/tags/tag-slug/)
     """
     slug = generate_hugo_tag_slug(tag_name)
-    return f"[{tag_name}](/tags/{slug}.html)"
+    return f"[{tag_name}](/tags/{slug}/)"
 
 
 def create_tag_slugs_from_posts(all_tags_set):

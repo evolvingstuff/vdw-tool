@@ -133,15 +133,23 @@ def load_pages(cat_id_to_cat: Dict[int, Category]) -> Dict[int, Page]:
     # Create the post slugs before any parsing
     create_post_slugs(entries)
 
+    # Pre-populate page_id ↔ page_name mappings for ALL pages before rendering
+    # so parser can resolve tiki page_id links to the correct page slugs regardless of iteration order.
+    for entry in entries:
+        try:
+            pid = entry['page_id']
+            pname = entry['pageName']
+            config.map_page_name_to_page_id[pname] = pid
+            config.map_page_id_to_page_name[pid] = pname
+        except KeyError as e:
+            raise ValueError(f"Missing key in page entry while building id↔name map: {e}")
+
     pages: Dict[int, Page] = {}
     failed_pages = []
     
     for e, entry in enumerate(entries):
         page_id = entry['page_id']
         page_name = entry['pageName']
-
-        config.map_page_name_to_page_id[page_name] = page_id
-        config.map_page_id_to_page_name[page_id] = page_name
         print(f">> Processing page {page_id}: {page_name}")
         
         # Populate page_id -> category_ids mapping now that we have page_id + page_name

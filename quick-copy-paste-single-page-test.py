@@ -16,6 +16,7 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from utils.conversion_utils import convert_tiki_to_md
 import utils.vitd_utils.globals as globals
 from utils.models import Attachment
+from utils.slugs import create_post_slugs
 import config
 
 def load_attachments_if_available():
@@ -39,12 +40,33 @@ def load_attachments_if_available():
 
     return att_id_to_file
 
+def load_pages_context_if_available():
+    """Load page_id→page_name map and precreate post slugs if the file exists."""
+    if os.path.exists(config.PATH_TIKI_PAGES):
+        try:
+            with open(config.PATH_TIKI_PAGES, 'r') as f:
+                entries = json.load(f)
+            # Populate mapping
+            for entry in entries:
+                page_id = entry.get('page_id')
+                page_name = entry.get('pageName')
+                if page_id is not None and page_name:
+                    config.map_page_id_to_page_name[page_id] = page_name
+            # Create slugs set so local-link checks can detect existing pages
+            create_post_slugs(entries)
+            print(f"✅ Loaded {len(entries)} pages (mapping + slugs)")
+        except Exception as e:
+            print(f"⚠️  Could not load pages context: {e}")
+    else:
+        print(f"ℹ️  No pages file found at {config.PATH_TIKI_PAGES}")
+
 def main():
     print("=== TikiWiki to Markdown Quick Test ===")
 
     # Load attachment mappings if available
     print("Loading data files...")
     globals.att_id_to_file = load_attachments_if_available()
+    load_pages_context_if_available()
 
     print("\nPaste your TikiWiki content below:")
     print("-" * 40)
