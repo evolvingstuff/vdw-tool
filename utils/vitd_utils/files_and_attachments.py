@@ -25,8 +25,15 @@ def map_id_to_path(id_type: str, id: int, attachment_type: str) -> str:
             path = f'{config.CLOUDFRONT_URL}/attachments/{attachment_type}/{sanitized_filename}'
 
         elif id_type in ['id', 'attId']:
-            assert id in utils.vitd_utils.globals.att_id_to_file, 'missing id'
-            att: Attachment = utils.vitd_utils.globals.att_id_to_file[id]
+            try:
+                assert id in utils.vitd_utils.globals.att_id_to_file, 'missing att id loc 2'
+                att: Attachment = utils.vitd_utils.globals.att_id_to_file[id]
+            except AssertionError as e:
+                if config.IGNORE_MISSING_APP_ID:
+                    path = config.unknown_path
+                    return path
+                else:
+                    raise e
             raw_filename = att.filename
             sanitized_filename = sanitize_filename(raw_filename)
             attachment_type = att.filetype.split('/')[-1]
@@ -40,6 +47,8 @@ def map_id_to_path(id_type: str, id: int, attachment_type: str) -> str:
         print('about to crash')
 
         raise ValueError(f'Attachment type {attachment_type} not supported <<<')
-    except ValueError:
-        print('uh oh')
-        raise ValueError(f'Unexpected id: {id_type}')
+    except Exception as e:
+        if config.IGNORE_MISSING_APP_ID:
+            return config.unknown_path
+        else:
+            raise ValueError(f'Unexpected id: {id_type}')

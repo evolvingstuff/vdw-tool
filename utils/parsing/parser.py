@@ -97,11 +97,15 @@ class LinkNode(BaseNode):
         # Extract page_id from tiki-index.php URLs
         if 'tiki-index.php?page_id=' in self.url:
             # Extract the page_id
+            self.url = self.url.replace(' ', '')
+            self.url = self.url.replace('*', '')
+            self.url = self.url.replace('|', '')
             page_id_match = re.search(r'page_id=(\d+)', self.url)
             if not page_id_match:
-                raise ValueError(f"Invalid Tiki URL format: {self.url} - Could not extract page_id")
-                
-            page_id = page_id_match.group(1)
+                # raise ValueError(f"Invalid Tiki URL format: {self.url} - Could not extract page_id")
+                page_id=-1
+            else:
+                page_id = page_id_match.group(1)
 
             # Check if it exists in the post set first
             post_slug = utils.slugs.generate_post_slug(text, enforce_unique=False)
@@ -258,7 +262,10 @@ class ImgNode(BaseNode):
                     # Print diagnostic information before re-raising
                     print(f"ERROR: Failed to parse {id_type}: '{id_value}', full attrs: {self.attrs_dict}")
                     # Enhanced error with the raw ID value and original error
-                    raise ValueError(f"Invalid {id_type} format: '{id_value}'. Error: {str(e)}") from e
+                    if config.IGNORE_MISSING_APP_ID:
+                        pass
+                    else:
+                        raise ValueError(f"Invalid {id_type} format: '{id_value}'. Error: {str(e)}") from e
             
             # Try different ID attributes in order of preference
             if 'attId' in self.attrs_dict:
@@ -391,20 +398,28 @@ class AttachNode(BaseNode):
     children: List['Node'] = []
 
     def render(self) -> str:
-        assert 'id' in self.attrs_dict, 'missing id'
-        # Extract the ID from attrs_dict
-        # TODO: asdfasdf handle this correctly (file vs attachment)
-        id = int(self.attrs_dict.get('id'))
-        attachment_type = 'pdf'  # TODO: this is an assumption that we will not hardcode later
-        attachment_path = map_id_to_path('id', id, attachment_type)
-        text = render_as_html(self.children) if self.children else render_html_fragment(self.inner_content)
-        
-        # Use span elements with Font Awesome classes inside MD link
-        # This keeps the link in Markdown format while adding an icon via HTML
-        # TODO: asdfasdf handle multiple file types here
-        icon_html = '<i class="fas fa-file-pdf" style="margin-right: 0.3em;"></i>'
-        # return f'{icon_html}[{text}]({attachment_path})'
-        return f'{icon_html}<a href="{attachment_path}">{text}</a>'
+        try:
+            assert 'id' in self.attrs_dict, 'missing id loc 1'
+
+            # Extract the ID from attrs_dict
+            # TODO: asdfasdf handle this correctly (file vs attachment)
+            id = int(self.attrs_dict.get('id'))
+            attachment_type = 'pdf'  # TODO: this is an assumption that we will not hardcode later
+            attachment_path = map_id_to_path('id', id, attachment_type)
+            text = render_as_html(self.children) if self.children else render_html_fragment(self.inner_content)
+
+            # Use span elements with Font Awesome classes inside MD link
+            # This keeps the link in Markdown format while adding an icon via HTML
+            # TODO: asdfasdf handle multiple file types here
+            icon_html = '<i class="fas fa-file-pdf" style="margin-right: 0.3em;"></i>'
+            # return f'{icon_html}[{text}]({attachment_path})'
+            return f'{icon_html}<a href="{attachment_path}">{text}</a>'
+
+        except Exception as e:
+            if config.IGNORE_MISSING_APP_ID:
+                return '<a href="">missing file</a>'
+            else:
+                raise e
 
 
 class HorizontalSpaceNode(BaseNode):
@@ -1948,6 +1963,9 @@ def _render_node_html(node: Node) -> str:
 def _render_link_node_html(node: LinkNode) -> str:
     link_text = render_as_html(node.children) if getattr(node, 'children', None) else node.inner_content
 
+    # if link_text == '*':
+    #     raise ValueError('Link text is *')
+
     if 'tiki-index.php?page_id=' in node.url:
         page_id_match = re.search(r'page_id=(\d+)', node.url)
         if not page_id_match:
@@ -2108,6 +2126,7 @@ def _parse_numeric_id(raw_value: str) -> int:
         raise ValueError("ID value is None; expected numeric string")
 
     cleaned = raw_value.strip().strip('"\'“”')  # remove common quote chars
+    cleaned = cleaned.replace('(', '').replace(')', '')
     if not cleaned:
         raise ValueError(f"ID value '{raw_value}' is empty after stripping quotes")
 

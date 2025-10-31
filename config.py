@@ -181,3 +181,7 @@ DEBUG_MODE = False  # shows tiki data underneath markdown data
 ########################################
 APPLY_TITLE_BLACKLISTING = False  # True
 POST_CENSOR = False  # True
+
+IGNORE_MISSING_APP_ID = True
+unknown_path = f'{CLOUDFRONT_URL}/attachments/txt/unknown.txt'
+unknown_tag = 'unknown-tag'

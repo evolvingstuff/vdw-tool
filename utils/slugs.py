@@ -156,7 +156,7 @@ def generate_hugo_tag_slug(tag_name: str) -> str:
         A slug string matching Hugo's default behavior for tags
     """
     if not tag_name:
-        raise ValueError("Tag name cannot be empty")
+        return config.unknown_tag
     
     # Convert underscores to spaces first, then to dashes for consistent normalization
     # This handles both "Vitamin D" -> "vitamin-d" and "vitamin_d" -> "vitamin-d"
@@ -168,8 +168,9 @@ def generate_hugo_tag_slug(tag_name: str) -> str:
     slug = slug.strip('-')
     
     if not slug:
-        raise ValueError(f"Tag name '{tag_name}' resulted in empty slug")
-    
+        # raise ValueError(f"Tag name '{tag_name}' resulted in empty slug")
+        return config.unknown_tag
+
     return slug
 
 

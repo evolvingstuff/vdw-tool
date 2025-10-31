@@ -139,6 +139,7 @@ def load_pages(cat_id_to_cat: Dict[int, Category]) -> Dict[int, Page]:
     for e, entry in enumerate(entries):
         page_id = entry['page_id']
         page_name = entry['pageName']
+
         config.map_page_name_to_page_id[page_name] = page_id
         config.map_page_id_to_page_name[page_id] = page_name
         print(f">> Processing page {page_id}: {page_name}")
@@ -170,6 +171,8 @@ def load_pages(cat_id_to_cat: Dict[int, Category]) -> Dict[int, Page]:
             created = entry['created']
             last_modified = entry['lastModif']
 
+
+
             page = Page(
                 page_id=page_id,
                 page_name=page_name,
@@ -193,6 +196,7 @@ def load_pages(cat_id_to_cat: Dict[int, Category]) -> Dict[int, Page]:
             failed_pages.append((entry, str(e)))
             # FAIL FAST - uncomment next line to stop on first error
             # raise
+            raise
 
     print(f'✅ Processed {len(pages)} pages')
     if failed_pages:
