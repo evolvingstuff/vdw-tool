@@ -5,6 +5,7 @@ from pydantic import BaseModel
 from dataclasses import dataclass
 import html
 from html.parser import HTMLParser
+import urllib.parse
 
 import sys
 import os
@@ -118,6 +119,11 @@ class LinkNode(BaseNode):
                 post_slug = utils.slugs.generate_post_slug(text, enforce_unique=False)
             # Always link tiki page_id references to pages
             return f"[{text}](/pages/{post_slug}/)"
+        
+        # Map absolute old-site vitamindwiki.com page URLs to new relative /pages/<slug>/
+        mapped_href = _map_old_vitd_absolute_url_to_relative(self.url)
+        if mapped_href is not None:
+            return f"[{text}]({mapped_href})"
         
         # Check if this is a valid URL (contains a slash) or starts with tiki-index
         if '/' in self.url or self.url.startswith('tiki-index') or self.url.startswith('https://'):
@@ -2035,6 +2041,11 @@ def _render_link_node_html(node: LinkNode) -> str:
     if re.match(r'^\d+(?:\s*[,*]\s*\d+)*$', node.url):
         return f"<sup>[{node.url}]</sup>"
 
+    # Attempt remap of absolute old-site vitamindwiki.com URLs first
+    mapped_href = _map_old_vitd_absolute_url_to_relative(node.url)
+    if mapped_href is not None:
+        return f'<a href="{html.escape(mapped_href, quote=True)}">{link_text}</a>'
+
     if '/' in node.url or node.url.startswith('tiki-index') or node.url.startswith('https://'):
         escaped_url = node.url
         if escaped_url.startswith('tiki-index') and not escaped_url.startswith('https://'):
@@ -2044,6 +2055,94 @@ def _render_link_node_html(node: LinkNode) -> str:
         return f'<a href="{html.escape(escaped_url, quote=True)}">{link_text}</a>'
 
     return f"<span>[{html.escape(node.url or '', quote=True)}]</span>"
+
+
+def _map_old_vitd_absolute_url_to_relative(url: str) -> Optional[str]:
+    """Map absolute vitamindwiki.com tiki-style URLs to new relative /pages/<slug>/.
+
+    - Supports forms:
+        * https://vitamindwiki.com/tiki-index.php?page=Title
+        * https://vitamindwiki.com/Title+With+Pluses
+    - Drops anchors when config.DROP_ANCHORS is True; raises otherwise.
+    - Returns relative href string or None if not applicable.
+    """
+    if not url:
+        return None
+
+    stripped = url.strip()
+    # Lookup exact match in prepopulated mapping
+    try:
+        if stripped in config.map_abs_vitd_url_to_rel:
+            return config.map_abs_vitd_url_to_rel[stripped]
+    except Exception:
+        pass
+
+    parsed = urllib.parse.urlparse(stripped)
+
+    # Only consider absolute URLs on old VDW hosts
+    scheme = (parsed.scheme or '').lower()
+    if scheme not in ('http', 'https'):
+        return None
+
+    host = (parsed.netloc or '').lower()
+    if host not in config.OLD_VITD_HOSTS:
+        return None
+
+    # Do not remap already-new URLs
+    if parsed.path and parsed.path.startswith('/pages/'):
+        return None
+
+    # Handle anchors/fragments
+    if parsed.fragment:
+        # If we are dropping anchors, try mapping without fragment first
+        if getattr(config, 'DROP_ANCHORS', True):
+            try:
+                no_frag = parsed._replace(fragment='')
+                canon = urllib.parse.urlunparse(no_frag)
+                if canon in getattr(config, 'map_abs_vitd_url_to_rel', {}):
+                    return config.map_abs_vitd_url_to_rel[canon]
+            except Exception:
+                pass
+        if not config.DROP_ANCHORS:
+            raise NotImplementedError('Anchor preservation for VitaminDWiki absolute URLs is not implemented')
+        # else: drop anchor by ignoring it
+
+    page_name: Optional[str] = None
+
+    # tiki-index.php?page=Title
+    if parsed.path and parsed.path.startswith('/tiki-index.php'):
+        qs = urllib.parse.parse_qs(parsed.query or '')
+        # If page_id is present, prefer existing mapping logic in callers
+        if 'page_id' in qs:
+            return None
+        if 'page' in qs and qs['page']:
+            page_name = qs['page'][0]
+
+    # Root-like path: /Title+With+Pluses
+    if page_name is None and parsed.path:
+        # Only consider simple one-segment paths to avoid attachments or nested paths
+        if parsed.path.count('/') == 1 and parsed.path != '/':
+            segment = parsed.path.lstrip('/')
+            # Decode percent encoding, then convert '+' to spaces (path keeps '+')
+            decoded = urllib.parse.unquote(segment)
+            page_name = decoded.replace('+', ' ').strip()
+
+    if not page_name:
+        return None
+
+    # Resolve to slug using precomputed map if available; otherwise generate
+    mapped_slug = config.map_page_name_to_page_slug.get(page_name)
+    slug = mapped_slug or utils.slugs.generate_post_slug(page_name, enforce_unique=False)
+    href = f"/pages/{slug}/"
+
+    # Record in config mapping for reference
+    try:
+        config.map_abs_vitd_url_to_rel[stripped] = href
+    except Exception:
+        # Avoid masking parsing errors with cache update issues
+        pass
+
+    return href
 
 
 def _render_local_link_node_html(node: LocalLinkNode) -> str:

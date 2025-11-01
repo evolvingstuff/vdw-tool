@@ -3,6 +3,7 @@ import unicodedata
 from typing import Dict
 import config
 import utils.titles
+import urllib.parse
 
 unique_post_slugs = set()
 post_slug_counter: Dict[str, int] = {}
@@ -239,6 +240,9 @@ def precompute_page_maps(entries):
     config.map_page_name_to_page_id.clear()
     config.map_page_id_to_page_slug.clear()
     config.map_page_name_to_page_slug.clear()
+    # Reset absolute old-site URL mapping
+    if hasattr(config, 'map_abs_vitd_url_to_rel'):
+        config.map_abs_vitd_url_to_rel.clear()
 
     for entry in entries:
         page_id = entry['page_id']
@@ -255,6 +259,24 @@ def precompute_page_maps(entries):
         post_slugs_that_exist.add(slug)
         config.map_page_id_to_page_slug[page_id] = slug
         config.map_page_name_to_page_slug[page_name] = slug
+
+        # Prepopulate absolute old-site URL → relative mapping for common variants
+        try:
+            encoded = urllib.parse.quote_plus(page_name)
+            rel = f"/pages/{slug}/"
+            for scheme in ("https",):
+                for host in getattr(config, 'OLD_VITD_HOSTS', ('vitamindwiki.com',)):
+                    # tiki-index.php?page=Title
+                    abs1 = f"{scheme}://{host}/tiki-index.php?page={encoded}"
+                    config.map_abs_vitd_url_to_rel[abs1] = rel
+                    # Title+With+Pluses
+                    abs2 = f"{scheme}://{host}/{encoded}"
+                    config.map_abs_vitd_url_to_rel[abs2] = rel
+                    # Optionally also provide trailing-slash path variant
+                    config.map_abs_vitd_url_to_rel[f"{abs2}/"] = rel
+        except Exception:
+            # Mapping cache population should not break slug precomputation
+            pass
 
     print(f'✅ Precomputed {len(post_slugs_that_exist)} unique slugs')
 
