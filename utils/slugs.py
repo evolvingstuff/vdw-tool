@@ -64,12 +64,16 @@ def generate_post_slug(title: str, enforce_unique: bool = False) -> str:
     # Ensure uniqueness
     if enforce_unique:
         base_slug = slug
-        if base_slug in unique_post_slugs:
-            counter = post_slug_counter.get(base_slug, 0) + 1
-            post_slug_counter[base_slug] = counter
-            slug = f"{base_slug}-{counter}"
+        # Count occurrences; the first occurrence should be kept as-is (no suffix),
+        # the second occurrence should use "-2", then "-3", etc. Never "-1".
+        count = post_slug_counter.get(base_slug, 0) + 1
+        post_slug_counter[base_slug] = count
+        if count == 1:
+            # First occurrence gets the base slug
+            slug = base_slug
         else:
-            post_slug_counter[base_slug] = 0
+            # Subsequent occurrences get -2, -3, ...
+            slug = f"{base_slug}-{count}"
         unique_post_slugs.add(slug)
         
         # Check for overlap between post and category slug sets
@@ -204,12 +208,55 @@ def generate_tag_link(tag_name: str) -> str:
 
 
 def create_post_slugs(entries):
-    """Create post slugs for all entries to track uniqueness"""
+    """Create post slugs for all entries to track existence (derived from pageName)."""
     print('Creating post slugs...')
     for entry in entries:
         slug = generate_post_slug(entry['pageName'], enforce_unique=False)
         post_slugs_that_exist.add(slug)
     print(f'Created {len(post_slugs_that_exist)} post slugs')
+
+
+def precompute_page_maps(entries):
+    """Precompute unique slugs and page mappings for all entries.
+
+    - Ensures unique slugs by appending -1, -2, ... when needed.
+    - Populates config maps:
+        * map_page_id_to_page_name
+        * map_page_name_to_page_id
+        * map_page_id_to_page_slug
+        * map_page_name_to_page_slug
+    - Populates post_slugs_that_exist with the unique slugs.
+    """
+    print('Precomputing unique page slugs and page maps...')
+
+    # Reset internal uniqueness tracking and existence set
+    unique_post_slugs.clear()
+    post_slug_counter.clear()
+    post_slugs_that_exist.clear()
+
+    # Reset mapping containers
+    config.map_page_id_to_page_name.clear()
+    config.map_page_name_to_page_id.clear()
+    config.map_page_id_to_page_slug.clear()
+    config.map_page_name_to_page_slug.clear()
+
+    for entry in entries:
+        page_id = entry['page_id']
+        page_name = entry['pageName']
+
+        # Update id<->name maps
+        config.map_page_id_to_page_name[page_id] = page_name
+        config.map_page_name_to_page_id[page_name] = page_id
+
+        # Compute unique slug from page name
+        slug = generate_post_slug(page_name, enforce_unique=True)
+
+        # Register slug
+        post_slugs_that_exist.add(slug)
+        config.map_page_id_to_page_slug[page_id] = slug
+        config.map_page_name_to_page_slug[page_name] = slug
+
+    print(f'✅ Precomputed {len(post_slugs_that_exist)} unique slugs')
 
 
 def create_tag_slugs_from_posts(all_tags_set):

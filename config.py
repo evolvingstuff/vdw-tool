@@ -44,6 +44,8 @@ map_obj_id_to_page_name = {}   # 1:1
 map_obj_id_to_cat_ids = {}     # 1:many
 map_cat_id_to_obj_ids = {}     # 1:many
 map_page_id_to_cat_ids = {}    # 1:many
+map_page_id_to_page_slug = {}  # 1:1
+map_page_name_to_page_slug = {}  # 1:1
 
 # TODO asdf
 # PATH_CAT_ID_TO_NAME = os.path.join(DATA_DIR, 'catId-to-catName.csv')

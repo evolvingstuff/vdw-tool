@@ -16,7 +16,7 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from utils.conversion_utils import convert_tiki_to_md
 import utils.vitd_utils.globals as globals
 from utils.models import Attachment
-from utils.slugs import create_post_slugs
+from utils.slugs import precompute_page_maps
 import config
 
 def load_attachments_if_available():
@@ -46,15 +46,8 @@ def load_pages_context_if_available():
         try:
             with open(config.PATH_TIKI_PAGES, 'r') as f:
                 entries = json.load(f)
-            # Populate mapping
-            for entry in entries:
-                page_id = entry.get('page_id')
-                page_name = entry.get('pageName')
-                if page_id is not None and page_name:
-                    config.map_page_id_to_page_name[page_id] = page_name
-            # Create slugs set so local-link checks can detect existing pages
-            create_post_slugs(entries)
-            print(f"✅ Loaded {len(entries)} pages (mapping + slugs)")
+            precompute_page_maps(entries)
+            print(f"✅ Loaded {len(entries)} pages (mapping + unique slugs)")
         except Exception as e:
             print(f"⚠️  Could not load pages context: {e}")
     else:

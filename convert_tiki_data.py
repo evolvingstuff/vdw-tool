@@ -23,7 +23,7 @@ from utils.models import Page, Category, Attachment, TikiFile
 from utils.conversion_utils import convert_tiki_to_md
 from utils.slugs import (
     generate_post_slug,
-    create_post_slugs,
+    precompute_page_maps,
     generate_tiki_wiki_slug
 )
 from utils.blacklist import is_blacklisted
@@ -130,19 +130,8 @@ def load_pages(cat_id_to_cat: Dict[int, Category]) -> Dict[int, Page]:
     if len(entries) == 0:
         raise ValueError("❌ No entries to process after filtering")
 
-    # Create the post slugs before any parsing
-    create_post_slugs(entries)
-
-    # Pre-populate page_id ↔ page_name mappings for ALL pages before rendering
-    # so parser can resolve tiki page_id links to the correct page slugs regardless of iteration order.
-    for entry in entries:
-        try:
-            pid = entry['page_id']
-            pname = entry['pageName']
-            config.map_page_name_to_page_id[pname] = pid
-            config.map_page_id_to_page_name[pid] = pname
-        except KeyError as e:
-            raise ValueError(f"Missing key in page entry while building id↔name map: {e}")
+    # Precompute unique slugs and all page maps once, before rendering
+    precompute_page_maps(entries)
 
     pages: Dict[int, Page] = {}
     failed_pages = []
@@ -163,7 +152,7 @@ def load_pages(cat_id_to_cat: Dict[int, Category]) -> Dict[int, Page]:
             print(f"\t{page_id} -> {page_name} -> {obj_id} -> {cat_ids}")
         
         page_slug = entry['pageSlug']
-        hugo_slug = generate_post_slug(page_name, False)
+        hugo_slug = config.map_page_id_to_page_slug.get(page_id) or generate_post_slug(page_name, False)
         
         if hugo_slug in config.MYSTERY_ERRORS:
             print(f'Skipping {hugo_slug} - in MYSTERY_ERRORS')
@@ -397,7 +386,8 @@ def generate_posts(page_id_to_page: Dict[int, Page],
             
         # Generate slugs and aliases
         escaped_title = title.replace('"', '\\"')
-        slug = generate_post_slug(title, False)
+        # Use generated Hugo-style slug (may collide if titles normalize the same)
+        slug = config.map_page_id_to_page_slug.get(page_id) or generate_post_slug(title, False)
         escaped_slug = slug.replace('"', '\\"')
         
         # Generate alias using original title to preserve old URLs
@@ -461,7 +451,8 @@ def write_tiki_to_directory(pages, output_dir_tiki: str):
         page_name = page.page_name
         if config.REMOVE_DATES_FROM_TITLES:
             page_name = titles.remove_dates_from_title_ends(page_name)
-        slug = utils.slugs.generate_post_slug(page_name)
+        # Use the same unique slug mapping used for posts to keep tiki filenames in sync
+        slug = config.map_page_id_to_page_slug.get(id) or utils.slugs.generate_post_slug(page_name)
         path = os.path.join(output_dir_tiki, f'{slug}.tiki')
         with open(path, 'w') as outfile:
             outfile.write(page.data_tiki)

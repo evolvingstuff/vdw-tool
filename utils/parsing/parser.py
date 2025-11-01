@@ -107,11 +107,14 @@ class LinkNode(BaseNode):
             else:
                 page_id = page_id_match.group(1)
             # If we have a page_id -> page_name mapping, prefer it to build slug
-            page_name = config.map_page_id_to_page_name.get(int(page_id)) if page_id != -1 else None
-            if page_name:
-                post_slug = utils.slugs.generate_post_slug(page_name, enforce_unique=False)
-            else:
-                # Fallback to link text when mapping isn't available (e.g., quick test mode)
+            pid = int(page_id) if page_id != -1 else None
+            post_slug = None
+            if pid is not None:
+                page_name = config.map_page_id_to_page_name.get(pid)
+                if page_name:
+                    post_slug = utils.slugs.generate_post_slug(page_name, enforce_unique=False)
+            if not post_slug:
+                # Final fallback to slug from link text
                 post_slug = utils.slugs.generate_post_slug(text, enforce_unique=False)
             # Always link tiki page_id references to pages
             return f"[{text}](/pages/{post_slug}/)"
@@ -373,12 +376,14 @@ class LocalLinkNode(BaseNode):
 
     def render(self) -> str:
         # For local links, we'll use relative paths in the Hugo site
-        post_slug = utils.slugs.generate_post_slug(self.page, enforce_unique=False)
+        # Prefer precomputed unique slug from mapping; fallback to derived slug
+        mapped_slug = config.map_page_name_to_page_slug.get(self.page)
+        post_slug = mapped_slug or utils.slugs.generate_post_slug(self.page, enforce_unique=False)
 
         # The text is either the children content or the page name if no children
         text = "".join(child.render() for child in self.children) if self.children else self.page
 
-        if post_slug in post_slugs_that_exist:
+        if mapped_slug or post_slug in post_slugs_that_exist:
             return f"[{text}](/pages/{post_slug}/)"
         else:  # we ASSUME existence of tags to avoid circular discovery reference problems
             tag_slug = utils.slugs.generate_hugo_tag_slug(self.page)
@@ -392,12 +397,13 @@ class AliasedLocalLinkNode(BaseNode):
 
     def render(self) -> str:
         # For local links, we'll use relative paths in the Hugo site
-        post_slug = utils.slugs.generate_post_slug(self.page, enforce_unique=False)
+        mapped_slug = config.map_page_name_to_page_slug.get(self.page)
+        post_slug = mapped_slug or utils.slugs.generate_post_slug(self.page, enforce_unique=False)
         
         # Use the explicit display text for the link text
         text = self.display_text
         
-        if post_slug in post_slugs_that_exist:
+        if mapped_slug or post_slug in post_slugs_that_exist:
             return f"[{text}](/pages/{post_slug}/)"
         else:  # we ASSUME existence of tags to avoid circular discovery reference problems
             tag_slug = generate_hugo_tag_slug(text)
@@ -2041,10 +2047,11 @@ def _render_link_node_html(node: LinkNode) -> str:
 
 
 def _render_local_link_node_html(node: LocalLinkNode) -> str:
-    post_slug = utils.slugs.generate_post_slug(node.page, enforce_unique=False)
+    mapped_slug = config.map_page_name_to_page_slug.get(node.page)
+    post_slug = mapped_slug or utils.slugs.generate_post_slug(node.page, enforce_unique=False)
     link_text = render_as_html(node.children) if getattr(node, 'children', None) else node.page
 
-    if post_slug in post_slugs_that_exist:
+    if mapped_slug or post_slug in post_slugs_that_exist:
         href = f"/pages/{post_slug}/"
     else:
         tag_slug = utils.slugs.generate_hugo_tag_slug(node.page)
@@ -2053,10 +2060,11 @@ def _render_local_link_node_html(node: LocalLinkNode) -> str:
 
 
 def _render_aliased_local_link_node_html(node: AliasedLocalLinkNode) -> str:
-    post_slug = utils.slugs.generate_post_slug(node.page, enforce_unique=False)
+    mapped_slug = config.map_page_name_to_page_slug.get(node.page)
+    post_slug = mapped_slug or utils.slugs.generate_post_slug(node.page, enforce_unique=False)
     link_text = node.display_text or node.page
 
-    if post_slug in post_slugs_that_exist:
+    if mapped_slug or post_slug in post_slugs_that_exist:
         href = f"/pages/{post_slug}/"
     else:
         tag_slug = generate_hugo_tag_slug(link_text)
