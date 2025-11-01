@@ -95,6 +95,11 @@ class LinkNode(BaseNode):
         # Get the text content from children
         text = "".join(child.render() for child in self.children)
         
+        # Special case: tiki browse categories → treat as tag link using the label
+        if re.search(r'tiki-browse[_-]categories\.php', self.url, re.IGNORECASE):
+            tag_slug = generate_hugo_tag_slug(text)
+            return f"[{text}](/tags/{tag_slug}/)"
+
         # Extract page_id from tiki-index.php URLs
         if 'tiki-index.php?page_id=' in self.url:
             # Extract the page_id
@@ -383,15 +388,28 @@ class LocalLinkNode(BaseNode):
     def render(self) -> str:
         # For local links, we'll use relative paths in the Hugo site
         # Prefer precomputed unique slug from mapping; fallback to derived slug
-        mapped_slug = config.map_page_name_to_page_slug.get(self.page)
+        lower_map = getattr(config, 'map_page_name_to_page_slug_lower', {})
+        mapped_exact = config.map_page_name_to_page_slug.get(self.page)
+        mapped_lower = lower_map.get(self.page.lower())
+        mapped_slug = mapped_exact or mapped_lower
         post_slug = mapped_slug or utils.slugs.generate_post_slug(self.page, enforce_unique=False)
 
         # The text is either the children content or the page name if no children
         text = "".join(child.render() for child in self.children) if self.children else self.page
 
-        if mapped_slug or post_slug in post_slugs_that_exist:
+        if mapped_slug is not None or post_slug in post_slugs_that_exist:
             return f"[{text}](/pages/{post_slug}/)"
         else:  # we ASSUME existence of tags to avoid circular discovery reference problems
+            if getattr(config, 'DEBUG_LINK_RESOLUTION', False):
+                try:
+                    print(
+                        f"LINK DEBUG Local: page='{self.page}' text='{text}' "
+                        f"mapped_exact='{mapped_exact}' mapped_lower='{mapped_lower}' fallback_slug='{post_slug}' "
+                        f"exists={post_slug in post_slugs_that_exist} "
+                        f"mapsz={len(getattr(config, 'map_page_name_to_page_slug', {}))}"
+                    )
+                except Exception:
+                    pass
             tag_slug = utils.slugs.generate_hugo_tag_slug(self.page)
             return f"[{text}](/tags/{tag_slug}/)"
 
@@ -403,15 +421,28 @@ class AliasedLocalLinkNode(BaseNode):
 
     def render(self) -> str:
         # For local links, we'll use relative paths in the Hugo site
-        mapped_slug = config.map_page_name_to_page_slug.get(self.page)
+        lower_map = getattr(config, 'map_page_name_to_page_slug_lower', {})
+        mapped_exact = config.map_page_name_to_page_slug.get(self.page)
+        mapped_lower = lower_map.get(self.page.lower())
+        mapped_slug = mapped_exact or mapped_lower
         post_slug = mapped_slug or utils.slugs.generate_post_slug(self.page, enforce_unique=False)
         
         # Use the explicit display text for the link text
         text = self.display_text
         
-        if mapped_slug or post_slug in post_slugs_that_exist:
+        if mapped_slug is not None or post_slug in post_slugs_that_exist:
             return f"[{text}](/pages/{post_slug}/)"
         else:  # we ASSUME existence of tags to avoid circular discovery reference problems
+            if getattr(config, 'DEBUG_LINK_RESOLUTION', False):
+                try:
+                    print(
+                        f"LINK DEBUG Aliased: page='{self.page}' text='{text}' "
+                        f"mapped_exact='{mapped_exact}' mapped_lower='{mapped_lower}' fallback_slug='{post_slug}' "
+                        f"exists={post_slug in post_slugs_that_exist} "
+                        f"mapsz={len(getattr(config, 'map_page_name_to_page_slug', {}))}"
+                    )
+                except Exception:
+                    pass
             tag_slug = generate_hugo_tag_slug(text)
             return f"[{text}](/tags/{tag_slug}/)"
 
@@ -2023,6 +2054,12 @@ def _render_link_node_html(node: LinkNode) -> str:
 
     # if link_text == '*':
     #     raise ValueError('Link text is *')
+
+    # Special case: tiki browse categories → treat as tag link using the label
+    if re.search(r'tiki-browse[_-]categories\.php', node.url or '', re.IGNORECASE):
+        tag_slug = generate_hugo_tag_slug(link_text)
+        href = f"/tags/{tag_slug}/"
+        return f'<a href="{html.escape(href, quote=True)}">{link_text}</a>'
 
     if 'tiki-index.php?page_id=' in node.url:
         page_id_match = re.search(r'page_id=(\d+)', node.url)

@@ -240,6 +240,7 @@ def precompute_page_maps(entries):
     config.map_page_name_to_page_id.clear()
     config.map_page_id_to_page_slug.clear()
     config.map_page_name_to_page_slug.clear()
+    config.map_page_name_to_page_slug_lower.clear()
     # Reset absolute old-site URL mapping
     if hasattr(config, 'map_abs_vitd_url_to_rel'):
         config.map_abs_vitd_url_to_rel.clear()
@@ -259,6 +260,10 @@ def precompute_page_maps(entries):
         post_slugs_that_exist.add(slug)
         config.map_page_id_to_page_slug[page_id] = slug
         config.map_page_name_to_page_slug[page_name] = slug
+        # Case-insensitive mapping for robustness with ((Page|alias)) variations
+        lower_key = page_name.lower()
+        # Only set if not already present to keep first occurrence in case of collisions
+        config.map_page_name_to_page_slug_lower.setdefault(lower_key, slug)
 
         # Prepopulate absolute old-site URL → relative mapping for common variants
         try:

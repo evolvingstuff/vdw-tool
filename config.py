@@ -46,6 +46,7 @@ map_cat_id_to_obj_ids = {}     # 1:many
 map_page_id_to_cat_ids = {}    # 1:many
 map_page_id_to_page_slug = {}  # 1:1
 map_page_name_to_page_slug = {}  # 1:1
+map_page_name_to_page_slug_lower = {}  # lowercase title -> slug (for case-insensitive lookup)
 
 # Map of absolute old-site URLs (vitamindwiki.com tiki-style) to new relative URLs
 # Filled on-the-fly during parsing when such links are encountered
@@ -202,3 +203,6 @@ OLD_VITD_HOSTS = (
     'vitamindwiki.com',
     'www.vitamindwiki.com',
 )
+
+# Debugging: when True, print reasoning when local links downgrade to tags
+DEBUG_LINK_RESOLUTION = False
