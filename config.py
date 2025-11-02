@@ -205,4 +205,25 @@ OLD_VITD_HOSTS = (
 )
 
 # Debugging: when True, print reasoning when local links downgrade to tags
-DEBUG_LINK_RESOLUTION = False
+DEBUG_LINK_RESOLUTION = True
+LINK_DEBUG_LOG_PATH = 'link_debug.log'
+
+# Link debug verbosity controls
+# - Only log the first N downgrade events per page (context)
+# - Optionally log only unique (page,text) pairs
+# - Optionally shorten fields in each line
+LINK_DEBUG_MAX_PER_PAGE = 20
+LINK_DEBUG_UNIQUE_ONLY = True
+LINK_DEBUG_MINIFY = True
+
+# Runtime state for link debug (per-page counters, dedupe sets)
+# Populated during a run; cleared at start of conversion
+LINK_DEBUG_STATE = {}
+
+CURRENT_PAGE_ID = None  # set during full conversion for debug context
+CURRENT_PAGE_NAME = None  # set during full conversion for debug context
+
+# whitelist_by_slug = [
+#     'autism-risky-if-low-vitamin-d-during-pregnancy-and-early-life-mice-fecal-transplant-reversed-it'
+# ]
+whitelist_by_slug = None

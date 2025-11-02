@@ -159,6 +159,9 @@ def convert_tiki_to_md(tiki):
 
     ast_str = "".join(ast_str)
 
+    if config.whitelist_by_slug is not None:
+        print(ast_str)
+
     md = parser.render_as_markdown(ast)
 
     sections_included: List[int] = []

@@ -390,7 +390,8 @@ class LocalLinkNode(BaseNode):
         # Prefer precomputed unique slug from mapping; fallback to derived slug
         lower_map = getattr(config, 'map_page_name_to_page_slug_lower', {})
         mapped_exact = config.map_page_name_to_page_slug.get(self.page)
-        mapped_lower = lower_map.get(self.page.lower())
+        key = utils.slugs.normalize_title_key(self.page)
+        mapped_lower = lower_map.get(key)
         mapped_slug = mapped_exact or mapped_lower
         post_slug = mapped_slug or utils.slugs.generate_post_slug(self.page, enforce_unique=False)
 
@@ -401,15 +402,15 @@ class LocalLinkNode(BaseNode):
             return f"[{text}](/pages/{post_slug}/)"
         else:  # we ASSUME existence of tags to avoid circular discovery reference problems
             if getattr(config, 'DEBUG_LINK_RESOLUTION', False):
-                try:
-                    print(
-                        f"LINK DEBUG Local: page='{self.page}' text='{text}' "
-                        f"mapped_exact='{mapped_exact}' mapped_lower='{mapped_lower}' fallback_slug='{post_slug}' "
-                        f"exists={post_slug in post_slugs_that_exist} "
-                        f"mapsz={len(getattr(config, 'map_page_name_to_page_slug', {}))}"
-                    )
-                except Exception:
-                    pass
+                _log_link_downgrade(
+                    kind='Local',
+                    target_page=self.page,
+                    link_text=text,
+                    mapped_exact=mapped_exact,
+                    mapped_lower=mapped_lower,
+                    fallback_slug=post_slug,
+                    exists=(post_slug in post_slugs_that_exist)
+                )
             tag_slug = utils.slugs.generate_hugo_tag_slug(self.page)
             return f"[{text}](/tags/{tag_slug}/)"
 
@@ -423,7 +424,8 @@ class AliasedLocalLinkNode(BaseNode):
         # For local links, we'll use relative paths in the Hugo site
         lower_map = getattr(config, 'map_page_name_to_page_slug_lower', {})
         mapped_exact = config.map_page_name_to_page_slug.get(self.page)
-        mapped_lower = lower_map.get(self.page.lower())
+        key = utils.slugs.normalize_title_key(self.page)
+        mapped_lower = lower_map.get(key)
         mapped_slug = mapped_exact or mapped_lower
         post_slug = mapped_slug or utils.slugs.generate_post_slug(self.page, enforce_unique=False)
         
@@ -434,17 +436,87 @@ class AliasedLocalLinkNode(BaseNode):
             return f"[{text}](/pages/{post_slug}/)"
         else:  # we ASSUME existence of tags to avoid circular discovery reference problems
             if getattr(config, 'DEBUG_LINK_RESOLUTION', False):
-                try:
-                    print(
-                        f"LINK DEBUG Aliased: page='{self.page}' text='{text}' "
-                        f"mapped_exact='{mapped_exact}' mapped_lower='{mapped_lower}' fallback_slug='{post_slug}' "
-                        f"exists={post_slug in post_slugs_that_exist} "
-                        f"mapsz={len(getattr(config, 'map_page_name_to_page_slug', {}))}"
-                    )
-                except Exception:
-                    pass
+                _log_link_downgrade(
+                    kind='Aliased',
+                    target_page=self.page,
+                    link_text=text,
+                    mapped_exact=mapped_exact,
+                    mapped_lower=mapped_lower,
+                    fallback_slug=post_slug,
+                    exists=(post_slug in post_slugs_that_exist)
+                )
             tag_slug = generate_hugo_tag_slug(text)
             return f"[{text}](/tags/{tag_slug}/)"
+
+
+def _log_link_downgrade(kind: str, target_page: str, link_text: str, mapped_exact, mapped_lower, fallback_slug: str, exists: bool) -> None:
+    """Append a one-line log for a local-link downgrade to tag.
+
+    Significantly reduces verbosity by:
+    - Logging only unique (page, text) pairs per page when enabled
+    - Capping the number of entries per page (context)
+    - Optionally emitting a shorter, minified line format
+    """
+    try:
+        if not getattr(config, 'DEBUG_LINK_RESOLUTION', False):
+            return
+
+        ctx_id = getattr(config, 'CURRENT_PAGE_ID', None)
+        ctx_name = getattr(config, 'CURRENT_PAGE_NAME', None)
+        ctx_key = ctx_name or ctx_id or 'unknown'
+
+        # Initialize runtime state
+        state = getattr(config, 'LINK_DEBUG_STATE', None)
+        if state is None:
+            state = {}
+            setattr(config, 'LINK_DEBUG_STATE', state)
+        page_state = state.get(ctx_key)
+        if page_state is None:
+            page_state = {'count': 0, 'dedupe': set(), 'suppressed': False}
+            state[ctx_key] = page_state
+
+        # Dedupe repeated (target_page, link_text) pairs if enabled
+        if getattr(config, 'LINK_DEBUG_UNIQUE_ONLY', True):
+            key = (str(target_page).lower(), str(link_text or '').lower())
+            if key in page_state['dedupe']:
+                return
+            page_state['dedupe'].add(key)
+
+        # Enforce per-page cap
+        max_per = int(getattr(config, 'LINK_DEBUG_MAX_PER_PAGE', 20) or 0)
+        if max_per >= 0 and page_state['count'] >= max_per:
+            if not page_state['suppressed']:
+                path = getattr(config, 'LINK_DEBUG_LOG_PATH', 'link_debug.log')
+                note = (
+                    f"LINK DEBUG NOTE: ctx_id='{ctx_id}' ctx_name='{ctx_name}' "
+                    f"further messages suppressed\n"
+                )
+                with open(path, 'a', encoding='utf-8') as f:
+                    f.write(note)
+                page_state['suppressed'] = True
+            return
+
+        # Build line (minified or full)
+        if getattr(config, 'LINK_DEBUG_MINIFY', True):
+            line = (
+                f"LINK DEBUG {kind}: ctx_id='{ctx_id}' ctx_name='{ctx_name}' "
+                f"page='{target_page}' text='{link_text}' "
+                f"fallback_slug='{fallback_slug}' exists={exists}\n"
+            )
+        else:
+            line = (
+                f"LINK DEBUG {kind}: ctx_id='{ctx_id}' ctx_name='{ctx_name}' "
+                f"page='{target_page}' text='{link_text}' mapped_exact='{mapped_exact}' "
+                f"mapped_lower='{mapped_lower}' fallback_slug='{fallback_slug}' exists={exists}\n"
+            )
+
+        path = getattr(config, 'LINK_DEBUG_LOG_PATH', 'link_debug.log')
+        with open(path, 'a', encoding='utf-8') as f:
+            f.write(line)
+        page_state['count'] += 1
+    except Exception:
+        # Do not crash conversion for debug logging issues
+        pass
 
 
 class AttachNode(BaseNode):
@@ -1167,7 +1239,8 @@ class AliasedLocalLinkPattern(Pattern):
     """Pattern for local links with aliases like ((page name|display text))"""
     def __init__(self):
         super().__init__(
-            r'\(\((?P<page>[^|]+?)\|(?P<text>.+?)\)\)',  # Match ((page|text)) format exactly
+            # Disallow newlines and parentheses inside page/text to avoid spanning across blocks
+            r'\(\((?P<page>[^\|\n()]+?)\|(?P<text>[^\n()]+?)\)\)',
             "Local link with alias like ((page name|display text))"
         )
     
@@ -1188,7 +1261,8 @@ class LocalLinkPattern(Pattern):
     """Pattern for local links like ((page name))"""
     def __init__(self):
         super().__init__(
-            r'\(\((.*?)\)\)',  # Match content between (( and ))
+            # Do not allow alias bar or newlines inside; avoid greedy across blocks
+            r'\(\(([^\|\n]+?)\)\)',
             "Local link like ((page name))"
         )
     
@@ -1196,7 +1270,7 @@ class LocalLinkPattern(Pattern):
         return LocalLinkNode(
             full_match=full_text,
             inner_content=captures[0],
-            page=captures[0],  # TODO: why?.strip(),  # Remove any whitespace from page name
+            page=captures[0].strip(),  # Remove any surrounding whitespace from page name
             children=[]
         )
 

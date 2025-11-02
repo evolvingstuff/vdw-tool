@@ -15,6 +15,20 @@ post_slugs_that_exist = set()
 tag_slugs_that_exist = set()
 
 
+def normalize_title_key(title: str) -> str:
+    """Canonical key for matching page titles from links.
+
+    - Lowercase
+    - Trim leading/trailing whitespace
+    - Collapse internal whitespace runs to a single space
+    """
+    if title is None:
+        return ""
+    # Collapse any whitespace (including non-breaking) to spaces, then single-space
+    collapsed = " ".join(str(title).split())
+    return collapsed.lower()
+
+
 def generate_post_slug(title: str, enforce_unique: bool = False) -> str:
     """
     Generates a unique slug from the given title.
@@ -261,7 +275,8 @@ def precompute_page_maps(entries):
         config.map_page_id_to_page_slug[page_id] = slug
         config.map_page_name_to_page_slug[page_name] = slug
         # Case-insensitive mapping for robustness with ((Page|alias)) variations
-        lower_key = page_name.lower()
+        # Normalized, case-insensitive key to improve lookup robustness
+        lower_key = normalize_title_key(page_name)
         # Only set if not already present to keep first occurrence in case of collisions
         config.map_page_name_to_page_slug_lower.setdefault(lower_key, slug)
 

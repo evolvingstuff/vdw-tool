@@ -110,6 +110,19 @@ def load_pages(cat_id_to_cat: Dict[int, Category]) -> Dict[int, Page]:
 
     print(f'\tLoaded {len(entries)} pages')
 
+    # Reset link debug log and state at the start of a conversion run
+    try:
+        if getattr(config, 'DEBUG_LINK_RESOLUTION', False):
+            path = getattr(config, 'LINK_DEBUG_LOG_PATH', 'link_debug.log')
+            # Truncate existing log file
+            with open(path, 'w', encoding='utf-8'):
+                pass
+            # Clear runtime state used for per-page caps and deduplication
+            setattr(config, 'LINK_DEBUG_STATE', {})
+    except Exception:
+        # Logging reset issues should not block conversion
+        pass
+
     # Remove blacklisted pages
     temp = []
     removed = 0
@@ -139,7 +152,7 @@ def load_pages(cat_id_to_cat: Dict[int, Category]) -> Dict[int, Page]:
     for e, entry in enumerate(entries):
         page_id = entry['page_id']
         page_name = entry['pageName']
-        print(f">> Processing page {page_id}: {page_name}")
+
         
         # Populate page_id -> category_ids mapping now that we have page_id + page_name
         # This relies on mappings built earlier:
@@ -158,12 +171,20 @@ def load_pages(cat_id_to_cat: Dict[int, Category]) -> Dict[int, Page]:
             print(f'Skipping {hugo_slug} - in MYSTERY_ERRORS')
             failed_pages.append(entry)
             continue
+
+        if config.whitelist_by_slug is not None and hugo_slug not in config.whitelist_by_slug:
+            continue
+
+        print(f">> Processing page {page_id}: {page_name}")
             
         description = entry.get('description', None)
         hits = entry['hits']
         data_tiki = entry['data']
 
         try:
+            # Set context for link debug (consumed by parser when downgrading)
+            config.CURRENT_PAGE_ID = page_id
+            config.CURRENT_PAGE_NAME = page_name
             data_md, sections_included, sections_excluded = convert_tiki_to_md(data_tiki)
             created = entry['created']
             last_modified = entry['lastModif']
