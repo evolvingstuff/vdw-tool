@@ -37,6 +37,10 @@ PATH_CAT_ID_TO_CAT_NAME = os.path.join(DATA_DIR, 'tiki_categories_2025-10-03.jso
 PATH_CATEGORY_OBJECTS = os.path.join(DATA_DIR, 'tiki_category_objects_2025-10-22.json')
 PATH_ROSETTA = os.path.join(DATA_DIR, 'rosetta.csv')
 
+USE_ROSETTA = True
+
+USE_ITEM_ID = True  # does not matter in practice
+
 map_page_id_to_page_name = {}  # 1:1
 map_page_name_to_page_id = {}  # 1:1
 map_page_name_to_obj_id = {}   # 1:1
@@ -51,10 +55,6 @@ map_page_name_to_page_slug_lower = {}  # lowercase title -> slug (for case-insen
 # Map of absolute old-site URLs (vitamindwiki.com tiki-style) to new relative URLs
 # Filled on-the-fly during parsing when such links are encountered
 map_abs_vitd_url_to_rel: dict[str, str] = {}
-
-# TODO asdf
-# PATH_CAT_ID_TO_NAME = os.path.join(DATA_DIR, 'catId-to-catName.csv')
-# PATH_PAGE_ID_TO_CAT = os.path.join(DATA_DIR, 'pageId-to-catId.csv')
 
 
 COPY_ATTACHMENTS = False
@@ -224,6 +224,6 @@ CURRENT_PAGE_ID = None  # set during full conversion for debug context
 CURRENT_PAGE_NAME = None  # set during full conversion for debug context
 
 # whitelist_by_slug = [
-#     'autism-risky-if-low-vitamin-d-during-pregnancy-and-early-life-mice-fecal-transplant-reversed-it'
+#     'vitamin-d-presentation-charts'
 # ]
 whitelist_by_slug = None

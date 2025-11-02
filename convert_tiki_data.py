@@ -5,11 +5,11 @@ Ported from vitD main.py with FAIL FAST philosophy
 """
 
 import csv
+import datetime
 import json
 import os
-import datetime
-from typing import List, Dict
 import sys
+from typing import List, Dict
 
 import utils.slugs
 
@@ -78,9 +78,16 @@ def load_pages(cat_id_to_cat: Dict[int, Category]) -> Dict[int, Page]:
                 print('\tmismatch?')
             object_id = int(entry['objectId'])
             print(f'\tProcessing {name}: {type} -> {object_id}')
-            # TODO: asdf asdf use first or second? both?
-            config.map_page_name_to_obj_id[item_id] = object_id
-            config.map_obj_id_to_page_name[object_id] = item_id
+
+            ########################################################
+            # TODO: asdf asdf asdf use first or second? both?
+            if config.USE_ITEM_ID:
+                config.map_page_name_to_obj_id[item_id] = object_id
+                config.map_obj_id_to_page_name[object_id] = item_id
+            else:
+                config.map_page_name_to_obj_id[name] = object_id
+                config.map_obj_id_to_page_name[object_id] = name
+            ########################################################
 
     ###########
     if not os.path.exists(config.PATH_CATEGORY_OBJECTS):
@@ -263,30 +270,13 @@ def load_categories() -> Dict[int, Category]:
         for row in data:
             id_str, name = row['categId'], row['name']
             # Apply rosetta mapping if available
-            if name in rosetta_mapping:
+            if config.USE_ROSETTA and name in rosetta_mapping and name != rosetta_mapping[name]:
                 name = rosetta_mapping[name]
             id_int = int(id_str)
             categories[id_int] = Category(cat_id=id_int, name=name)
             if name in names:
                 raise ValueError(f"❌ Duplicate category name: {name}")
             names.add(name)
-
-    # with open(config.PATH_CAT_ID_TO_NAME2, mode='r', newline='', encoding='utf-8') as csvfile:
-    #     reader = csv.reader(csvfile)
-    #     next(reader, None)  # Skip header
-    #     for row in reader:
-    #         if len(row) >= 2:
-    #             id_str, name = row[0], row[1]
-    #             # Apply rosetta mapping if available
-    #             if name in rosetta_mapping:
-    #                 name = rosetta_mapping[name]
-    #             id_int = int(id_str)
-    #             categories[id_int] = Category(cat_id=id_int, name=name)
-    #
-    #             if name in names:
-    #                 raise ValueError(f"❌ Duplicate category name: {name}")
-    #             names.add(name)
-    #
 
     print(f'✅ Loaded {len(categories)} categories')
     return categories
