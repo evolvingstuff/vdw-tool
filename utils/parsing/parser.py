@@ -5,6 +5,7 @@ from pydantic import BaseModel
 from dataclasses import dataclass
 import html
 from html.parser import HTMLParser
+import urllib.parse
 
 import sys
 import os
@@ -94,6 +95,11 @@ class LinkNode(BaseNode):
         # Get the text content from children
         text = "".join(child.render() for child in self.children)
         
+        # Special case: tiki browse categories → treat as tag link using the label
+        if re.search(r'tiki-browse[_-]categories\.php', self.url, re.IGNORECASE):
+            tag_slug = generate_hugo_tag_slug(text)
+            return f"[{text}](/tags/{tag_slug}/)"
+
         # Extract page_id from tiki-index.php URLs
         if 'tiki-index.php?page_id=' in self.url:
             # Extract the page_id
@@ -118,6 +124,11 @@ class LinkNode(BaseNode):
                 post_slug = utils.slugs.generate_post_slug(text, enforce_unique=False)
             # Always link tiki page_id references to pages
             return f"[{text}](/pages/{post_slug}/)"
+        
+        # Map absolute old-site vitamindwiki.com page URLs to new relative /pages/<slug>/
+        mapped_href = _map_old_vitd_absolute_url_to_relative(self.url)
+        if mapped_href is not None:
+            return f"[{text}]({mapped_href})"
         
         # Check if this is a valid URL (contains a slash) or starts with tiki-index
         if '/' in self.url or self.url.startswith('tiki-index') or self.url.startswith('https://'):
@@ -377,15 +388,29 @@ class LocalLinkNode(BaseNode):
     def render(self) -> str:
         # For local links, we'll use relative paths in the Hugo site
         # Prefer precomputed unique slug from mapping; fallback to derived slug
-        mapped_slug = config.map_page_name_to_page_slug.get(self.page)
+        lower_map = getattr(config, 'map_page_name_to_page_slug_lower', {})
+        mapped_exact = config.map_page_name_to_page_slug.get(self.page)
+        key = utils.slugs.normalize_title_key(self.page)
+        mapped_lower = lower_map.get(key)
+        mapped_slug = mapped_exact or mapped_lower
         post_slug = mapped_slug or utils.slugs.generate_post_slug(self.page, enforce_unique=False)
 
         # The text is either the children content or the page name if no children
         text = "".join(child.render() for child in self.children) if self.children else self.page
 
-        if mapped_slug or post_slug in post_slugs_that_exist:
+        if mapped_slug is not None or post_slug in post_slugs_that_exist:
             return f"[{text}](/pages/{post_slug}/)"
         else:  # we ASSUME existence of tags to avoid circular discovery reference problems
+            if getattr(config, 'DEBUG_LINK_RESOLUTION', False):
+                _log_link_downgrade(
+                    kind='Local',
+                    target_page=self.page,
+                    link_text=text,
+                    mapped_exact=mapped_exact,
+                    mapped_lower=mapped_lower,
+                    fallback_slug=post_slug,
+                    exists=(post_slug in post_slugs_that_exist)
+                )
             tag_slug = utils.slugs.generate_hugo_tag_slug(self.page)
             return f"[{text}](/tags/{tag_slug}/)"
 
@@ -397,17 +422,101 @@ class AliasedLocalLinkNode(BaseNode):
 
     def render(self) -> str:
         # For local links, we'll use relative paths in the Hugo site
-        mapped_slug = config.map_page_name_to_page_slug.get(self.page)
+        lower_map = getattr(config, 'map_page_name_to_page_slug_lower', {})
+        mapped_exact = config.map_page_name_to_page_slug.get(self.page)
+        key = utils.slugs.normalize_title_key(self.page)
+        mapped_lower = lower_map.get(key)
+        mapped_slug = mapped_exact or mapped_lower
         post_slug = mapped_slug or utils.slugs.generate_post_slug(self.page, enforce_unique=False)
         
         # Use the explicit display text for the link text
         text = self.display_text
         
-        if mapped_slug or post_slug in post_slugs_that_exist:
+        if mapped_slug is not None or post_slug in post_slugs_that_exist:
             return f"[{text}](/pages/{post_slug}/)"
         else:  # we ASSUME existence of tags to avoid circular discovery reference problems
+            if getattr(config, 'DEBUG_LINK_RESOLUTION', False):
+                _log_link_downgrade(
+                    kind='Aliased',
+                    target_page=self.page,
+                    link_text=text,
+                    mapped_exact=mapped_exact,
+                    mapped_lower=mapped_lower,
+                    fallback_slug=post_slug,
+                    exists=(post_slug in post_slugs_that_exist)
+                )
             tag_slug = generate_hugo_tag_slug(text)
             return f"[{text}](/tags/{tag_slug}/)"
+
+
+def _log_link_downgrade(kind: str, target_page: str, link_text: str, mapped_exact, mapped_lower, fallback_slug: str, exists: bool) -> None:
+    """Append a one-line log for a local-link downgrade to tag.
+
+    Significantly reduces verbosity by:
+    - Logging only unique (page, text) pairs per page when enabled
+    - Capping the number of entries per page (context)
+    - Optionally emitting a shorter, minified line format
+    """
+    try:
+        if not getattr(config, 'DEBUG_LINK_RESOLUTION', False):
+            return
+
+        ctx_id = getattr(config, 'CURRENT_PAGE_ID', None)
+        ctx_name = getattr(config, 'CURRENT_PAGE_NAME', None)
+        ctx_key = ctx_name or ctx_id or 'unknown'
+
+        # Initialize runtime state
+        state = getattr(config, 'LINK_DEBUG_STATE', None)
+        if state is None:
+            state = {}
+            setattr(config, 'LINK_DEBUG_STATE', state)
+        page_state = state.get(ctx_key)
+        if page_state is None:
+            page_state = {'count': 0, 'dedupe': set(), 'suppressed': False}
+            state[ctx_key] = page_state
+
+        # Dedupe repeated (target_page, link_text) pairs if enabled
+        if getattr(config, 'LINK_DEBUG_UNIQUE_ONLY', True):
+            key = (str(target_page).lower(), str(link_text or '').lower())
+            if key in page_state['dedupe']:
+                return
+            page_state['dedupe'].add(key)
+
+        # Enforce per-page cap
+        max_per = int(getattr(config, 'LINK_DEBUG_MAX_PER_PAGE', 20) or 0)
+        if max_per >= 0 and page_state['count'] >= max_per:
+            if not page_state['suppressed']:
+                path = getattr(config, 'LINK_DEBUG_LOG_PATH', 'link_debug.log')
+                note = (
+                    f"LINK DEBUG NOTE: ctx_id='{ctx_id}' ctx_name='{ctx_name}' "
+                    f"further messages suppressed\n"
+                )
+                with open(path, 'a', encoding='utf-8') as f:
+                    f.write(note)
+                page_state['suppressed'] = True
+            return
+
+        # Build line (minified or full)
+        if getattr(config, 'LINK_DEBUG_MINIFY', True):
+            line = (
+                f"LINK DEBUG {kind}: ctx_id='{ctx_id}' ctx_name='{ctx_name}' "
+                f"page='{target_page}' text='{link_text}' "
+                f"fallback_slug='{fallback_slug}' exists={exists}\n"
+            )
+        else:
+            line = (
+                f"LINK DEBUG {kind}: ctx_id='{ctx_id}' ctx_name='{ctx_name}' "
+                f"page='{target_page}' text='{link_text}' mapped_exact='{mapped_exact}' "
+                f"mapped_lower='{mapped_lower}' fallback_slug='{fallback_slug}' exists={exists}\n"
+            )
+
+        path = getattr(config, 'LINK_DEBUG_LOG_PATH', 'link_debug.log')
+        with open(path, 'a', encoding='utf-8') as f:
+            f.write(line)
+        page_state['count'] += 1
+    except Exception:
+        # Do not crash conversion for debug logging issues
+        pass
 
 
 class AttachNode(BaseNode):
@@ -1130,7 +1239,8 @@ class AliasedLocalLinkPattern(Pattern):
     """Pattern for local links with aliases like ((page name|display text))"""
     def __init__(self):
         super().__init__(
-            r'\(\((?P<page>[^|]+?)\|(?P<text>.+?)\)\)',  # Match ((page|text)) format exactly
+            # Disallow newlines and parentheses inside page/text to avoid spanning across blocks
+            r'\(\((?P<page>[^\|\n()]+?)\|(?P<text>[^\n()]+?)\)\)',
             "Local link with alias like ((page name|display text))"
         )
     
@@ -1151,7 +1261,8 @@ class LocalLinkPattern(Pattern):
     """Pattern for local links like ((page name))"""
     def __init__(self):
         super().__init__(
-            r'\(\((.*?)\)\)',  # Match content between (( and ))
+            # Do not allow alias bar or newlines inside; avoid greedy across blocks
+            r'\(\(([^\|\n]+?)\)\)',
             "Local link like ((page name))"
         )
     
@@ -1159,7 +1270,7 @@ class LocalLinkPattern(Pattern):
         return LocalLinkNode(
             full_match=full_text,
             inner_content=captures[0],
-            page=captures[0],  # TODO: why?.strip(),  # Remove any whitespace from page name
+            page=captures[0].strip(),  # Remove any surrounding whitespace from page name
             children=[]
         )
 
@@ -2018,6 +2129,12 @@ def _render_link_node_html(node: LinkNode) -> str:
     # if link_text == '*':
     #     raise ValueError('Link text is *')
 
+    # Special case: tiki browse categories → treat as tag link using the label
+    if re.search(r'tiki-browse[_-]categories\.php', node.url or '', re.IGNORECASE):
+        tag_slug = generate_hugo_tag_slug(link_text)
+        href = f"/tags/{tag_slug}/"
+        return f'<a href="{html.escape(href, quote=True)}">{link_text}</a>'
+
     if 'tiki-index.php?page_id=' in node.url:
         page_id_match = re.search(r'page_id=(\d+)', node.url)
         if not page_id_match:
@@ -2035,6 +2152,11 @@ def _render_link_node_html(node: LinkNode) -> str:
     if re.match(r'^\d+(?:\s*[,*]\s*\d+)*$', node.url):
         return f"<sup>[{node.url}]</sup>"
 
+    # Attempt remap of absolute old-site vitamindwiki.com URLs first
+    mapped_href = _map_old_vitd_absolute_url_to_relative(node.url)
+    if mapped_href is not None:
+        return f'<a href="{html.escape(mapped_href, quote=True)}">{link_text}</a>'
+
     if '/' in node.url or node.url.startswith('tiki-index') or node.url.startswith('https://'):
         escaped_url = node.url
         if escaped_url.startswith('tiki-index') and not escaped_url.startswith('https://'):
@@ -2044,6 +2166,94 @@ def _render_link_node_html(node: LinkNode) -> str:
         return f'<a href="{html.escape(escaped_url, quote=True)}">{link_text}</a>'
 
     return f"<span>[{html.escape(node.url or '', quote=True)}]</span>"
+
+
+def _map_old_vitd_absolute_url_to_relative(url: str) -> Optional[str]:
+    """Map absolute vitamindwiki.com tiki-style URLs to new relative /pages/<slug>/.
+
+    - Supports forms:
+        * https://vitamindwiki.com/tiki-index.php?page=Title
+        * https://vitamindwiki.com/Title+With+Pluses
+    - Drops anchors when config.DROP_ANCHORS is True; raises otherwise.
+    - Returns relative href string or None if not applicable.
+    """
+    if not url:
+        return None
+
+    stripped = url.strip()
+    # Lookup exact match in prepopulated mapping
+    try:
+        if stripped in config.map_abs_vitd_url_to_rel:
+            return config.map_abs_vitd_url_to_rel[stripped]
+    except Exception:
+        pass
+
+    parsed = urllib.parse.urlparse(stripped)
+
+    # Only consider absolute URLs on old VDW hosts
+    scheme = (parsed.scheme or '').lower()
+    if scheme not in ('http', 'https'):
+        return None
+
+    host = (parsed.netloc or '').lower()
+    if host not in config.OLD_VITD_HOSTS:
+        return None
+
+    # Do not remap already-new URLs
+    if parsed.path and parsed.path.startswith('/pages/'):
+        return None
+
+    # Handle anchors/fragments
+    if parsed.fragment:
+        # If we are dropping anchors, try mapping without fragment first
+        if getattr(config, 'DROP_ANCHORS', True):
+            try:
+                no_frag = parsed._replace(fragment='')
+                canon = urllib.parse.urlunparse(no_frag)
+                if canon in getattr(config, 'map_abs_vitd_url_to_rel', {}):
+                    return config.map_abs_vitd_url_to_rel[canon]
+            except Exception:
+                pass
+        if not config.DROP_ANCHORS:
+            raise NotImplementedError('Anchor preservation for VitaminDWiki absolute URLs is not implemented')
+        # else: drop anchor by ignoring it
+
+    page_name: Optional[str] = None
+
+    # tiki-index.php?page=Title
+    if parsed.path and parsed.path.startswith('/tiki-index.php'):
+        qs = urllib.parse.parse_qs(parsed.query or '')
+        # If page_id is present, prefer existing mapping logic in callers
+        if 'page_id' in qs:
+            return None
+        if 'page' in qs and qs['page']:
+            page_name = qs['page'][0]
+
+    # Root-like path: /Title+With+Pluses
+    if page_name is None and parsed.path:
+        # Only consider simple one-segment paths to avoid attachments or nested paths
+        if parsed.path.count('/') == 1 and parsed.path != '/':
+            segment = parsed.path.lstrip('/')
+            # Decode percent encoding, then convert '+' to spaces (path keeps '+')
+            decoded = urllib.parse.unquote(segment)
+            page_name = decoded.replace('+', ' ').strip()
+
+    if not page_name:
+        return None
+
+    # Resolve to slug using precomputed map if available; otherwise generate
+    mapped_slug = config.map_page_name_to_page_slug.get(page_name)
+    slug = mapped_slug or utils.slugs.generate_post_slug(page_name, enforce_unique=False)
+    href = f"/pages/{slug}/"
+
+    # Record in config mapping for reference
+    try:
+        config.map_abs_vitd_url_to_rel[stripped] = href
+    except Exception:
+        # Avoid masking parsing errors with cache update issues
+        pass
+
+    return href
 
 
 def _render_local_link_node_html(node: LocalLinkNode) -> str:

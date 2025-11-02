@@ -46,6 +46,11 @@ map_cat_id_to_obj_ids = {}     # 1:many
 map_page_id_to_cat_ids = {}    # 1:many
 map_page_id_to_page_slug = {}  # 1:1
 map_page_name_to_page_slug = {}  # 1:1
+map_page_name_to_page_slug_lower = {}  # lowercase title -> slug (for case-insensitive lookup)
+
+# Map of absolute old-site URLs (vitamindwiki.com tiki-style) to new relative URLs
+# Filled on-the-fly during parsing when such links are encountered
+map_abs_vitd_url_to_rel: dict[str, str] = {}
 
 # TODO asdf
 # PATH_CAT_ID_TO_NAME = os.path.join(DATA_DIR, 'catId-to-catName.csv')
@@ -187,3 +192,38 @@ POST_CENSOR = False  # True
 IGNORE_MISSING_APP_ID = True
 unknown_path = f'{CLOUDFRONT_URL}/attachments/txt/unknown.txt'
 unknown_tag = 'unknown-tag'
+
+# Absolute old-site URL handling
+# When True, anchors/fragments in old vitamindwiki.com links are dropped during remap
+# If set to False and an anchor is encountered, code will raise NotImplementedError
+DROP_ANCHORS = True
+
+# Host(s) considered as old VitaminDWiki for absolute URL remapping
+OLD_VITD_HOSTS = (
+    'vitamindwiki.com',
+    'www.vitamindwiki.com',
+)
+
+# Debugging: when True, print reasoning when local links downgrade to tags
+DEBUG_LINK_RESOLUTION = True
+LINK_DEBUG_LOG_PATH = 'link_debug.log'
+
+# Link debug verbosity controls
+# - Only log the first N downgrade events per page (context)
+# - Optionally log only unique (page,text) pairs
+# - Optionally shorten fields in each line
+LINK_DEBUG_MAX_PER_PAGE = 20
+LINK_DEBUG_UNIQUE_ONLY = True
+LINK_DEBUG_MINIFY = True
+
+# Runtime state for link debug (per-page counters, dedupe sets)
+# Populated during a run; cleared at start of conversion
+LINK_DEBUG_STATE = {}
+
+CURRENT_PAGE_ID = None  # set during full conversion for debug context
+CURRENT_PAGE_NAME = None  # set during full conversion for debug context
+
+# whitelist_by_slug = [
+#     'autism-risky-if-low-vitamin-d-during-pregnancy-and-early-life-mice-fecal-transplant-reversed-it'
+# ]
+whitelist_by_slug = None
