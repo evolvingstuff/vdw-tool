@@ -21,3 +21,28 @@ def test_simple_url_bracket_still_links():
 def test_numeric_bracket_still_renders_superscript():
     rendered = render("See [1] for details")
     assert "<sup>[1]</sup>" in rendered
+
+
+def test_aliased_local_link_handles_parentheses():
+    source = "((parens (blah) inside|alias (demo)))"
+    nodes = parser.parse(source)
+
+    aliased_links = [n for n in nodes if isinstance(n, parser.AliasedLocalLinkNode)]
+    assert len(aliased_links) == 1
+
+    node = aliased_links[0]
+    assert node.page == "parens (blah) inside"
+    assert node.display_text == "alias (demo)"
+
+    rendered = parser.render_as_markdown(nodes)
+    assert "[alias (demo)]" in rendered
+
+
+def test_multiple_aliased_links_same_line():
+    source = "((First topic (intro)|Alias 1)), ~hs~ ((Second topic|Alias 2))"
+    nodes = parser.parse(source)
+
+    alias_nodes = [n for n in nodes if isinstance(n, parser.AliasedLocalLinkNode)]
+    assert len(alias_nodes) == 2
+    assert alias_nodes[0].display_text == "Alias 1"
+    assert alias_nodes[1].display_text == "Alias 2"

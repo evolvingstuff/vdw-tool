@@ -1239,10 +1239,68 @@ class AliasedLocalLinkPattern(Pattern):
     """Pattern for local links with aliases like ((page name|display text))"""
     def __init__(self):
         super().__init__(
-            # Disallow newlines and parentheses inside page/text to avoid spanning across blocks
-            r'\(\((?P<page>[^\|\n()]+?)\|(?P<text>[^\n()]+?)\)\)',
+            r'\(\(',
             "Local link with alias like ((page name|display text))"
         )
+
+    def try_match(self, text: str, pos: int) -> Optional[Tuple['Node', int]]:
+        """Custom matcher so page/text can include parentheses safely."""
+        if not text.startswith('((', pos):
+            return None
+
+        cursor = pos + 2
+        end = len(text)
+
+        # Parse the page portion up to the first unescaped |
+        page_chars: List[str] = []
+        while cursor < end:
+            ch = text[cursor]
+            if ch == '\n':
+                return None
+            if ch == '|':
+                break
+            page_chars.append(ch)
+            cursor += 1
+        else:
+            return None  # No alias separator found
+
+        if cursor >= end or text[cursor] != '|':
+            return None
+
+        cursor += 1  # Skip the |
+
+        display_chars: List[str] = []
+        paren_depth = 0  # Track nested parentheses inside display text
+
+        while cursor < end:
+            ch = text[cursor]
+            if ch == '\n':
+                return None
+
+            if ch == '(':
+                paren_depth += 1
+                display_chars.append(ch)
+                cursor += 1
+                continue
+
+            if ch == ')':
+                next_idx = cursor + 1
+                if next_idx < end and text[next_idx] == ')' and paren_depth == 0:
+                    full_match = text[pos:next_idx + 1]
+                    captures = [''.join(page_chars), ''.join(display_chars)]
+                    node = self.create_node(full_match, captures)
+                    return node, next_idx + 1
+
+                if paren_depth > 0:
+                    paren_depth -= 1
+                display_chars.append(ch)
+                cursor += 1
+                continue
+
+            display_chars.append(ch)
+            cursor += 1
+
+        return None
     
     def create_node(self, full_text: str, captures: List[str]) -> AliasedLocalLinkNode:
         page_name = captures[0].strip()
