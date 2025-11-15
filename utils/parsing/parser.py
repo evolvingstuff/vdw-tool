@@ -1333,6 +1333,11 @@ class LocalLinkPattern(Pattern):
         )
 
 
+# Shared instance so both the main parser and table-protection helpers
+# use identical alias parsing behavior.
+ALIASED_LOCAL_LINK_PATTERN = AliasedLocalLinkPattern()
+
+
 class AttachPattern(Pattern):
     """Pattern for ATTACH tags like {ATTACH(inline="1" id="22000" icon="1")}content{ATTACH}"""
 
@@ -1847,7 +1852,7 @@ PATTERNS = [
     ImgBlockPattern(),  # Add the block pattern BEFORE the inline pattern
     ImgPattern(),
     IncludePattern(),
-    AliasedLocalLinkPattern(),  # Add this BEFORE LocalLinkPattern (more specific pattern first)
+    ALIASED_LOCAL_LINK_PATTERN,  # Add this BEFORE LocalLinkPattern (more specific pattern first)
     LocalLinkPattern(),
     AttachPattern(),
     ListPattern(),  # Add ListPattern for {LIST()} blocks
@@ -1881,6 +1886,31 @@ PATTERNS = [
 ]
 
 
+def _protect_aliased_link_pipes(row_content: str, placeholder: str) -> str:
+    """Replace pipe separators inside aliased links so table splitting ignores them."""
+    if '((' not in row_content or '|' not in row_content:
+        return row_content
+
+    result: List[str] = []
+    cursor = 0
+    length = len(row_content)
+
+    while cursor < length:
+        if row_content.startswith('((', cursor):
+            match = ALIASED_LOCAL_LINK_PATTERN.try_match(row_content, cursor)
+            if match:
+                _, new_pos = match
+                aliased_segment = row_content[cursor:new_pos].replace('|', placeholder)
+                result.append(aliased_segment)
+                cursor = new_pos
+                continue
+
+        result.append(row_content[cursor])
+        cursor += 1
+
+    return ''.join(result)
+
+
 def parse_generic(node: Node) -> None:
     if hasattr(node, 'flag_no_parse'):
         if hasattr(node, 'children'):
@@ -1911,6 +1941,9 @@ def parse_generic(node: Node) -> None:
             
             # Use regex to find and protect pipes in link patterns
             protected_row = re.sub(r'\[[^\]]*\|[^\]]*\]', protect_pipes_in_links, row_content)
+
+            # Also protect the alias separator inside ((page|display)) links
+            protected_row = _protect_aliased_link_pipes(protected_row, PIPE_PLACEHOLDER)
             
             row_node = TableRowNode(
                 full_match=row_content,

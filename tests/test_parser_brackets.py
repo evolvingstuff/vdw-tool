@@ -46,3 +46,21 @@ def test_multiple_aliased_links_same_line():
     assert len(alias_nodes) == 2
     assert alias_nodes[0].display_text == "Alias 1"
     assert alias_nodes[1].display_text == "Alias 2"
+
+
+def test_table_cells_ignore_aliased_link_pipes():
+    source = "||((Overview Diabetes and vitamin D | Type 2 Diabetes))|8.0%|2||"
+    nodes = parser.parse(source)
+
+    table_nodes = [n for n in nodes if isinstance(n, parser.TableNode)]
+    assert len(table_nodes) == 1
+
+    row = table_nodes[0].children[0]
+    assert len(row.children) == 3
+
+    first_cell_children = row.children[0].children
+    assert any(isinstance(child, parser.AliasedLocalLinkNode) for child in first_cell_children)
+
+    rendered = parser.render_as_markdown(nodes)
+    assert "| --- | --- | --- |" in rendered
+    assert "[Type 2 Diabetes]" in rendered
