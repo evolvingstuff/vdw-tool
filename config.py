@@ -224,6 +224,6 @@ CURRENT_PAGE_ID = None  # set during full conversion for debug context
 CURRENT_PAGE_NAME = None  # set during full conversion for debug context
 
 # whitelist_by_slug = [
-#     'vitamin-d-presentation-charts'
+#     'virus'
 # ]
 whitelist_by_slug = None
